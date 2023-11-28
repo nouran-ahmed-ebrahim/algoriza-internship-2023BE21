@@ -10,7 +10,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace Core.Domain
 {
-    internal class SpecializationInitializer
+    public class SpecializationInitializer
     {
         private List<Specialization> Specializations = new List<Specialization>
         {

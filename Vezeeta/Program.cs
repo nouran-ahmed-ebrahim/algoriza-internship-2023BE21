@@ -1,5 +1,7 @@
+using Core.Domain;
 using DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using System.Configuration;
 
@@ -15,6 +17,11 @@ builder.Services.AddDbContext<ApplictationDbContext>(optionBuilder => {
     optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
 });
 
+// Resolve the SpecializationInitializer from the DI container
+var specializationInitializer = DependencyConfig.serviceProvider.GetService<SpecializationInitializer>();
+
+// Call the Initialize method
+specializationInitializer?.Initialize();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
