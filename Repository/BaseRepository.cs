@@ -9,9 +9,9 @@ namespace Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private DBContext _context;
+        private ApplictaionDbContext _context;
 
-        public BaseRepository(DBContext context) {
+        public BaseRepository(ApplictaionDbContext context) {
             _context = context;
         }
         public Task<T> AddAsync(T entity)
