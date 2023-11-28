@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class DBContext: DbContext
+    public class ApplictaionDbContext: DbContext
     {
-        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        public ApplictaionDbContext(DbContextOptions<ApplictaionDbContext> options) : base(options)
         {
         }
     }
