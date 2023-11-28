@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    internal interface IUnitOfWork
+    public interface IUnitOfWork : IDisposable
     {
+        //IBaseRepository<Author> Authors { get; }
+        //IBooksRepository Books { get; }
+        int Complete();
     }
 }
