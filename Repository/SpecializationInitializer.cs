@@ -86,7 +86,7 @@ namespace Core.Domain
                 return;   // DB has been seeded
             }
             _unitOfWork.Specializations.AddRangeAsync(Specializations);
-
+            _unitOfWork.Complete();
 
         }
     }

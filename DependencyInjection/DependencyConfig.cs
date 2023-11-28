@@ -25,9 +25,9 @@ namespace DependencyInjection
             Services.AddTransient<IUnitOfWork,UnitOfWork>();
 
             // create server provider for SpecializationInitializer to use it
-            serviceProvider = new ServiceCollection()
-            .AddScoped<IUnitOfWork, UnitOfWork>()
-            .AddScoped<SpecializationInitializer>()
+            serviceProvider = Services
+            .AddTransient<IUnitOfWork, UnitOfWork>()
+            .AddTransient<SpecializationInitializer>()
             .BuildServiceProvider();
 
             
