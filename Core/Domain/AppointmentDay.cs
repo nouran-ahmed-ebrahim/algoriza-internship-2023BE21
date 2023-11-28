@@ -14,8 +14,6 @@ namespace Core.Domain
 
         [Required]
         public DayOfWeek DayOfWeek { get; set; }
-
-        [ForeignKey("FK_AppointmentId")]
         public Appointment Appointment { get; set; }
         public List<AppointmentTime> Time { get; set; }
     }

@@ -14,8 +14,6 @@ namespace Core.Domain
 
         [Required]
         public DateTime Time { get; set; }
-
-        [ForeignKey("FK_AppointmentDayId")]
         public AppointmentDay AppointmentDay { get; set; }
     }
 }
