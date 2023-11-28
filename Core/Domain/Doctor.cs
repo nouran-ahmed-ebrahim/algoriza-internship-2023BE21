@@ -16,12 +16,9 @@ namespace Core.Domain
         [Required]
         public int Price { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int NumOfRequests
-        {
-            get => Requests.Select(r => r.RequestState == RequestState.Completed).Count();
-            private set { }
-        }
+        [NotMapped]
+        public int NumOfRequests => Requests.Select(
+            r => r.RequestState == RequestState.Completed).Count();
         public Person Person { get; set; }
         public Specialization Specialization { get; set; }
         public List<Request> Requests { get; set; }

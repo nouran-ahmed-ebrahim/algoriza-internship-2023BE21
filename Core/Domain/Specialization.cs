@@ -1,5 +1,6 @@
 ﻿using Azure.Core;
 using Core.Utilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +18,8 @@ namespace Core.Domain
         [Required]
         public string Name { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int NumOfRequests
-        {
-            get => Doctors.Sum(x => x.NumOfRequests);
-            private set { }
-        }
+        [NotMapped]
+        public int NumOfRequests => Doctors.Sum(x => x.NumOfRequests);
         public List<Doctor> Doctors { get; set; }
         //seeding
     }
