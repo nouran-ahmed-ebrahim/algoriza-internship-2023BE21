@@ -12,12 +12,9 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
-        public int CompletedRequests
-        {
-            get => Requests.Select(r => r.RequestState == RequestState.Completed).Count();
-            private set {}
-        }
+        [NotMapped]
+        public int CompletedRequests => Requests.Select(
+            r => r.RequestState == RequestState.Completed).Count();
         public Person Person { get; set; }
         public List<Request> Requests { get; set; }
     }
