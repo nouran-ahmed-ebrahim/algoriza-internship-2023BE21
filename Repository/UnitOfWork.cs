@@ -11,11 +11,11 @@ namespace Repository
 {
     internal class UnitOfWork : IUnitOfWork
     {
-        private ApplictaionDbContext _context;
+        private ApplictationDbContext _context;
 
         //public IBaseRepository<Author> Authors { get; private set; }
         //public IBooksRepository Books { get; private set; }
-        public UnitOfWork(ApplictaionDbContext context) {
+        public UnitOfWork(ApplictationDbContext context) {
             _context = context;
 
             //Authors = new BaseRepository<Author>(_context);
