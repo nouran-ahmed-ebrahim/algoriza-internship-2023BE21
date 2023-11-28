@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Core.Repository;
+using Microsoft.CodeAnalysis;
 using Repository;
 using System;
 using System.Collections.Generic;
@@ -74,20 +75,19 @@ namespace Core.Domain
                 Name="Diabetes and Endocrinology"
             }
         };
-        private ApplictationDbContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public SpecializationInitializer(ApplictationDbContext Context) { 
-            _context = Context;
+        public SpecializationInitializer(IUnitOfWork UnitOfWork) { 
+            _unitOfWork = UnitOfWork;
         }
         public void Initialize(){
-            if (_context.Specializations.Any())
+            if (_unitOfWork.Specializations.GetAnyAsync().Result)
             {
                 return;   // DB has been seeded
             }
+            _unitOfWork.Specializations.AddRangeAsync(Specializations);
 
-            _context.Specializations.AddRange(Specializations);
-            
-            _context.SaveChanges();
+
         }
     }
 }
