@@ -13,6 +13,9 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required]
+        public bool IsActivated { get; set; }
+
+        [Required]
         public int Value { get; set; }
 
         [Required]
