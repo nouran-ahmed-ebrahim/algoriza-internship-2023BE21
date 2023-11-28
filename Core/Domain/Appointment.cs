@@ -12,7 +12,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
         public Doctor Doctor { get; set; }
-        public List<Appointment> Appointments { get; set; }
+        public List<AppointmentDay> AppointmentsDays { get; set; }
 
     }
 }
