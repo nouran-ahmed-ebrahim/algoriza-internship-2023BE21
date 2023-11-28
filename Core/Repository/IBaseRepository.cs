@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    internal interface IBaseRepository
+    public interface IBaseRepository<T> where T : class
     {
+        //Task<T> GetByIdAsync(int id);
+        Task<IEnumerable<T>> GetAllAsync(int Page, int PageSize);
+        Task<T> AddAsync(T entity);
+        Task<T> UpdateAsync(T entity);
+        Task DeleteAsync(int id);
     }
 }
