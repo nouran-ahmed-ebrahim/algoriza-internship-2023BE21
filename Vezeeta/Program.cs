@@ -1,14 +1,19 @@
 using DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 DependencyConfig.ConfigureDependencies(builder.Services);
+builder.Services.AddSwaggerGen();
+
+// add connection string 
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+builder.Services.AddDbContext<ApplictaionDbContext>(optionBuilder => {
+    optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
+});
 
 var app = builder.Build();
 
