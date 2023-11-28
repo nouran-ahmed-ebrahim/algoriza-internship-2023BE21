@@ -1,4 +1,5 @@
-﻿using Core.Repository;
+﻿using Core.Domain;
+using Core.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,13 +14,21 @@ namespace Repository
     {
         private ApplictationDbContext _context;
 
-        //public IBaseRepository<Author> Authors { get; private set; }
-        //public IBooksRepository Books { get; private set; }
+        public IBaseRepository<Doctor> Doctors { get; private set; }
+        public IBaseRepository<Patient> Patients { get; private set; }
+        public IBaseRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; private set; }
+        public IBaseRepository<Appointment> Appointments { get; private set; }
+        public IBaseRepository<Request> Requests { get; private set; }
+        public ISpecializationRepository Specialization { get; private set; }
         public UnitOfWork(ApplictationDbContext context) {
             _context = context;
 
-            //Authors = new BaseRepository<Author>(_context);
-            //Books = new BooksRepository(_context);
+            Doctors = new BaseRepository<Doctor>(_context);
+            Patients = new BaseRepository<Patient>(_context);
+            DiscountCodeCoupons = new BaseRepository<DiscountCodeCoupon>(_context);
+            Appointments = new BaseRepository<Appointment>(_context);
+            Requests = new BaseRepository<Request>(_context);
+            Specialization = new SpecializationRepository(_context);
         }
         public int Complete()
         {
