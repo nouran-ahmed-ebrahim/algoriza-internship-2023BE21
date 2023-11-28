@@ -11,7 +11,7 @@ namespace Core.Domain
     public class Person
     {
         public int Id { get; set; }
-        public string Image;
+        public string Image { get; set; }
 
         [Required]
         public string FirstName { get; set; }
