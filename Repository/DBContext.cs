@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,10 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class DBContext
+    internal class DBContext: DbContext
     {
+        public DBContext(DbContextOptions<DBContext> options) : base(options)
+        {
+        }
     }
 }
