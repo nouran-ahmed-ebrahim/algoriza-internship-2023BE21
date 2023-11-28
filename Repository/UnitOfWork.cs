@@ -10,7 +10,7 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace Repository
 {
-    internal class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private ApplictationDbContext _context;
 
