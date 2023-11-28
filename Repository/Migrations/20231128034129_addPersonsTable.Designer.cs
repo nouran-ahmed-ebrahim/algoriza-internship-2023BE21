@@ -12,7 +12,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplictaionDbContext))]
-    [Migration("20231128024251_addPersonsTable")]
+    [Migration("20231128034129_addPersonsTable")]
     partial class addPersonsTable
     {
         /// <inheritdoc />
@@ -46,6 +46,10 @@ namespace Repository.Migrations
 
                     b.Property<int>("Gender")
                         .HasColumnType("int");
+
+                    b.Property<string>("Image")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
