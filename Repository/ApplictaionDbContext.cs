@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Domain;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,7 @@ namespace Repository
         public ApplictaionDbContext(DbContextOptions<ApplictaionDbContext> options) : base(options)
         {
         }
+
+       public DbSet<Person> Persons { get; set; }
     }
 }
