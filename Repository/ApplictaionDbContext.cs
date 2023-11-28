@@ -16,12 +16,12 @@ namespace Repository
 
        public DbSet<Person> Persons { get; set; }
        public DbSet<AppointmentDay> AppointmentDays { get; set; }
-       public DbSet<AppointmentTime> AppointmentTimes { get; set; }
-       public DbSet<Appointment> Appointments { get; set; }
-       public DbSet<Doctor> Doctors { get; set; }
-       public DbSet<Patient> Patients { get; set; }
-       public DbSet<DiscountCodeCoupon> DiscountCodeCoupons { get; set; }
-       public DbSet<Request> Requests { get; set; }
-       public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<AppointmentTime> AppointmentTimes { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<DiscountCodeCoupon> DiscountCodeCoupons { get; set; }
+        public DbSet<Request> Requests { get; set; }
+        public DbSet<Specialization> Specializations { get; set; }
     }
 }
