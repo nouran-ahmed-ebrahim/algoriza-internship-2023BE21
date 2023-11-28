@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 
 // add connection string 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-builder.Services.AddDbContext<ApplictaionDbContext>(optionBuilder => {
+builder.Services.AddDbContext<ApplictationDbContext>(optionBuilder => {
     optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
 });
 
