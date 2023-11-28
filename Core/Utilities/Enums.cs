@@ -17,6 +17,13 @@ namespace Core.Utilities
         Friday
     }
 
+    public enum RequestState
+    {
+        Pending,
+        Completed,
+        Cancelled
+    }
+
     public enum Gender
     {
         Male,
