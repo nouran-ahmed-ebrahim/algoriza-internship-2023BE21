@@ -9,7 +9,7 @@ namespace Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
-        private ApplictationDbContext _context;
+        protected ApplictationDbContext _context;
 
         public BaseRepository(ApplictationDbContext context) {
             _context = context;
