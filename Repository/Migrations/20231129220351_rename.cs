@@ -34,13 +34,13 @@ namespace Repository.Migrations
                         column: x => x.AppointmentTimeId,
                         principalTable: "AppointmentTimes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Bookings_AspNetUsers_PatientId1",
                         column: x => x.PatientId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Bookings_DiscountCodeCoupons_DiscountCodeCouponId",
                         column: x => x.DiscountCodeCouponId,
@@ -51,7 +51,7 @@ namespace Repository.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Doctors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -102,13 +102,13 @@ namespace Repository.Migrations
                         column: x => x.AppointmentTimeId,
                         principalTable: "AppointmentTimes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Requests_AspNetUsers_PatientId1",
                         column: x => x.PatientId1,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Requests_DiscountCodeCoupons_DiscountCodeCouponId",
                         column: x => x.DiscountCodeCouponId,
@@ -119,7 +119,7 @@ namespace Repository.Migrations
                         column: x => x.DoctorId,
                         principalTable: "Doctors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
