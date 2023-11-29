@@ -18,41 +18,16 @@ namespace Repository
 
         }
 
-        public Task<ApplicationUser> AddAsync(ApplicationUser entity)
+        public int NumOfBookings(Expression<Func<Booking, bool>> criteria)
         {
-            throw new NotImplementedException();
+            return _context.Bookings.Count(criteria);
         }
 
-        public Task<int> NumOfCancelledRequests()
+        public int NumOfBooKings()
         {
-            throw new NotImplementedException();
+            return _context.Bookings.Count();
         }
 
-        public Task<int> NumOfCompletedRequests()
-        {
-            throw new NotImplementedException();
-        }
 
-        public async Task<int> NumOfBookings(Expression<Func<Booking, bool>> criteria)
-        {
-            return await _context.Bookings.CountAsync(criteria);
-        }
-
-        public async Task<int> NumOfBooKings()
-        {
-            return await _context.Bookings.CountAsync();
-        }
-
-        public Task<ApplicationUser> UpdateAsync(ApplicationUser entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<IEnumerable<ApplicationUser>> IBaseRepository<ApplicationUser>.GetAllAsync(int Page, int PageSize)
-        {
-            throw new NotImplementedException();
-        }
     }
-
-    
 }

@@ -14,22 +14,23 @@ namespace Repository
         public BaseRepository(ApplicationDbContext context) {
             _context = context;
         }
-        public async Task<T> AddAsync(T entity)
+
+        public T AddAsync(T entity)
         {
             throw new NotImplementedException();
         }
 
-        public async Task DeleteAsync(int id)
+        public void DeleteAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(int Page, int PageSize)
+        public IEnumerable<T> GetAllAsync(int Page, int PageSize)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<T> UpdateAsync(T entity)
+        public T UpdateAsync(T entity)
         {
             throw new NotImplementedException();
         }

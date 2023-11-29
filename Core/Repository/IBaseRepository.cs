@@ -9,9 +9,9 @@ namespace Core.Repository
     public interface IBaseRepository<T> where T : class
     {
         //Task<T> GetByIdAsync(int id);
-        Task<IEnumerable<T>> GetAllAsync(int Page, int PageSize);
-        Task<T> AddAsync(T entity);
-        Task<T> UpdateAsync(T entity);
-        Task DeleteAsync(int id);
+        IEnumerable<T> GetAllAsync(int Page, int PageSize);
+        T AddAsync(T entity);
+        T UpdateAsync(T entity);
+        void DeleteAsync(int id);
     }
 }

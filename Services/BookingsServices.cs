@@ -14,21 +14,23 @@ namespace Services
         public BookingsServices(IUnitOfWork UnitOfWork) {
             _unitOfWork = UnitOfWork;
         }
-        public async Task<IActionResult> NumOfBookings()
+        public IActionResult NumOfBookings()
         {
-            Task<int> totalBookings = _unitOfWork.Bookings.NumOfBooKings();
-            Task<int> pendingBookings= _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Pending);
-            Task<int> completedBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Completed);
-            Task<int> cancelledBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Cancelled);
 
-            var Result = new
+            int totalBookings = _unitOfWork.Bookings.NumOfBooKings();
+            int pendingBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Pending);
+            int completedBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Completed);
+            int cancelledBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Cancelled);
+
+            var result = new
             {
                 TotalBookings = totalBookings,
                 PendingBookings = pendingBookings,
                 CompletedBookings = completedBookings,
-                CancelledBookings= cancelledBookings
+                CancelledBookings = cancelledBookings
             };
-            return new OkObjectResult(Result);
+
+            return result;
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Core.Services
 {
     public interface IBookingsServices
     {
-        public Task<IActionResult> NumOfBookings();
+        public IActionResult NumOfBookings();
     }
 }

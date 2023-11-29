@@ -35,7 +35,7 @@ namespace Vezeeta.Controllers
         [HttpGet("Bookings")]
         public IActionResult GetNumberOfBookings()
         {
-            return Ok(_bookingsServices.NumOfBookings().Result);
+            return  _bookingsServices.NumOfBookings();
         }
     }
 }
