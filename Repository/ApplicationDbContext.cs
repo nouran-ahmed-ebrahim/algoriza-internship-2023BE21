@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -105,15 +107,25 @@ namespace Repository
                     }
                 });
 
-            modelBuilder.Entity<IdentityRole>()
-            .HasData(new List<IdentityRole>
-            {
-                new IdentityRole{Name = "Admin"},
-                new IdentityRole{Name = "Doctor"},
-                new IdentityRole{Name = "Patient"},
-            });
+            //modelBuilder.Entity<IdentityRole>()
+            //.HasData(new List<IdentityRole>
+            //{
+            //    new IdentityRole{Name = "Admin"},
+            //    new IdentityRole{Name = "Doctor"},
+            //    new IdentityRole{Name = "Patient"},
+            //});
 
-            
+            //modelBuilder.Entity<ApplicationUser>()
+            //.HasData(new ApplicationUser
+            //{
+            //    Id = 1,
+            //    UserName = "Admin Admin",
+            //    DateOfBirth = new DateTime(2001, 5, 8),
+            //    Email = "admin@gmail.com",
+            //    PhoneNumber = "1234567890",
+            //    Gender = Core.Utilities.Gender.Female,
+            //    PasswordHash = (new PasswordHasher()).HashPassword("123456")
+            //}) ;
 
         }
         public DbSet<AppointmentDay> AppointmentDays { get; set; }
