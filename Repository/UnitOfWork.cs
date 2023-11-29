@@ -24,10 +24,10 @@ namespace Repository
             _context = context;
 
             Doctors = new BaseRepository<Doctor>(_context);
-            Patients = new BaseRepository<ApplicationUser>(_context);
+            Patients = new PatientRepository(_context);
             DiscountCodeCoupons = new BaseRepository<DiscountCodeCoupon>(_context);
             Appointments = new BaseRepository<Appointment>(_context);
-            Requests = new BaseRepository<Booking>(_context);
+            Requests = new BookingsRepository(_context);
             Specializations = new SpecializationRepository(_context);
         }
         public int Complete()
