@@ -1,4 +1,6 @@
 ﻿using Core.Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -9,7 +11,8 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class ApplictationDbContext: DbContext
+    // To merge IdentityDB Wth myDB 
+    public class ApplictationDbContext: IdentityDbContext<ApplicationUser>
     {
         public ApplictationDbContext(DbContextOptions<ApplictationDbContext> options) : base(options)
         {
@@ -102,7 +105,7 @@ namespace Repository
                 });
 
         }
-        public DbSet<Person> Persons { get; set; }
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
        public DbSet<AppointmentDay> AppointmentDays { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
