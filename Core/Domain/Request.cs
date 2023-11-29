@@ -11,16 +11,10 @@ namespace Core.Domain
     public class Request
     {
         public int Id { get; set; }
-        
-        [Required]
-        public DateTime Time { get; set; }
-
-        [Required]
-        public DayOfWeek Day { get; set; }
 
         [Required]
         public RequestState RequestState { get; set; }
-
+        public AppointmentTime AppointmentTime { get; set; }
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
         public DiscountCodeCoupon DiscountCodeCoupon { get; set; }
