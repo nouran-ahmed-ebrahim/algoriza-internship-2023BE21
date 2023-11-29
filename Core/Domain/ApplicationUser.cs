@@ -14,8 +14,7 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [AllowNull]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [Required]
         public Gender Gender { get; set; }

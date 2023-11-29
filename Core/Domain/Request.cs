@@ -20,9 +20,8 @@ namespace Core.Domain
         public Doctor Doctor { get; set; }
         public Patient Patient { get; set; }
 
-        [AllowNull]
         [ForeignKey("FK_Requests_DiscountCodeCoupons_DiscountCodeCouponId")]
-        public int DiscountCodeCouponId { get; set; }
+        public int? DiscountCodeCouponId { get; set; }
         public DiscountCodeCoupon? DiscountCodeCoupon { get; set; }
     }
 }
