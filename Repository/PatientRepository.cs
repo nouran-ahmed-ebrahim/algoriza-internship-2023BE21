@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class PatientRepository : BaseRepository<ApplicationUser>, IBookingsRepository
+    internal class PatientRepository : BaseRepository<ApplicationUser>, IPatientsRepository
     {
         public PatientRepository(ApplicationDbContext context) : base(context)
         {
