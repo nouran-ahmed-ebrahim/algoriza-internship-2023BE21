@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Core.Domain;
 using Core.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -16,13 +15,14 @@ namespace DependencyInjection
 {
     public static class DependencyConfig
     {
-        public static ServiceProvider serviceProvider;
+
         public static IServiceCollection ConfigureDependencies(IServiceCollection Services)
         {
             Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             Services.AddEndpointsApiExplorer();
             Services.AddTransient<IUnitOfWork,UnitOfWork>();
+<<<<<<< HEAD
 
             // create server provider for SpecializationInitializer to use it
             serviceProvider = Services
@@ -31,6 +31,8 @@ namespace DependencyInjection
             .BuildServiceProvider();
 
             
+=======
+>>>>>>> parent of d8f9c5e (call SpecializationInitializer)
             return Services;
         }
     }
