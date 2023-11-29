@@ -15,7 +15,7 @@ namespace Core.Domain
         [NotMapped]
         public int CompletedRequests => Requests.Select(
             r => r.RequestState == RequestState.Completed).Count();
-        public Person Person { get; set; }
+        public ApplicationUser Person { get; set; }
         public List<Request> Requests { get; set; }
     }
 }

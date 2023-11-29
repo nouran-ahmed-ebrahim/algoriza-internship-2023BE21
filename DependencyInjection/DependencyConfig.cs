@@ -5,7 +5,9 @@ using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Domain;
 using Core.Repository;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,11 @@ namespace DependencyInjection
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             Services.AddEndpointsApiExplorer();
             Services.AddTransient<IUnitOfWork,UnitOfWork>();
+            Services.AddIdentity<ApplicationUser, IdentityRole>(
+                options => options.Password.RequireDigit = true
+                ).
+                AddEntityFrameworkStores<ApplicationDbContext>();
+
             return Services;
         }
     }

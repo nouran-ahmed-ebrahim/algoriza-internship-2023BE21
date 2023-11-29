@@ -1,4 +1,5 @@
 ﻿using Core.Utilities;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,9 +18,8 @@ namespace Core.Domain
         public int Price { get; set; }
 
         [NotMapped]
-        public int NumOfRequests => Requests.Select(
-            r => r.RequestState == RequestState.Completed).Count();
-        public Person Person { get; set; }
+        public int NumOfRequests => Requests.Count();
+        public ApplicationUser Person { get; set; }
         public Specialization Specialization { get; set; }
         public List<Request> Requests { get; set; }
         public List<Appointment> Appointments { get; set; }

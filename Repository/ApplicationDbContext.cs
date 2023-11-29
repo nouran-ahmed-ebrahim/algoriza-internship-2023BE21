@@ -20,6 +20,7 @@ namespace Repository
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Specialization>()
             .HasIndex(p => p.Name)
             .IsUnique();
@@ -111,6 +112,9 @@ namespace Repository
                 new IdentityRole{Name = "Doctor"},
                 new IdentityRole{Name = "Patient"},
             });
+
+            
+
         }
         public DbSet<AppointmentDay> AppointmentDays { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }

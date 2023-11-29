@@ -23,6 +23,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// to read cookies
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

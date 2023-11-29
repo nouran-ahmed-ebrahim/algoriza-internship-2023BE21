@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,11 +14,8 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required]
-        public string FirstName { get; set; }
-
-        [Required]
-        public string LastName { get; set; }
+        [AllowNull]
+        public string Image { get; set; }
 
         [Required]
         public Gender Gender { get; set; }
