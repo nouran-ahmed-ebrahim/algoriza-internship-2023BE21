@@ -26,8 +26,10 @@ namespace Repository
             .HasIndex(p => p.Name)
             .IsUnique();
 
+            #region dataSeeding
+
             modelBuilder.Entity<Specialization>()
-             .HasData( new List<Specialization>
+             .HasData(new List<Specialization>
                 {
                     new Specialization
                     {
@@ -104,28 +106,34 @@ namespace Repository
                         Id =  15,
                         Name="Diabetes and Endocrinology"
                     }
+    });
+
+            // to prevent reeeding data
+            var appliedMigrations = Database.GetAppliedMigrations();
+            var isInitialMigration = appliedMigrations.Count() == 0;
+
+            if (isInitialMigration)
+            {
+                modelBuilder.Entity<IdentityRole>()
+                .HasData(new List<IdentityRole>
+                {
+                    new IdentityRole{Name = "Admin" },
+                    new IdentityRole{Name = "Doctor"},
+                    new IdentityRole{Name = "Patient"},
                 });
 
-            #region dataSeeding
-            //modelBuilder.Entity<IdentityRole>()
-            //.HasData(new List<IdentityRole>
-            //{
-            //    new IdentityRole{Name = "Admin"},
-            //    new IdentityRole{Name = "Doctor"},
-            //    new IdentityRole{Name = "Patient"},
-            //});
-
-            //modelBuilder.Entity<ApplicationUser>()
-            //.HasData(new ApplicationUser
-            //{
-            //    Id = 1,
-            //    UserName = "Admin Admin",
-            //    DateOfBirth = new DateTime(2001, 5, 8),
-            //    Email = "admin@gmail.com",
-            //    PhoneNumber = "1234567890",
-            //    Gender = Core.Utilities.Gender.Female,
-            //    PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
-            //});
+                modelBuilder.Entity<ApplicationUser>()
+                .HasData(new ApplicationUser
+                {
+                    Id = 1,
+                    UserName = "Admin Admin",
+                    DateOfBirth = new DateTime(2001, 5, 8),
+                    Email = "admin@gmail.com",
+                    PhoneNumber = "1234567890",
+                    Gender = Core.Utilities.Gender.Female,
+                    PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
+                });
+            }
             #endregion
         }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
