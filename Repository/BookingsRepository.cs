@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class BookingsRepository : BaseRepository<Booking>, IBookingRepository
+    public class BookingsRepository : BaseRepository<Booking>, IBookingsRepository
     {
         public BookingsRepository(ApplicationDbContext context) : base(context)
         {
