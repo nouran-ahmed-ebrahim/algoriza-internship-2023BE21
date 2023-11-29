@@ -1,5 +1,7 @@
-﻿using Core.Repository;
+﻿using Core.Domain;
+using Core.Repository;
 using Core.Services;
+using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 
@@ -7,25 +9,26 @@ namespace Services
 {
     public class BookingsServices : IBookingsServices
     {
-        private IBookingRepository _bookingsRepository;
+        private IUnitOfWork _unitOfWork;
 
-        public BookingsServices(IBookingRepository BookingsRepository) {
-            _bookingsRepository = BookingsRepository;
+        public BookingsServices(IUnitOfWork UnitOfWork) {
+            _unitOfWork = UnitOfWork;
         }
-        public Task<IActionResult> NumOfBookings()
+        public async Task<IActionResult> NumOfBookings()
         {
-            Task<int> totalBookings = _bookingsRepository.NumOfBooKings();
-            Task<int> pendingBookings= _bookingsRepository.NumOfBookings();
-            Task<int> completedBookings = _bookingsRepository.NumOfBookings();
-            Task<int> CancelledBookings = _bookingsRepository.NumOfBookings();
+            Task<int> totalBookings = _unitOfWork.Bookings.NumOfBooKings();
+            Task<int> pendingBookings= _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Pending);
+            Task<int> completedBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Completed);
+            Task<int> cancelledBookings = _unitOfWork.Bookings.NumOfBookings((Booking b) => b.BookingState == BookingState.Cancelled);
 
-            var result = new
+            var Result = new
             {
-                TotalRequests = totalRequests,
-                PendingRequests = pendingRequests,
-                CompletedRequests = completedRequests
+                TotalBookings = totalBookings,
+                PendingBookings = pendingBookings,
+                CompletedBookings = completedBookings,
+                CancelledBookings= cancelledBookings
             };
-            return
+            return new OkObjectResult(Result);
         }
     }
 }
