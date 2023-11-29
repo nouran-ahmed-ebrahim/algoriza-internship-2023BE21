@@ -33,12 +33,12 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public async Task<int> CountAsync(Expression<Func<Booking, bool>> criteria)
+        public async Task<int> NumOfBookings(Expression<Func<Booking, bool>> criteria)
         {
             return await _context.Bookings.CountAsync(criteria);
         }
 
-        public async Task<int> NumOfRequests()
+        public async Task<int> NumOfBooKings()
         {
             return await _context.Bookings.CountAsync();
         }
