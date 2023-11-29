@@ -104,6 +104,13 @@ namespace Repository
                     }
                 });
 
+            modelBuilder.Entity<IdentityRole>()
+            .HasData(new List<IdentityRole>
+            {
+                new IdentityRole{Name = "Admin"},
+                new IdentityRole{Name = "Doctor"},
+                new IdentityRole{Name = "Patient"},
+            });
         }
         public DbSet<AppointmentDay> AppointmentDays { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
