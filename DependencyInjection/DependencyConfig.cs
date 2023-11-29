@@ -15,7 +15,6 @@ namespace DependencyInjection
 {
     public static class DependencyConfig
     {
-
         public static IServiceCollection ConfigureDependencies(IServiceCollection Services)
         {
             Services.AddControllers();
