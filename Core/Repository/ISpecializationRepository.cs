@@ -9,7 +9,6 @@ namespace Core.Repository
 {
     public interface ISpecializationRepository: IBaseRepository<Specialization>
     {
-        Task AddRangeAsync(List<Specialization> Specializations);
         Task<bool> GetAnyAsync();
     }
 }

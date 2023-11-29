@@ -10,12 +10,9 @@ namespace Repository
         {
         }
 
-        public Task AddRangeAsync(List<Specialization> Specializations)
+        public Task<bool> GetAnyAsync()
         {
-            _context.Specializations.AddRange(Specializations);
-
-            _context.SaveChanges();
-            return Task.CompletedTask;
+            throw new NotImplementedException();
         }
     }
 }
