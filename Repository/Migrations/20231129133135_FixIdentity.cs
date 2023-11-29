@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class deletePatientTable : Migration
+    public partial class FixIdentity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -32,6 +32,11 @@ namespace Repository.Migrations
                 name: "IX_Requests_PatientId",
                 table: "Requests");
 
+            
+            migrationBuilder.DeleteData(
+                table: "AspNetUsers",
+                keyColumn: "Id",
+                keyValue: "e7dadc15-467f-40f9-99e2-fcd733006743");
 
             migrationBuilder.RenameColumn(
                 name: "PersonId",
@@ -109,22 +114,22 @@ namespace Repository.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "14042565-28fd-43a0-aaee-d035ca1842c2");
+                keyValue: "1c283ec8-df90-4908-b01e-c5cc5099ec35");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "6eb844fc-e5a8-49dd-b91d-5ca803e6ce0f");
+                keyValue: "1ecf267f-b8a1-4cfc-b8bb-3eb1c1912a80");
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
-                keyValue: "7d77fd1c-1792-417c-850d-9ef906bd4856");
+                keyValue: "50ef1de1-e0b3-48ff-a921-e49f166d66a6");
 
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "0d4f755b-0356-4244-9a01-6d71ca1c6ed4");
+                keyValue: "b5ddabce-3811-4c2d-a53f-c3b302eb823c");
 
             migrationBuilder.DropColumn(
                 name: "PatientId1",

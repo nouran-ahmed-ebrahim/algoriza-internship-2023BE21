@@ -12,8 +12,8 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231129132542_deletePatientTable")]
-    partial class deletePatientTable
+    [Migration("20231129133135_FixIdentity")]
+    partial class FixIdentity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -101,18 +101,18 @@ namespace Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "0d4f755b-0356-4244-9a01-6d71ca1c6ed4",
+                            Id = "b5ddabce-3811-4c2d-a53f-c3b302eb823c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0fda97fd-b660-443c-bb98-e2721d727e12",
+                            ConcurrencyStamp = "785ecdf4-a6f7-43a3-8699-b3d59b23f3d0",
                             DateOfBirth = new DateTime(2001, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "admin@gmail.com",
                             EmailConfirmed = false,
                             Gender = 1,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEEOeT/dJ4TEvKfR3xqBCD3NgcBsFXR6uP2XKsonY5p2tIDOk3itezuNtGpSpJfT5ew==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELoqsB/KvzqzyB1PGpVNlx8GdoPKhrWKEo2LqNCXnnaUKDzgo6K4C6/bwF0Syd+49g==",
                             PhoneNumber = "1234567890",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "be268d51-9827-4d1f-9d46-970d4fce63c7",
+                            SecurityStamp = "f69f20bf-a466-46ae-9926-baef746903dc",
                             TwoFactorEnabled = false,
                             UserName = "Admin Admin"
                         });
@@ -393,20 +393,20 @@ namespace Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "14042565-28fd-43a0-aaee-d035ca1842c2",
-                            ConcurrencyStamp = "15b9ebcb-0fd8-43f6-a27e-7cb08b0b18ed",
+                            Id = "1ecf267f-b8a1-4cfc-b8bb-3eb1c1912a80",
+                            ConcurrencyStamp = "1cb7ea9d-3009-4283-8e26-3ffc26a1d3cf",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "6eb844fc-e5a8-49dd-b91d-5ca803e6ce0f",
-                            ConcurrencyStamp = "539f9e5c-cd7e-49ed-8cca-eae55d465b30",
+                            Id = "50ef1de1-e0b3-48ff-a921-e49f166d66a6",
+                            ConcurrencyStamp = "df21cde2-4823-49ce-a0a3-877fcc35453d",
                             Name = "Doctor"
                         },
                         new
                         {
-                            Id = "7d77fd1c-1792-417c-850d-9ef906bd4856",
-                            ConcurrencyStamp = "96d24f07-8c94-4e3b-b83f-403124541a5c",
+                            Id = "1c283ec8-df90-4908-b01e-c5cc5099ec35",
+                            ConcurrencyStamp = "7bce69f0-80a3-49b6-98e9-5df0f80bfdac",
                             Name = "Patient"
                         });
                 });

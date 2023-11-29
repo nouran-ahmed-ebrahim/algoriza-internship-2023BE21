@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
@@ -11,8 +12,10 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
+        [Required]
+        public DayOfWeek DayOfWeek { get; set; }
         public Doctor Doctor { get; set; }
-        public List<AppointmentDay> AppointmentsDays { get; set; }
+        public List<AppointmentTime> AppointmentsTimes { get; set; }
 
     }
 }

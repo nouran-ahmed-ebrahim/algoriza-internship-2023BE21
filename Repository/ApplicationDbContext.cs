@@ -107,28 +107,27 @@ namespace Repository
                 });
 
             #region dataSeeding
-            modelBuilder.Entity<IdentityRole>()
-            .HasData(new List<IdentityRole>
-            {
-                new IdentityRole{Name = "Admin"},
-                new IdentityRole{Name = "Doctor"},
-                new IdentityRole{Name = "Patient"},
-            });
+            //modelBuilder.Entity<IdentityRole>()
+            //.HasData(new List<IdentityRole>
+            //{
+            //    new IdentityRole{Name = "Admin"},
+            //    new IdentityRole{Name = "Doctor"},
+            //    new IdentityRole{Name = "Patient"},
+            //});
 
-            modelBuilder.Entity<ApplicationUser>()
-            .HasData(new ApplicationUser
-            {
-                Id = 1,
-                UserName = "Admin Admin",
-                DateOfBirth = new DateTime(2001, 5, 8),
-                Email = "admin@gmail.com",
-                PhoneNumber = "1234567890",
-                Gender = Core.Utilities.Gender.Female,
-                PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
-            });
+            //modelBuilder.Entity<ApplicationUser>()
+            //.HasData(new ApplicationUser
+            //{
+            //    Id = 1,
+            //    UserName = "Admin Admin",
+            //    DateOfBirth = new DateTime(2001, 5, 8),
+            //    Email = "admin@gmail.com",
+            //    PhoneNumber = "1234567890",
+            //    Gender = Core.Utilities.Gender.Female,
+            //    PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
+            //});
             #endregion
         }
-        public DbSet<AppointmentDay> AppointmentDays { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
