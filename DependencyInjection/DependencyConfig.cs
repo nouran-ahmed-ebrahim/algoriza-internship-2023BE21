@@ -22,17 +22,6 @@ namespace DependencyInjection
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             Services.AddEndpointsApiExplorer();
             Services.AddTransient<IUnitOfWork,UnitOfWork>();
-<<<<<<< HEAD
-
-            // create server provider for SpecializationInitializer to use it
-            serviceProvider = Services
-            .AddTransient<IUnitOfWork, UnitOfWork>()
-            .AddTransient<SpecializationInitializer>()
-            .BuildServiceProvider();
-
-            
-=======
->>>>>>> parent of d8f9c5e (call SpecializationInitializer)
             return Services;
         }
     }
