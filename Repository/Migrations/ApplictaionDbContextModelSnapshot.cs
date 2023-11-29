@@ -37,7 +37,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentDay", b =>
@@ -58,7 +58,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.ToTable("AppointmentDays");
+                    b.ToTable("AppointmentDays", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentTime", b =>
@@ -79,7 +79,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AppointmentDayId");
 
-                    b.ToTable("AppointmentTimes");
+                    b.ToTable("AppointmentTimes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.DiscountCodeCoupon", b =>
@@ -101,7 +101,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DiscountCodeCoupons");
+                    b.ToTable("DiscountCodeCoupons", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Doctor", b =>
@@ -127,7 +127,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Patient", b =>
@@ -145,7 +145,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PersonId");
 
-                    b.ToTable("Patients");
+                    b.ToTable("Patients", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Person", b =>
@@ -188,7 +188,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persons");
+                    b.ToTable("Persons", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Request", b =>
@@ -199,7 +199,7 @@ namespace Repository.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Day")
+                    b.Property<int>("AppointmentTimeId")
                         .HasColumnType("int");
 
                     b.Property<int>("DiscountCodeCouponId")
@@ -214,10 +214,9 @@ namespace Repository.Migrations
                     b.Property<int>("RequestState")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Time")
-                        .HasColumnType("datetime2");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentTimeId");
 
                     b.HasIndex("DiscountCodeCouponId");
 
@@ -225,7 +224,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Specialization", b =>
@@ -245,7 +244,7 @@ namespace Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
 
                     b.HasData(
                         new
@@ -390,6 +389,12 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Core.Domain.Request", b =>
                 {
+                    b.HasOne("Core.Domain.AppointmentTime", "AppointmentTime")
+                        .WithMany()
+                        .HasForeignKey("AppointmentTimeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Core.Domain.DiscountCodeCoupon", "DiscountCodeCoupon")
                         .WithMany("Requests")
                         .HasForeignKey("DiscountCodeCouponId")
@@ -407,6 +412,8 @@ namespace Repository.Migrations
                         .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("AppointmentTime");
 
                     b.Navigation("DiscountCodeCoupon");
 
