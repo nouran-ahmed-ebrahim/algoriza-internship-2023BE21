@@ -12,8 +12,8 @@ namespace Core.Repository
 {
     public interface IBookingRepository: IBaseRepository<ApplicationUser>
     {
-        public Task<int> NumOfRequests();
-        public  Task<int> CountAsync(Expression<Func<Booking, bool>> criteria);
+        public Task<int> NumOfBooKings();
+        public  Task<int> NumOfBookings(Expression<Func<Booking, bool>> criteria);
 
     }
 }
