@@ -15,7 +15,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required]
-        public RequestState RequestState { get; set; }
+        public BookingState BookngState { get; set; }
         public AppointmentTime AppointmentTime { get; set; }
         public Doctor Doctor { get; set; }
        
