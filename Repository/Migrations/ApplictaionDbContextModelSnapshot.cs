@@ -114,7 +114,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Appointments");
+                    b.ToTable("Appointments", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentTime", b =>
@@ -135,7 +135,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.ToTable("AppointmentTimes");
+                    b.ToTable("AppointmentTimes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.DiscountCodeCoupon", b =>
@@ -157,7 +157,7 @@ namespace Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DiscountCodeCoupons");
+                    b.ToTable("DiscountCodeCoupons", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Doctor", b =>
@@ -184,7 +184,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Request", b =>
@@ -224,7 +224,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PatientId1");
 
-                    b.ToTable("Requests");
+                    b.ToTable("Requests", (string)null);
                 });
 
             modelBuilder.Entity("Core.Domain.Specialization", b =>
@@ -244,7 +244,7 @@ namespace Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Specializations");
+                    b.ToTable("Specializations", (string)null);
 
                     b.HasData(
                         new

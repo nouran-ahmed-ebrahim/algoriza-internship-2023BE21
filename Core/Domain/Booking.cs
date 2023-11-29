@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Domain
 {
-    public class Request
+    public class Booking
     {
         public int Id { get; set; }
 

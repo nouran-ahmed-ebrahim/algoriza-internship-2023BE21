@@ -21,6 +21,6 @@ namespace Core.Domain
         [Required]
         public DiscountType DiscountType { get; set; }
 
-        public List<Request> Requests { get; set; } 
+        public List<Booking> Requests { get; set; } 
     }
 }

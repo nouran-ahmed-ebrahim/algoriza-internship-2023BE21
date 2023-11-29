@@ -13,7 +13,7 @@ namespace Core.Repository
         public IBaseRepository<ApplicationUser> Patients { get; }
         public IBaseRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; }
         public IBaseRepository<Appointment> Appointments { get; }
-        public IBaseRepository<Request> Requests { get; }
+        public IBaseRepository<Booking> Requests { get; }
         public ISpecializationRepository Specializations { get; }
         int Complete();
     }

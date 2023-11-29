@@ -21,7 +21,7 @@ namespace Core.Domain
         public int NumOfRequests => Requests.Count();
         public ApplicationUser DoctorUser { get; set; }
         public Specialization Specialization { get; set; }
-        public List<Request> Requests { get; set; }
+        public List<Booking> Requests { get; set; }
         public List<Appointment> Appointments { get; set; }
     }
 }

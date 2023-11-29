@@ -132,7 +132,7 @@ namespace Repository
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<DiscountCodeCoupon> DiscountCodeCoupons { get; set; }
-        public DbSet<Request> Requests { get; set; }
+        public DbSet<Booking> Requests { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
     }
 }
