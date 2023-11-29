@@ -48,7 +48,6 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -95,6 +94,25 @@ namespace Repository.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e7dadc15-467f-40f9-99e2-fcd733006743",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "b7fba8d2-8e03-4a25-967d-20919d7b3f0b",
+                            DateOfBirth = new DateTime(2001, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "admin@gmail.com",
+                            EmailConfirmed = false,
+                            Gender = 1,
+                            LockoutEnabled = false,
+                            PasswordHash = "AK0M4Cz9Od+ti11OQExPb80qPFMmZ5VdA+QEBNsIzakFtjxgW9/0oG0kGc3QFq6rHg==",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "41c0c1b8-90bb-46b3-bb05-88d790b96645",
+                            TwoFactorEnabled = false,
+                            UserName = "Admin Admin"
+                        });
                 });
 
             modelBuilder.Entity("Core.Domain.Appointment", b =>
@@ -387,20 +405,20 @@ namespace Repository.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b3d52893-e03b-4aec-9a53-aad6286aef3e",
-                            ConcurrencyStamp = "c6e3105e-a9bf-41a4-a2b1-12387277646a",
+                            Id = "08f1994e-1ba2-43e7-909b-a43bbae79846",
+                            ConcurrencyStamp = "457c0f94-0969-468e-a586-4923cf516535",
                             Name = "Admin"
                         },
                         new
                         {
-                            Id = "1a8a9b95-5faa-42b7-ba69-ba0fdaff2a80",
-                            ConcurrencyStamp = "780a750e-1332-453a-883e-a622e13e3c95",
+                            Id = "981f7daf-7aee-4ba3-8224-1be5ca6f35a4",
+                            ConcurrencyStamp = "abf6a566-e0fb-4396-9c34-14192debfd77",
                             Name = "Doctor"
                         },
                         new
                         {
-                            Id = "b2796f4d-c46c-4434-ad32-f6f8f2f2272d",
-                            ConcurrencyStamp = "cc305a9b-b803-4f8f-a92b-715871a0a625",
+                            Id = "456aeb89-9687-45ba-b7d8-29a39f94c211",
+                            ConcurrencyStamp = "26a85dab-055b-41b7-a5ab-519aac3e7592",
                             Name = "Patient"
                         });
                 });
