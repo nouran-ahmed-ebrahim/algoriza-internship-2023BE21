@@ -15,7 +15,7 @@ namespace Repository
         private ApplicationDbContext _context;
 
         public IBaseRepository<Doctor> Doctors { get; private set; }
-        public IBaseRepository<Patient> Patients { get; private set; }
+        public IBaseRepository<ApplicationUser> Patients { get; private set; }
         public IBaseRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; private set; }
         public IBaseRepository<Appointment> Appointments { get; private set; }
         public IBaseRepository<Request> Requests { get; private set; }
@@ -24,7 +24,7 @@ namespace Repository
             _context = context;
 
             Doctors = new BaseRepository<Doctor>(_context);
-            Patients = new BaseRepository<Patient>(_context);
+            Patients = new BaseRepository<ApplicationUser>(_context);
             DiscountCodeCoupons = new BaseRepository<DiscountCodeCoupon>(_context);
             Appointments = new BaseRepository<Appointment>(_context);
             Requests = new BaseRepository<Request>(_context);

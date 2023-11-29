@@ -18,7 +18,10 @@ namespace Core.Domain
         public RequestState RequestState { get; set; }
         public AppointmentTime AppointmentTime { get; set; }
         public Doctor Doctor { get; set; }
-        public Patient Patient { get; set; }
+       
+        [ForeignKey("FK_Requests_Patient_PatientId")]
+        public int PatientId { get; set; }
+        public ApplicationUser Patient { get; set; }
 
         [ForeignKey("FK_Requests_DiscountCodeCoupons_DiscountCodeCouponId")]
         public int? DiscountCodeCouponId { get; set; }

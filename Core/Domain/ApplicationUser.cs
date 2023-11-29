@@ -22,6 +22,8 @@ namespace Core.Domain
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+
+        public List<Request>? Requests { get; set; }
     }
 }
 

@@ -19,7 +19,7 @@ namespace Core.Domain
 
         [NotMapped]
         public int NumOfRequests => Requests.Count();
-        public ApplicationUser Person { get; set; }
+        public ApplicationUser DoctorUser { get; set; }
         public Specialization Specialization { get; set; }
         public List<Request> Requests { get; set; }
         public List<Appointment> Appointments { get; set; }
