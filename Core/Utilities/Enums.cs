@@ -17,7 +17,7 @@ namespace Core.Utilities
         Friday
     }
 
-    public enum RequestState
+    public enum BookingState
     {
         Pending,
         Completed,
