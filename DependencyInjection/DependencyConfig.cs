@@ -34,8 +34,8 @@ namespace DependencyInjection
                 ).
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
-            Services.AddScoped<IUnitOfWork, UnitOfWork>();
-            Services.AddScoped<IBookingsServices, BookingsServices>();
+            Services.AddTransient<IUnitOfWork, UnitOfWork>();
+            Services.AddTransient<IBookingsServices, BookingsServices>();
 
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
