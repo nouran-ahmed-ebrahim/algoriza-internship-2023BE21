@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vezeeta", "Vezeeta.csproj",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\Core\Core.csproj", "{CDDEF8CC-4FC9-48F5-B1AB-1CF99CBB767C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository", "..\Repository\Repository.csproj", "{F5610C79-0411-4E5C-B20D-551F02F7B3E4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "..\Repository\Repository.csproj", "{F5610C79-0411-4E5C-B20D-551F02F7B3E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DependencyInjection", "..\DependencyInjection\DependencyInjection.csproj", "{6C7AA37B-7648-4250-BED9-699434CC58BB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DependencyInjection", "..\DependencyInjection\DependencyInjection.csproj", "{6C7AA37B-7648-4250-BED9-699434CC58BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "..\Services\Services.csproj", "{BB17DF3E-7389-42DB-8C09-32B1179B84EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{6C7AA37B-7648-4250-BED9-699434CC58BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6C7AA37B-7648-4250-BED9-699434CC58BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6C7AA37B-7648-4250-BED9-699434CC58BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB17DF3E-7389-42DB-8C09-32B1179B84EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB17DF3E-7389-42DB-8C09-32B1179B84EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB17DF3E-7389-42DB-8C09-32B1179B84EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB17DF3E-7389-42DB-8C09-32B1179B84EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
