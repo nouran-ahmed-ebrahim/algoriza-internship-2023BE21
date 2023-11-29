@@ -12,9 +12,9 @@ using System.Threading.Tasks;
 namespace Repository
 {
     // To merge IdentityDB Wth myDB 
-    public class ApplictationDbContext: IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext: IdentityDbContext<ApplicationUser>
     {
-        public ApplictationDbContext(DbContextOptions<ApplictationDbContext> options) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
 
@@ -105,8 +105,7 @@ namespace Repository
                 });
 
         }
-        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
-       public DbSet<AppointmentDay> AppointmentDays { get; set; }
+        public DbSet<AppointmentDay> AppointmentDays { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }

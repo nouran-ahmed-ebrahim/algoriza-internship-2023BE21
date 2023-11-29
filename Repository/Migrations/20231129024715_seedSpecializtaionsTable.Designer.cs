@@ -11,7 +11,7 @@ using Repository;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(ApplictationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231129024715_seedSpecializtaionsTable")]
     partial class seedSpecializtaionsTable
     {

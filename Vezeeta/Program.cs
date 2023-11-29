@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // add connection string 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-builder.Services.AddDbContext<ApplictationDbContext>(optionBuilder => {
+builder.Services.AddDbContext<ApplicationDbContext>(optionBuilder => {
     optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
 });
 

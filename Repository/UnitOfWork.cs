@@ -12,7 +12,7 @@ namespace Repository
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private ApplictationDbContext _context;
+        private ApplicationDbContext _context;
 
         public IBaseRepository<Doctor> Doctors { get; private set; }
         public IBaseRepository<Patient> Patients { get; private set; }
@@ -20,7 +20,7 @@ namespace Repository
         public IBaseRepository<Appointment> Appointments { get; private set; }
         public IBaseRepository<Request> Requests { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
-        public UnitOfWork(ApplictationDbContext context) {
+        public UnitOfWork(ApplicationDbContext context) {
             _context = context;
 
             Doctors = new BaseRepository<Doctor>(_context);

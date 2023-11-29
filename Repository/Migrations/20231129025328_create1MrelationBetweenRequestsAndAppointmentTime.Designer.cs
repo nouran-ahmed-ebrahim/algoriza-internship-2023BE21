@@ -11,7 +11,7 @@ using Repository;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(ApplictationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231129025328_create1MrelationBetweenRequestsAndAppointmentTime")]
     partial class create1MrelationBetweenRequestsAndAppointmentTime
     {

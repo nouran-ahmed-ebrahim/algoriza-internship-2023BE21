@@ -11,7 +11,7 @@ using Repository;
 
 namespace Repository.Migrations
 {
-    [DbContext(typeof(ApplictationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     [Migration("20231128054159_addTables")]
     partial class addTables
     {

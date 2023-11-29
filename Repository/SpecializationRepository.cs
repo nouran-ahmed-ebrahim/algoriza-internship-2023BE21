@@ -6,7 +6,7 @@ namespace Repository
 {
     internal class SpecializationRepository : BaseRepository<Specialization>, ISpecializationRepository
     {
-        public SpecializationRepository(ApplictationDbContext context) : base(context)
+        public SpecializationRepository(ApplicationDbContext context) : base(context)
         {
         }
 
