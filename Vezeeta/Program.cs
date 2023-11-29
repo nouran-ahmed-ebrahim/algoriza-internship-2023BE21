@@ -1,8 +1,10 @@
+<<<<<<< HEAD
 using Core.Domain;
 using Core.Repository;
+=======
+>>>>>>> parent of d8f9c5e (call SpecializationInitializer)
 using DependencyInjection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using System;
 using System.Configuration;
@@ -15,6 +17,7 @@ builder.Services.AddDbContext<ApplictationDbContext>(optionBuilder => {
     optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
 });
 
+<<<<<<< HEAD
 DependencyConfig.ConfigureDependencies(builder.Services);
 builder.Services.AddSwaggerGen();
 
@@ -27,6 +30,8 @@ var specializationInitializer = DependencyConfig.serviceProvider.GetService<Spec
 specializationInitializer?.Initialize();
 #endregion
 
+=======
+>>>>>>> parent of d8f9c5e (call SpecializationInitializer)
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
