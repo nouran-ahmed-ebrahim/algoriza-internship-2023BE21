@@ -15,6 +15,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required]
+        [EnumDataType(typeof(BookingState))]
         public BookingState BookingState { get; set; }
         public AppointmentTime AppointmentTime { get; set; }
         public Doctor Doctor { get; set; }
