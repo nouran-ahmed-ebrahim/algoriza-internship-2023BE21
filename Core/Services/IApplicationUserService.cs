@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace Core.Services
 {
     public interface IApplicationUserService
     {
-        public Task<int> GetUsersCountInRole(string roleName);
+        public Task<IActionResult> GetUsersCountInRole(string roleName);
     }
 }
