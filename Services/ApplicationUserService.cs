@@ -46,7 +46,9 @@ namespace Services
 
         public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
         {
-            return _unitOfWork.ApplicationUser.Add(user, roleName, rememberMe); 
+            var result =  _unitOfWork.ApplicationUser.Add(user, roleName, rememberMe); 
+            _unitOfWork.Complete();
+            return result;
         }
     }
 
