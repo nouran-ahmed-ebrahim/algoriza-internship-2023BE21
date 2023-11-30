@@ -32,5 +32,25 @@ namespace Services
             
             return new OkObjectResult(result);
         }
+
+        public Booking AddAsync(Booking entity)
+        {
+            return _unitOfWork.Bookings.AddAsync(entity);
+        }
+
+        public void DeleteAsync(int id)
+        {
+            _unitOfWork.Bookings.DeleteAsync(id);
+        }
+
+        public IEnumerable<Booking> GetAllAsync(int Page, int PageSize)
+        {
+            return _unitOfWork.Bookings.GetAllAsync(Page, PageSize);
+        }
+
+        public Booking UpdateAsync(Booking entity)
+        {
+            return _unitOfWork.Bookings.UpdateAsync(entity);
+        }
     }
 }

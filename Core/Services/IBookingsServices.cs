@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,9 @@ namespace Core.Services
     public interface IBookingsServices
     {
         public IActionResult NumOfBookings();
+        IEnumerable<Booking> GetAllAsync(int Page, int PageSize);
+        Booking AddAsync(Booking entity);
+        Booking UpdateAsync(Booking entity);
+        void DeleteAsync(int id);
     }
 }

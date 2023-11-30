@@ -32,7 +32,7 @@ namespace Vezeeta.Controllers
         [HttpGet("Doctors")]
         public IActionResult GetNumberOfDoctors()
         {
-            return _applicationUserService.GetUsersCountInRole("Doctors").Result;
+            return _applicationUserService.GetUsersCountInRole("Doctor").Result;
         }
 
         [HttpGet("Patients")]
