@@ -35,4 +35,11 @@ namespace Core.Utilities
         Percentage,
         Value
     }
+
+    public enum UserState
+    {
+        Patient,
+        Admin,
+        Doctor
+    }
 }
