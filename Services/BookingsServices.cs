@@ -9,7 +9,7 @@ namespace Services
 {
     public class BookingsServices : IBookingsServices
     {
-        private IUnitOfWork _unitOfWork;
+        private readonly IUnitOfWork _unitOfWork;
 
         public BookingsServices(IUnitOfWork UnitOfWork) {
             _unitOfWork = UnitOfWork;
@@ -29,8 +29,8 @@ namespace Services
                 CompletedBookings = completedBookings,
                 CancelledBookings = cancelledBookings
             };
-
-            return result;
+            
+            return new OkObjectResult(result);
         }
     }
 }
