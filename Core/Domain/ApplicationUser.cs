@@ -20,6 +20,9 @@ namespace Core.Domain
         public byte[] Image { get; set; }
 
         [Required]
+        public string FullName { get; set; }
+
+        [Required]
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
