@@ -33,14 +33,9 @@ namespace Services
             return new OkObjectResult(result);
         }
 
-        public Booking AddAsync(Booking entity)
-        {
-            return _unitOfWork.Bookings.AddAsync(entity);
-        }
-
         public void DeleteAsync(int id)
         {
-            _unitOfWork.Bookings.DeleteAsync(id);
+            _unitOfWork.Bookings.Delete(id);
         }
 
         public IEnumerable<Booking> GetAllAsync(int Page, int PageSize)
@@ -50,7 +45,7 @@ namespace Services
 
         public Booking UpdateAsync(Booking entity)
         {
-            return _unitOfWork.Bookings.UpdateAsync(entity);
+            return _unitOfWork.Bookings.Update(entity);
         }
     }
 }
