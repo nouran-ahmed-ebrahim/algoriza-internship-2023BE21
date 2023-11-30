@@ -27,7 +27,7 @@ namespace Core.Utilities
             bool isAdmin = false;
             if (!string.IsNullOrEmpty(userId))
             {
-                string? CurrentRole = Enum.GetName(UserState.Admin);
+                string? CurrentRole = Enum.GetName(UserRole.Admin);
                 var user = userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
                 isAdmin = user != null && userManager.IsInRoleAsync(user, CurrentRole).GetAwaiter().GetResult();
             }

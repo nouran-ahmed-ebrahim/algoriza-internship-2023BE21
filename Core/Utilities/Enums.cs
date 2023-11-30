@@ -36,7 +36,7 @@ namespace Core.Utilities
         Value
     }
 
-    public enum UserState
+    public enum UserRole
     {
         Patient,
         Admin,

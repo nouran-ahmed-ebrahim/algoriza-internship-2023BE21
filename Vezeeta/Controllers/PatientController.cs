@@ -38,7 +38,7 @@ namespace Vezeeta.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                string? Role = Enum.GetName(UserState.Admin);
+                string? Role = Enum.GetName(UserRole.Admin);
                 return await _applicationUserService.Add(user, Role, false);
             }
             catch (Exception ex)
