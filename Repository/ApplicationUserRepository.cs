@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class ApplicationUserRepository : BaseRepository<ApplicationUser>, IApplicationUserRepository
+    public class ApplicationUserRepository : BaseRepository<ApplicationUser>, IApplicationUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -32,13 +32,22 @@ namespace Repository
             
             if(result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, roleName);
-
-                await _signInManager.SignInAsync(user, rememberMe);
+                await AssignRoleToUser(user, roleName);
+               // await AddSignInCookie(user, rememberMe);
                 return new OkObjectResult(user);
             }
 
             return new BadRequestResult();
+        }
+
+        public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)
+        {
+            await _signInManager.SignInAsync(user, rememberMe);
+        }
+
+        public async Task AssignRoleToUser(ApplicationUser user, string roleName)
+        {
+            await _userManager.AddToRoleAsync(user, roleName);
         }
 
         public async Task<IActionResult> GetUsersCountInRole(string roleName)
