@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Repository.Migrations;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,16 @@ namespace Repository
             
             if(result.Succeeded)
             {
-                await AssignRoleToUser(user, roleName);
-               // await AddSignInCookie(user, rememberMe);
-                return new OkObjectResult(user);
+                try
+                {
+                    await AssignRoleToUser(user, roleName);
+                    // await AddSignInCookie(user, rememberMe);
+                    return new OkObjectResult(user);
+                }
+                catch (Exception ex)
+                {
+                    return new NotFoundResult();
+                }
             }
 
             return new BadRequestResult();
