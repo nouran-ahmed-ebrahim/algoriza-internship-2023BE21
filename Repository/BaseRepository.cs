@@ -15,12 +15,13 @@ namespace Repository
             _context = context;
         }
 
-        public T AddAsync(T entity)
+        public T Add(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Add(entity);
+            return entity;
         }
 
-        public void DeleteAsync(int id)
+        public void Delete(int id)
         {
             throw new NotImplementedException();
         }
@@ -30,7 +31,7 @@ namespace Repository
             throw new NotImplementedException();
         }
 
-        public T UpdateAsync(T entity)
+        public T Update(T entity)
         {
             throw new NotImplementedException();
         }
