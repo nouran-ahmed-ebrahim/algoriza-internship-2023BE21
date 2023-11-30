@@ -40,6 +40,9 @@ namespace Core.DTO
         [Required]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
+        
+        [Required]
+        public bool RememberMe {  get; set; }   
 
     }
 }
