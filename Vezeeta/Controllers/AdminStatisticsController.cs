@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Core.Repository;
 using Core.Services;
+using Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,13 +28,16 @@ namespace Vezeeta.Controllers
         [HttpGet("Doctors")]
         public IActionResult GetNumberOfDoctors()
         {
-            return _applicationUserService.GetUsersCountInRole("Doctor").Result;
+            string? Role = Enum.GetName(UserRole.Doctor);
+            return _applicationUserService.GetUsersCountInRole(Role).Result;
         }
 
         [HttpGet("Patients")]
         public IActionResult GetNumberOfPatients()
         {
-            return _applicationUserService.GetUsersCountInRole("Patient").Result;
+            string? Role = Enum.GetName(UserRole.Patient);
+
+            return _applicationUserService.GetUsersCountInRole(Role).Result;
         }
 
         [HttpGet("Bookings")]

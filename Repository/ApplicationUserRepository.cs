@@ -29,23 +29,28 @@ namespace Repository
 
         public async Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
         {
-            IdentityResult result = await _userManager.CreateAsync(user);
-            
-            if(result.Succeeded)
-            {
-                try
-                {
-                    await AssignRoleToUser(user, roleName);
-                    // await AddSignInCookie(user, rememberMe);
-                    return new OkObjectResult(user);
-                }
-                catch (Exception ex)
-                {
-                    return new NotFoundResult();
-                }
-            }
+            try {
+                IdentityResult result = await _userManager.CreateAsync(user);
 
-            return new BadRequestResult();
+                if (result.Succeeded)
+                {
+                    try
+                    {
+                        await AssignRoleToUser(user, roleName);
+                        // await AddSignInCookie(user, rememberMe);
+                        return new OkObjectResult(user);
+                    }
+                    catch (Exception ex)
+                    {
+                        return new NotFoundResult();
+                    }
+                }
+
+                return new BadRequestResult();
+            } catch (Exception ex)
+            {
+                return new BadRequestResult();
+            }
         }
 
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)

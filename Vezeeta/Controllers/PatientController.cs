@@ -1,4 +1,6 @@
-﻿using Core.Domain;
+﻿using AutoMapper;
+using Core.Domain;
+using Core.DTO;
 using Core.Services;
 using Core.Utilities;
 using Microsoft.AspNetCore.Http;
@@ -6,40 +8,41 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
+
 namespace Vezeeta.Controllers
 {
     [Route("api/Patient")]
     [ApiController]
     public class PatientController : ControllerBase
     {
+        private readonly IMapper _mapper;
         private readonly IApplicationUserService _applicationUserService;
         private readonly IBookingsServices _bookingsServices;
-        public PatientController(IApplicationUserService ApplicationUserService, IBookingsServices bookingsServices) {
+        public PatientController(IApplicationUserService ApplicationUserService, 
+            IBookingsServices bookingsServices, IMapper mapper) {
+            _mapper = mapper;
             _applicationUserService = ApplicationUserService;
             _bookingsServices = bookingsServices;
         }
         [HttpPost]
-        public async Task<IActionResult> AddPatient([FromBody]ApplicationUser user) 
+        public async Task<IActionResult> AddPatient([FromBody]UserDTO userDTO) 
         {
-            //Image part
-            // revert f,lasr name =>fullname
-            // create userDTO Takes remeber me, first,lat, passwored
-            // map(pass => hass, full name) pass rmem
-            // Validate the input data:
-            //   act phone
-            //   email val
-            //   requierd from User table
             //more readable state code
-            // dont forget add add admin
-            // dont fforget uncoment cookie
+            // don't forget add admin
+            // don't forget uncomment cookie
+            // user name
+            // image null
             try
             {
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
-                }
-                string? Role = Enum.GetName(UserRole.Admin);
-                return await _applicationUserService.Add(user, Role, false);
+                };
+
+
+                ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
+                string? Role = Enum.GetName(UserRole.Doctor);
+                return await _applicationUserService.Add(user, Role, false);// userDTO.RememberMe);
             }
             catch (Exception ex)
             {
@@ -47,13 +50,15 @@ namespace Vezeeta.Controllers
             }
         }
 
-  //      {
-  //"userName": "stwwwreeeesssing",
-  //"email": "www",
-  //"phoneNumber": "striwwng",
-  //"firstName": "ww",
-  //"lastName": "dd",
-  //"gender": 0,
-  //"dateOfBirth": "2023-11-30"}
+//{
+//  "firstName": "nouran",
+//  "lastName": "ahmed",
+//  "email": "nourana245@gmail.com",
+//  "password": "nourana245@",
+//  "phone": "0123456",
+//  "gender": 1,
+//  "dateOfBirth": "2001-05-08",
+//  "rememberMe": true
+//}
 }
 }
