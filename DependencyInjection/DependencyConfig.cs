@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
-using System.Linq;
-using System.Reflection;
-using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
+using AutoMapper;
 using Core.Domain;
 using Core.Repository;
 using Core.Services;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Repository;
 using Services;
+using Services.Helpers;
 
 namespace DependencyInjection
 {
@@ -39,9 +30,14 @@ namespace DependencyInjection
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
-           // Services.AddSingleton<IWebHostEnvironment>(Environment);
+            // Services.AddSingleton<IWebHostEnvironment>(Environment);
 
-            Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<MappingUserDtTOProfile>();
+            });
+            IMapper _mapper = mapperConfig.CreateMapper();
+            Services.AddSingleton(_mapper);
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             Services.Configure<RequestLocalizationOptions>(options =>
