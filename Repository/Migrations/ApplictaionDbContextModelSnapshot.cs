@@ -51,9 +51,9 @@ namespace Repository.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");

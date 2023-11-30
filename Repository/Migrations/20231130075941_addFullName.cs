@@ -10,12 +10,12 @@ namespace Repository.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<byte[]>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Image",
                 table: "AspNetUsers",
-                type: "varbinary(max)",
+                type: "nvarchar(max)",
                 nullable: false,
-                defaultValue: new byte[0],
+                defaultValue: "",
                 oldClrType: typeof(string),
                 oldType: "nvarchar(max)",
                 oldNullable: true);
@@ -40,8 +40,8 @@ namespace Repository.Migrations
                 table: "AspNetUsers",
                 type: "nvarchar(max)",
                 nullable: true,
-                oldClrType: typeof(byte[]),
-                oldType: "varbinary(max)");
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)");
         }
     }
 }

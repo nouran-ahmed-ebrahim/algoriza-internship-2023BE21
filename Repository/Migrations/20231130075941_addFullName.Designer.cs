@@ -12,7 +12,7 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231130072139_addFullName")]
+    [Migration("20231130075941_addFullName")]
     partial class addFullName
     {
         /// <inheritdoc />
@@ -54,9 +54,9 @@ namespace Repository.Migrations
                     b.Property<int>("Gender")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
