@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,7 @@ namespace DependencyInjection
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
 
+            Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             Services.Configure<RequestLocalizationOptions>(options =>
