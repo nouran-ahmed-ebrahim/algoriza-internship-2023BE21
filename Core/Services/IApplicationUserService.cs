@@ -10,9 +10,12 @@ namespace Core.Services
 {
     public interface IApplicationUserService
     {
+        #region Base methods
         IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize);
         ApplicationUser UpdateAsync(ApplicationUser entity);
         void DeleteAsync(int id);
+        #endregion
+        public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
     }
 }
