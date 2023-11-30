@@ -23,16 +23,17 @@ namespace Core.Utilities
             var currentUser = httpContextAccessor.HttpContext?.User;
             var userId = userManager.GetUserId(currentUser);
 
-            // Check if the user has the "doctor" role
-            bool isDoctor = false;
+            // Check if the user has the "Admin" role
+            bool isAdmin = false;
             if (!string.IsNullOrEmpty(userId))
             {
+                string? CurrentRole = Enum.GetName(UserState.Admin);
                 var user = userManager.FindByIdAsync(userId).GetAwaiter().GetResult();
-                isDoctor = user != null && userManager.IsInRoleAsync(user, "doctor").GetAwaiter().GetResult();
+                isAdmin = user != null && userManager.IsInRoleAsync(user, CurrentRole).GetAwaiter().GetResult();
             }
 
             // If the user is a doctor, the property is required
-            if (isDoctor)
+            if (isAdmin)
             {
                 if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
                 {

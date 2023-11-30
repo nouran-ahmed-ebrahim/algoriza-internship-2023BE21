@@ -1,5 +1,6 @@
 ﻿using Core.Domain;
 using Core.Services;
+using Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -37,7 +38,8 @@ namespace Vezeeta.Controllers
                 {
                     return BadRequest(ModelState);
                 }
-                return await _applicationUserService.Add(user, "Patient", false);
+                string? Role = Enum.GetName(UserState.Admin);
+                return await _applicationUserService.Add(user, Role, false);
             }
             catch (Exception ex)
             {
