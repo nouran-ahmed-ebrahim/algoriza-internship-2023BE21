@@ -29,12 +29,12 @@ namespace Services
 
         public ApplicationUser AddAsync(ApplicationUser entity)
         {
-            return _unitOfWork.ApplicationUser.AddAsync(entity);
+            return _unitOfWork.ApplicationUser.Add(entity);
         }
 
         public void DeleteAsync(int id)
         {
-             _unitOfWork.ApplicationUser.DeleteAsync(id);
+             _unitOfWork.ApplicationUser.Delete(id);
         }
 
         public IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize)
@@ -44,7 +44,7 @@ namespace Services
 
         public ApplicationUser UpdateAsync(ApplicationUser entity)
         {
-            return _unitOfWork.ApplicationUser.UpdateAsync(entity);
+            return _unitOfWork.ApplicationUser.Update(entity);
         }
     }
 
