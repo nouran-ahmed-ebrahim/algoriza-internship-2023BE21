@@ -27,6 +27,7 @@ namespace Services
             return await _unitOfWork.ApplicationUser.GetUsersCountInRole(roleName);
         }
 
+        #region base methods
         public void DeleteAsync(int id)
         {
              _unitOfWork.ApplicationUser.Delete(id);
@@ -41,6 +42,7 @@ namespace Services
         {
             return _unitOfWork.ApplicationUser.Update(entity);
         }
+        #endregion
 
         public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
         {
