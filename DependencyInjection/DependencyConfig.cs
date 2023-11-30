@@ -36,6 +36,7 @@ namespace DependencyInjection
 
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
+            //Services.AddTransient<IApplicationUserService, ApplicationUserService>();
 
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
