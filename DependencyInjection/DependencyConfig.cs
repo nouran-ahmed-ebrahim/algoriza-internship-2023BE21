@@ -11,6 +11,7 @@ using Core.Domain;
 using Core.Repository;
 using Core.Services;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,7 @@ namespace DependencyInjection
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
+           // Services.AddSingleton<IWebHostEnvironment>(Environment);
 
             Services.AddAutoMapper(Assembly.GetExecutingAssembly());
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
