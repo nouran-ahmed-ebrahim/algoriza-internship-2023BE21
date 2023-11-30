@@ -10,8 +10,7 @@ namespace Core.Repository
     {
         //Task<T> GetByIdAsync(int id);
         IEnumerable<T> GetAllAsync(int Page, int PageSize);
-        T AddAsync(T entity);
-        T UpdateAsync(T entity);
-        void DeleteAsync(int id);
+        T Update(T entity);
+        void Delete(int id);
     }
 }

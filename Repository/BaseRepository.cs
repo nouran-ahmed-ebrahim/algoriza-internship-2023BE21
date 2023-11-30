@@ -15,12 +15,6 @@ namespace Repository
             _context = context;
         }
 
-        public T Add(T entity)
-        {
-            _context.Set<T>().Add(entity);
-            return entity;
-        }
-
         public void Delete(int id)
         {
             throw new NotImplementedException();
