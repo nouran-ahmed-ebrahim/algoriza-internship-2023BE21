@@ -121,6 +121,9 @@ namespace Repository
                     new IdentityRole{Name = "Doctor"},
                     new IdentityRole{Name = "Patient"},
                 });
+                //await _roleManager.CreateAsync(new IdentityRole() { Name = "Patient" });
+                //await _roleManager.CreateAsync(new IdentityRole() { Name = "Doctor" });
+                //await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
 
                 modelBuilder.Entity<ApplicationUser>()
                 .HasData(new ApplicationUser
