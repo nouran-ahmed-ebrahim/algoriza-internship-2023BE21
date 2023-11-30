@@ -27,11 +27,6 @@ namespace Services
             return await _unitOfWork.ApplicationUser.GetUsersCountInRole(roleName);
         }
 
-        public ApplicationUser AddAsync(ApplicationUser entity)
-        {
-            return _unitOfWork.ApplicationUser.Add(entity);
-        }
-
         public void DeleteAsync(int id)
         {
              _unitOfWork.ApplicationUser.Delete(id);
@@ -45,6 +40,11 @@ namespace Services
         public ApplicationUser UpdateAsync(ApplicationUser entity)
         {
             return _unitOfWork.ApplicationUser.Update(entity);
+        }
+
+        public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
+        {
+            return _unitOfWork.ApplicationUser.Add(user, roleName, rememberMe); 
         }
     }
 
