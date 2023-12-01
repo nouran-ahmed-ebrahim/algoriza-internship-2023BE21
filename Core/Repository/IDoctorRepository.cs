@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IDoctorRepository<T> : ICommonRepository<T> where T : class
-    {
+    public interface IDoctorRepository : ICommonRepository<Doctor>
+    { 
 
     }
 }
