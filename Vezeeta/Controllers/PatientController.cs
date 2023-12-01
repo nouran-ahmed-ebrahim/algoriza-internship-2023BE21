@@ -6,6 +6,7 @@ using Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.DependencyResolver;
 using Services;
 
 
@@ -25,12 +26,11 @@ namespace Vezeeta.Controllers
             _bookingsServices = bookingsServices;
         }
         [HttpPost]
-        public async Task<IActionResult> AddPatient([FromBody]UserDTO userDTO) 
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
         {
-            //more readable state code
+
             // don't forget uncomment cookie
-            // user name
-            // image null
             try
             {
                 if (!ModelState.IsValid)
