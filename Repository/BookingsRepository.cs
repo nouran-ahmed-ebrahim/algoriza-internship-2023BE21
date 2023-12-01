@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class BookingsRepository : BaseRepository<Booking>, IBookingsRepository
+    public class BookingsRepository : CommonRepository<Booking>, IBookingsRepository
     {
         public BookingsRepository(ApplicationDbContext context) : base(context)
         {
@@ -27,7 +27,6 @@ namespace Repository
         {
             return _context.Bookings.Count();
         }
-
 
     }
 }

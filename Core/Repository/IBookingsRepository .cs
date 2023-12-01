@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IBookingsRepository: IBaseRepository<Booking>
+    public interface IBookingsRepository: ICommonRepository<Booking>
     {
         public int NumOfBooKings();
         public int NumOfBookings(Expression<Func<Booking, bool>> criteria);
