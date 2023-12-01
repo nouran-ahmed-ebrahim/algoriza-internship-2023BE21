@@ -20,7 +20,7 @@ namespace Repository
             try
             {
                 T entity = GetById(id);
-                if (entity != null)
+                if (entity == null)
                 {
                     return new NotFoundObjectResult($"{id} is not found");
                 }

@@ -22,18 +22,34 @@ namespace Services
 
         public IActionResult Add(DiscountCodeCoupon Coupon)
         {
-            var result = _unitOfWork.DiscountCodeCoupons.Add(Coupon);
+            try
+            {
+                var result = _unitOfWork.DiscountCodeCoupons.Add(Coupon);
 
-            _unitOfWork.Complete();
-            return result;
+                _unitOfWork.Complete();
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult Deactivate(int id)
         {
-            var result = _unitOfWork.DiscountCodeCoupons.Deactivate(id);
+            try
+            {
+                var result = _unitOfWork.DiscountCodeCoupons.Deactivate(id);
 
-            _unitOfWork.Complete();
-            return result;
+                _unitOfWork.Complete();
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult Delete(int Id)
@@ -43,10 +59,18 @@ namespace Services
 
         public IActionResult Update(DiscountCodeCoupon Coupon)
         {
-            var result = _unitOfWork.DiscountCodeCoupons.Update(Coupon);
+            try
+            {
+                var result = _unitOfWork.DiscountCodeCoupons.Update(Coupon);
 
-            _unitOfWork.Complete();
-            return result;
+                _unitOfWork.Complete();
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
+            }
         }
     }
 }
