@@ -20,8 +20,7 @@ namespace Vezeeta.Controllers
         private readonly IApplicationUserService _applicationUserService;
         private readonly IBookingsServices _bookingsServices;
         public PatientController(IApplicationUserService ApplicationUserService, 
-            IBookingsServices bookingsServices, IMapper mapper) {
-            _mapper = mapper;
+            IBookingsServices bookingsServices) {
             _applicationUserService = ApplicationUserService;
             _bookingsServices = bookingsServices;
         }
@@ -30,7 +29,6 @@ namespace Vezeeta.Controllers
         public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
         {
 
-            // don't forget uncomment cookie
             try
             {
                 if (!ModelState.IsValid)
@@ -38,10 +36,7 @@ namespace Vezeeta.Controllers
                     return BadRequest(ModelState);
                 };
 
-
-                ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
-                string? Role = Enum.GetName(UserRole.Patient);
-                return await _applicationUserService.Add(user, Role, false);// userDTO.RememberMe);
+                return await _applicationUserService.Add(userDTO, userDTO.RememberMe);
             }
             catch (Exception ex)
             {

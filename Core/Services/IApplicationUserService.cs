@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Core.Services
         #region Base methods
         IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize);
         #endregion
-        public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe);
+        public Task<IActionResult> Add(UserDTO userDTO, bool rememberMe);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
     }
 }

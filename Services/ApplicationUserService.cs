@@ -1,6 +1,9 @@
-﻿using Core.Domain;
+﻿using AutoMapper;
+using Core.Domain;
+using Core.DTO;
 using Core.Repository;
 using Core.Services;
+using Core.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
@@ -16,10 +19,12 @@ namespace Services
     public class ApplicationUserService: IApplicationUserService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        public ApplicationUserService(IUnitOfWork UnitOfWork)
+        public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper)
         {
             _unitOfWork = UnitOfWork;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> GetUsersCountInRole(string roleName)
@@ -35,9 +40,14 @@ namespace Services
         }
         #endregion
 
-        public Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
+        public Task<IActionResult> Add(UserDTO userDTO, bool rememberMe)
         {
-            var result =  _unitOfWork.ApplicationUser.Add(user, roleName, rememberMe); 
+            ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
+
+            string? Role = Enum.GetName(UserRole.Patient);
+
+            var result =  _unitOfWork.ApplicationUser.Add(user, Role, rememberMe); 
+
             _unitOfWork.Complete();
             return result;
         }
