@@ -1,4 +1,5 @@
 ﻿using Core.Repository;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,15 @@ namespace Repository
 
         }
 
-        public void Delete(T entity)
+        public IActionResult Delete(int id)
         {
+            T entity = GetById(id);
+            if(entity != null)
+            {
+                return new NotFoundObjectResult($"{id} is not found");
+            }
              _context.Set<T>().Remove(entity);
+            return new OkObjectResult("Deleted Successfully");
         }
 
         public T Update(T entity)

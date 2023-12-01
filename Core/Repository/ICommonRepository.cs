@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,6 @@ namespace Core.Repository
     public interface ICommonRepository<T> : IBaseRepository<T> where T : class
     {
         T Update(T entity);
-        void Delete(T entity);
+        IActionResult Delete(int Id);
     }
 }
