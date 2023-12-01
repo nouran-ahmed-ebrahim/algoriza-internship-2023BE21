@@ -17,7 +17,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
        [RequiredAttributeForDoctor(ErrorMessage = "This property is required for users with the 'doctor' role.")]
-        public string Image { get; set; }
+        public string? Image { get; set; }
 
         [Required]
         public string FullName { get; set; }

@@ -28,7 +28,6 @@ namespace Vezeeta.Controllers
         public async Task<IActionResult> AddPatient([FromBody]UserDTO userDTO) 
         {
             //more readable state code
-            // don't forget add admin
             // don't forget uncomment cookie
             // user name
             // image null

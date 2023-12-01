@@ -28,7 +28,7 @@ namespace Services.Helpers
         private string SaveImage(IFormFile? image)
         {
             if (image == null)
-                return "NoImage";
+                return null;
 
             string fileName = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
             string filePath = Path.Combine("Images", fileName);
