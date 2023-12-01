@@ -20,7 +20,7 @@ namespace Repository
             try
             {
                 DiscountCodeCoupon DiscountCodeCoupon = GetById(id);
-                if (DiscountCodeCoupon != null)
+                if (DiscountCodeCoupon == null)
                 {
                     return new NotFoundObjectResult($"DiscountCodeCoupon with {id} is not found");
                 }
