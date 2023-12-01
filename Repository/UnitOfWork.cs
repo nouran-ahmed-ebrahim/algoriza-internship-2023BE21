@@ -18,12 +18,13 @@ namespace Repository
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IBaseRepository<Doctor> Doctors { get; private set; }
+        public IDoctorRepository Doctors { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
-        public IBaseRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; private set; }
-        public IBaseRepository<Appointment> Appointments { get; private set; }
+        public IDataOperationsRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; private set; }
+        public IDataOperationsRepository<Appointment> Appointments { get; private set; }
         public IBookingsRepository Bookings { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
+
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager) {
             
@@ -35,11 +36,11 @@ namespace Repository
             #endregion
 
             #region DI
-            Doctors = new BaseRepository<Doctor>(_context);
+            Doctors = new DoctorRepository(_context);
             ApplicationUser = new ApplicationUserRepository(_context, _userManager,
                 _roleManager, _signInManager);
-            DiscountCodeCoupons = new BaseRepository<DiscountCodeCoupon>(_context);
-            Appointments = new BaseRepository<Appointment>(_context);
+            DiscountCodeCoupons = new DataOperationsRepository<DiscountCodeCoupon>(_context);
+            Appointments = new DataOperationsRepository<Appointment>(_context);
             Bookings = new BookingsRepository(_context);
             Specializations = new SpecializationRepository(_context);
             #endregion
