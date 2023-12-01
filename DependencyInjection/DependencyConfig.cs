@@ -3,7 +3,9 @@ using AutoMapper;
 using Core.Domain;
 using Core.Repository;
 using Core.Services;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +42,7 @@ namespace DependencyInjection
             });
             IMapper _mapper = mapperConfig.CreateMapper();
             Services.AddSingleton(_mapper);
+
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
 
             Services.Configure<RequestLocalizationOptions>(options =>
