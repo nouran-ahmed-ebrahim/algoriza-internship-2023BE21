@@ -1,4 +1,5 @@
 ﻿using Core.Utilities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,6 +12,9 @@ namespace Core.Domain
     public class DiscountCodeCoupon
     {
         public int Id { get; set; }
+
+        [Required]
+        public string Name { get; set; }
 
         [Required]
         public bool IsActivated { get; set; }

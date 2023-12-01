@@ -22,9 +22,18 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Specialization>()
             .HasIndex(p => p.Name)
             .IsUnique();
+
+            modelBuilder.Entity<ApplicationUser>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
+            modelBuilder.Entity<DiscountCodeCoupon>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
 
             #region dataSeeding
 
@@ -107,11 +116,7 @@ namespace Repository
                         Name="Diabetes and Endocrinology"
                     }
     });
-
-            modelBuilder.Entity<ApplicationUser>()
-            .HasIndex(u => u.Email)
-            .IsUnique();
-
+            
             // to prevent reeeding data
             var appliedMigrations = Database.GetAppliedMigrations();
             var isInitialMigration = appliedMigrations.Count() == 0;
