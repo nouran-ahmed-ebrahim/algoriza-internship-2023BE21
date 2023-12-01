@@ -29,7 +29,7 @@ namespace Repository
                     try
                     {
                         await AssignRoleToUser(user, roleName);
-                        // await AddSignInCookie(user, rememberMe);
+                        await AddSignInCookie(user, rememberMe);
                         return new OkObjectResult(user);
                     }
                     catch (Exception ex)
