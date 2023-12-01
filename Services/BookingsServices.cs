@@ -33,19 +33,12 @@ namespace Services
             return new OkObjectResult(result);
         }
 
-        public void DeleteAsync(int id)
-        {
-            _unitOfWork.Bookings.Delete(id);
-        }
-
+        #region base methods
         public IEnumerable<Booking> GetAllAsync(int Page, int PageSize)
         {
             return _unitOfWork.Bookings.GetAllAsync(Page, PageSize);
         }
+        #endregion
 
-        public Booking UpdateAsync(Booking entity)
-        {
-            return _unitOfWork.Bookings.Update(entity);
-        }
     }
 }

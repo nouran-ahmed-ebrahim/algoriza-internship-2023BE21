@@ -15,17 +15,7 @@ namespace Repository
             _context = context;
         }
 
-        public void Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<T> GetAllAsync(int Page, int PageSize)
-        {
-            throw new NotImplementedException();
-        }
-
-        public T Update(T entity)
         {
             throw new NotImplementedException();
         }

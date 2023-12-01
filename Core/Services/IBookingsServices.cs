@@ -12,7 +12,6 @@ namespace Core.Services
     {
         public IActionResult NumOfBookings();
         IEnumerable<Booking> GetAllAsync(int Page, int PageSize);
-        Booking UpdateAsync(Booking entity);
-        void DeleteAsync(int id);
+
     }
 }

@@ -28,19 +28,10 @@ namespace Services
         }
 
         #region base methods
-        public void DeleteAsync(int id)
-        {
-             _unitOfWork.ApplicationUser.Delete(id);
-        }
 
         public IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize)
         {
             return _unitOfWork.ApplicationUser.GetAllAsync(Page, PageSize);
-        }
-
-        public ApplicationUser UpdateAsync(ApplicationUser entity)
-        {
-            return _unitOfWork.ApplicationUser.Update(entity);
         }
         #endregion
 
