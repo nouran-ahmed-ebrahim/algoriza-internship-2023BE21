@@ -20,7 +20,6 @@ namespace Core.Domain
 
         [NotMapped]
         public int NumOfRequests => Doctors.Sum(x => x.NumOfRequests);
-        public List<Doctor> Doctors { get; set; }
-        //seeding
+        public List<Doctor>? Doctors { get; set; }
     }
 }

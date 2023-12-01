@@ -14,6 +14,6 @@ namespace Core.Domain
 
         [Required]
         public DateTime Time { get; set; }
-        public Appointment Appointment { get; set; }
+        public Appointment? Appointment { get; set; }
     }
 }

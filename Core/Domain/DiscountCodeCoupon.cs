@@ -28,7 +28,6 @@ namespace Core.Domain
 
         [Required]
         public int MinimumRequiredRequests {  get; set; }
-
-        public List<Booking> Requests { get; set; } 
+        public List<Booking>? Requests { get; set; } 
     }
 }
