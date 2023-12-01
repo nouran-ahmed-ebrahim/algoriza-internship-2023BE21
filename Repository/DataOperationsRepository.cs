@@ -1,4 +1,5 @@
 ﻿using Core.Repository;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,19 @@ namespace Repository
         {
         }
 
-        public T Add(T entity)
+        public IActionResult Add(T entity)
         {
-            _context.Set<T>().Add(entity);
-            return entity;
+            try
+            {
+                _context.Set<T>().Add(entity);
+                return new OkObjectResult(entity);
+            }catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while adding: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }
