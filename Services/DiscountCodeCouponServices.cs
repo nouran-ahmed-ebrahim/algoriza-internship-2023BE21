@@ -20,24 +20,24 @@ namespace Services
             _unitOfWork = UnitOfWork;
         }
 
-        public IActionResult Add(DiscountCodeCoupon entity)
+        public IActionResult Add(DiscountCodeCoupon Coupon)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.DiscountCodeCoupons.Add(Coupon);
         }
 
         public IActionResult Deactivate(int id)
         {
-            throw new NotImplementedException();
+           return _unitOfWork.DiscountCodeCoupons.Deactivate(id);
         }
 
         public IActionResult Delete(int Id)
         {
-            throw new NotImplementedException();
+            return _unitOfWork.DiscountCodeCoupons.Delete(Id);
         }
 
-        public IActionResult Update(DiscountCodeCoupon entity)
+        public IActionResult Update(DiscountCodeCoupon Coupon)
         {
-            var result = _unitOfWork.DiscountCodeCoupons.Update(entity);
+            var result = _unitOfWork.DiscountCodeCoupons.Update(Coupon);
 
             _unitOfWork.Complete();
             return result;

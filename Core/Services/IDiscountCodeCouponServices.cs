@@ -10,8 +10,8 @@ namespace Core.Services
 {
     public interface IDiscountCodeCouponServices
     {
-        IActionResult Add(DiscountCodeCoupon entity);
-        IActionResult Update(DiscountCodeCoupon entity);
+        IActionResult Add(DiscountCodeCoupon Coupon);
+        IActionResult Update(DiscountCodeCoupon Coupon);
         IActionResult Delete(int Id);
         IActionResult Deactivate(int id);
     }
