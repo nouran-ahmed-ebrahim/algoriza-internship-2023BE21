@@ -21,6 +21,7 @@ namespace Services.Helpers
                 .ForMember(dest => dest.Gender, opt => opt.MapFrom(src => src.Gender))
                 .ForMember(dest => dest.DateOfBirth, opt => opt.MapFrom(src => src.DateOfBirth))
                 .ForMember(dest => dest.Image, opt => opt.MapFrom(src => SaveImage(src.Image)))
+                //  it is mandatory and unique cause there ia an index on its
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => Guid.NewGuid().ToString()))
                 .ReverseMap();
         }
