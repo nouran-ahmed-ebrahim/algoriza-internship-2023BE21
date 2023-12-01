@@ -9,7 +9,7 @@ namespace Core.Repository
 {
     public interface ICommonRepository<T> : IBaseRepository<T> where T : class
     {
-        T UpdateAsync(T entity);
-        void DeleteAsync(T entity);
+        T Update(T entity);
+        void Delete(T entity);
     }
 }

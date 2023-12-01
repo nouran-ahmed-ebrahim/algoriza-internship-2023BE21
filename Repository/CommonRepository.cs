@@ -14,12 +14,12 @@ namespace Repository
 
         }
 
-        public void DeleteAsync(T entity)
+        public void Delete(T entity)
         {
              _context.Set<T>().Remove(entity);
         }
 
-        public T UpdateAsync(T entity)
+        public T Update(T entity)
         {
             _context.Update(entity); 
             return entity;
