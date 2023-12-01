@@ -21,6 +21,10 @@ namespace Vezeeta.Controllers
         [HttpPut]
         public IActionResult UpdateDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
         {
+            if (DiscountCodeCoupon == null)
+            {
+                return BadRequest("Inter Coupon");
+            }
             //Make Id MAndatory
             if (!ModelState.IsValid)
                 {

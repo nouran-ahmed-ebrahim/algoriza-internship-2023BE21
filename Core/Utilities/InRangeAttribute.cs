@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities
 {
+    using Core.Domain;
     using System;
     using System.ComponentModel.DataAnnotations;
 
@@ -19,6 +20,11 @@ namespace Core.Utilities
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
+            if (value == null)
+            {
+                return new ValidationResult("Discount Value is required"); ;
+            }
+
             // get Discount type value
             var instance = validationContext.ObjectInstance;
             var typeProperty = instance.GetType().GetProperty("DiscountType");

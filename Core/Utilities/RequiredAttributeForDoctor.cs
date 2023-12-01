@@ -20,8 +20,8 @@ namespace Core.Utilities
             var userManager = validationContext.GetService<UserManager<ApplicationUser>>();
 
             // Get the current user's ID unless it's null
-            var currentUser = httpContextAccessor.HttpContext?.User;
-            var userId = userManager.GetUserId(currentUser);
+            var currentUser = httpContextAccessor?.HttpContext?.User;
+            var userId = userManager?.GetUserId(currentUser);
 
             // Check if the user has the "Admin" role
             bool isAdmin = false;
