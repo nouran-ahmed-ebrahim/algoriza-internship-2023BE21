@@ -17,13 +17,23 @@ namespace Repository
 
         public IActionResult Delete(int id)
         {
-            T entity = GetById(id);
-            if(entity != null)
+            try
             {
-                return new NotFoundObjectResult($"{id} is not found");
+                T entity = GetById(id);
+                if (entity != null)
+                {
+                    return new NotFoundObjectResult($"{id} is not found");
+                }
+                _context.Set<T>().Remove(entity);
+                return new OkObjectResult("Deleted Successfully");
             }
-             _context.Set<T>().Remove(entity);
-            return new OkObjectResult("Deleted Successfully");
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while adding: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
 
         public IActionResult Update(T entity)
@@ -35,7 +45,7 @@ namespace Repository
             }
             catch (Exception ex)
             {
-                return new ObjectResult($"An error occurred while Updating \n: {ex.Message}")
+                return new ObjectResult($"An error occurred while Deleting \n: {ex.Message}")
                 {
                     StatusCode = 500
                 };
