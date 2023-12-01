@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    internal interface Interface1
+    public interface IDataOperationsRepository<T>:IBaseRepository<T> where T : class
     {
+        T Add(T entity);
     }
 }
