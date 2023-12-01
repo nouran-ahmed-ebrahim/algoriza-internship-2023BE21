@@ -21,8 +21,8 @@ namespace Core.Domain
         public Doctor Doctor { get; set; }
        
         [ForeignKey("FK_Requests_Patient_PatientId")]
-        public int PatientId { get; set; }
-        public ApplicationUser Patient { get; set; }
+        public int? PatientId { get; set; }
+        public ApplicationUser? Patient { get; set; }
 
         [ForeignKey("FK_Requests_DiscountCodeCoupons_DiscountCodeCouponId")]
         public int? DiscountCodeCouponId { get; set; }

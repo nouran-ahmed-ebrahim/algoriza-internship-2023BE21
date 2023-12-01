@@ -21,7 +21,8 @@ namespace Vezeeta.Controllers
         [HttpPut]
         public IActionResult UpdateDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
         {
-                if (!ModelState.IsValid)
+            //Make Id MAndatory
+            if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 };

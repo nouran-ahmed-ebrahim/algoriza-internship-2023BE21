@@ -20,6 +20,7 @@ namespace Core.Domain
         public bool IsActivated { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than or equal to 0")]
         public int Value { get; set; }
 
         [Required]

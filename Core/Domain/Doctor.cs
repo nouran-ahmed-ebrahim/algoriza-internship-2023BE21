@@ -15,6 +15,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required]
+        [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than or equal to 0")]
         public int Price { get; set; }
 
         [NotMapped]

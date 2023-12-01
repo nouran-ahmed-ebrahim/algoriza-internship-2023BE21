@@ -54,7 +54,17 @@ namespace Services
 
         public IActionResult Delete(int Id)
         {
-            return _unitOfWork.DiscountCodeCoupons.Delete(Id);
+            try
+            {
+                var result = _unitOfWork.DiscountCodeCoupons.Delete(Id);
+                _unitOfWork.Complete();
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
+            }
         }
 
         public IActionResult Update(DiscountCodeCoupon Coupon)
