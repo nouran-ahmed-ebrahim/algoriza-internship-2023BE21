@@ -27,11 +27,13 @@ namespace DependencyInjection
                 ).
                 AddEntityFrameworkStores<ApplicationDbContext>();
 
+
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
             // Services.AddSingleton<IWebHostEnvironment>(Environment);
 
+            // inject auto mapper
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<MappingUserDtTOProfile>();

@@ -41,7 +41,7 @@ namespace Vezeeta.Controllers
 
 
                 ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
-                string? Role = Enum.GetName(UserRole.Doctor);
+                string? Role = Enum.GetName(UserRole.Patient);
                 return await _applicationUserService.Add(user, Role, false);// userDTO.RememberMe);
             }
             catch (Exception ex)

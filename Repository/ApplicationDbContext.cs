@@ -108,6 +108,10 @@ namespace Repository
                     }
     });
 
+            modelBuilder.Entity<ApplicationUser>()
+            .HasIndex(u => u.Email)
+            .IsUnique();
+
             // to prevent reeeding data
             var appliedMigrations = Database.GetAppliedMigrations();
             var isInitialMigration = appliedMigrations.Count() == 0;
