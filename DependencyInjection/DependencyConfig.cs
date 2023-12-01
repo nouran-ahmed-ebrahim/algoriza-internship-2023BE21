@@ -33,6 +33,7 @@ namespace DependencyInjection
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
+            Services.AddTransient<IDiscountCodeCouponServices, DiscountCodeCouponServices>();
             // Services.AddSingleton<IWebHostEnvironment>(Environment);
 
             // inject auto mapper
