@@ -18,24 +18,52 @@ namespace Vezeeta.Controllers
             _discountCodeCouponServices = DiscountCodeCouponServices;
         }
 
-        [HttpPost]
+        [HttpPut]
         public IActionResult UpdateDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
         {
-            try
-            {
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 };
 
                 return _discountCodeCouponServices.Update(DiscountCodeCoupon); 
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
-            }
+
         }
 
+        [HttpPost]
+        public IActionResult AddDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
 
+            return _discountCodeCouponServices.Add(DiscountCodeCoupon);
+
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteDiscountCodeCoupon(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
+
+            return _discountCodeCouponServices.Delete(id);
+        }
+
+        [HttpPatch]
+        [Route("Deactivate")]
+        public IActionResult DeActivateDiscountCodeCoupon(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
+
+            return _discountCodeCouponServices.Deactivate(id);
+
+        }
     }
 }
