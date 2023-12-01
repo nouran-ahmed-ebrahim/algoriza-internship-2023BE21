@@ -22,6 +22,9 @@ namespace Core.Domain
         [EnumDataType(typeof(DiscountType))]
         public DiscountType DiscountType { get; set; }
 
+        [Required]
+        public int MinimumRequiredRequests {  get; set; }
+
         public List<Booking> Requests { get; set; } 
     }
 }
