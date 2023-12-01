@@ -1,5 +1,6 @@
 ﻿using Core.Domain;
 using Core.Repository;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,28 @@ namespace Repository
         {
         }
 
-        public void Deactivate(int id)
+        public IActionResult Deactivate(int id)
         {
-            _context;
+            try
+            {
+                DiscountCodeCoupon DiscountCodeCoupon = GetById(id);
+                if (DiscountCodeCoupon != null)
+                {
+                    return new NotFoundObjectResult($"DiscountCodeCoupon with {id} is not found");
+                }
+
+                DiscountCodeCoupon.IsActivated = false;
+                Update(DiscountCodeCoupon);
+                return new OkObjectResult(DiscountCodeCoupon);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Deactivating the coupone \n: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+
         }
     }
 }
