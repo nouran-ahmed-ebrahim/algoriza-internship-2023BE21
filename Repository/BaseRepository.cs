@@ -19,5 +19,10 @@ namespace Repository
         {
             throw new NotImplementedException();
         }
+
+        public T GetById(int id)
+        {
+            return _context.Set<T>().Find(id);
+        }
     }
 }

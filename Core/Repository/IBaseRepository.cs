@@ -8,7 +8,7 @@ namespace Core.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
-        //Task<T> GetByIdAsync(int id);
+        T GetById(int id);
         IEnumerable<T> GetAllAsync(int Page, int PageSize);
 
     }
