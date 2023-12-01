@@ -13,22 +13,23 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Name is required.")]
         public string Name { get; set; }
 
-        [Required]
-        public bool IsActivated { get; set; }
+        [Required(ErrorMessage = "IsActivated is required.")]
+        public bool? IsActivated { get; set; }
 
-        [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than or equal to 0")]
-        public int Value { get; set; }
+        [Required(ErrorMessage = "Value is required.")]
+        [InRangeAttribute]
+        public int? Value { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Discount Type is required.")]
         [EnumDataType(typeof(DiscountType))]
-        public DiscountType DiscountType { get; set; }
+        public DiscountType? DiscountType { get; set; }
 
-        [Required]
-        public int MinimumRequiredRequests {  get; set; }
+        [Required(ErrorMessage = "Minimum Requests is required.")]
+        [Range(0, int.MaxValue)]
+        public int? MinimumRequiredRequests {  get; set; }
         public List<Booking>? Requests { get; set; } 
     }
 }

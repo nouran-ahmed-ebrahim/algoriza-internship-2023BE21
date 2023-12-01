@@ -19,14 +19,14 @@ namespace Core.Domain
        [RequiredAttributeForDoctor(ErrorMessage = "This property is required for users with the 'doctor' role.")]
         public string? Image { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "FullName is required.")]
         public string FullName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Gender is required.")]
         [EnumDataType(typeof(Gender))]
         public Gender Gender { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Date of Birth is required.")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 

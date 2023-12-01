@@ -12,8 +12,8 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required]
-        public DateTime Time { get; set; }
+        [Required(ErrorMessage = "Time is required.")]
+        public DateTime? Time { get; set; }
         public Appointment? Appointment { get; set; }
     }
 }

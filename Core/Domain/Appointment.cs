@@ -13,9 +13,9 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Day is required.")]
         [EnumDataType(typeof(DayOfWeek))]
-        public DayOfWeek DayOfWeek { get; set; }
+        public DayOfWeek? DayOfWeek { get; set; }
         public Doctor? Doctor { get; set; }
         public List<AppointmentTime>? AppointmentsTimes { get; set; }
 

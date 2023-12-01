@@ -14,11 +14,11 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Booking state is required.")]
         [EnumDataType(typeof(BookingState))]
-        public BookingState BookingState { get; set; }
-        public AppointmentTime AppointmentTime { get; set; }
-        public Doctor Doctor { get; set; }
+        public BookingState? BookingState { get; set; }
+        public AppointmentTime? AppointmentTime { get; set; }
+        public Doctor? Doctor { get; set; }
        
         [ForeignKey("FK_Requests_Patient_PatientId")]
         public int? PatientId { get; set; }
