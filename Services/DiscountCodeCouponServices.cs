@@ -27,7 +27,10 @@ namespace Services
 
         public IActionResult Deactivate(int id)
         {
-           return _unitOfWork.DiscountCodeCoupons.Deactivate(id);
+            var result = _unitOfWork.DiscountCodeCoupons.Deactivate(id);
+
+            _unitOfWork.Complete();
+            return result;
         }
 
         public IActionResult Delete(int Id)
