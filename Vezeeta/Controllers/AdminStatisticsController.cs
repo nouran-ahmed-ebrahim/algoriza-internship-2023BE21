@@ -11,7 +11,6 @@ using Services;
 
 namespace Vezeeta.Controllers
 {
-    //[Route("api/[controller]")]
     [Route("api/admin/statistics")]
     [ApiController]
     public class AdminStatisticsController : ControllerBase
