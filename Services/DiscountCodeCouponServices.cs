@@ -22,7 +22,10 @@ namespace Services
 
         public IActionResult Add(DiscountCodeCoupon Coupon)
         {
-            return _unitOfWork.DiscountCodeCoupons.Add(Coupon);
+            var result = _unitOfWork.DiscountCodeCoupons.Add(Coupon);
+
+            _unitOfWork.Complete();
+            return result;
         }
 
         public IActionResult Deactivate(int id)
