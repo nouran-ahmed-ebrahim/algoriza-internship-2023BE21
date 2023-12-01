@@ -2,14 +2,6 @@
 using Core.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Repository.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository
 {
@@ -42,14 +34,14 @@ namespace Repository
                     }
                     catch (Exception ex)
                     {
-                        return new NotFoundResult();
+                        return new NotFoundObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
                     }
                 }
 
                 return new BadRequestResult();
             } catch (Exception ex)
             {
-                return new BadRequestResult();
+                return new BadRequestObjectResult(($"{ex.Message}\n {ex.InnerException?.Message}"));
             }
         }
 
@@ -68,7 +60,7 @@ namespace Repository
             var role = await _roleManager.FindByNameAsync(roleName);
             if (role == null)
             {
-                return new NotFoundResult();
+                return new NotFoundObjectResult($"There is no Role called {roleName}");
             }
 
             var usersInRole = await _userManager.GetUsersInRoleAsync(role.Name);
