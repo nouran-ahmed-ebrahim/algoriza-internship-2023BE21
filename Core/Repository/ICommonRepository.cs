@@ -10,7 +10,7 @@ namespace Core.Repository
 {
     public interface ICommonRepository<T> : IBaseRepository<T> where T : class
     {
-        T Update(T entity);
+        IActionResult Update(T entity);
         IActionResult Delete(int Id);
     }
 }

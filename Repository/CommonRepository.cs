@@ -26,10 +26,20 @@ namespace Repository
             return new OkObjectResult("Deleted Successfully");
         }
 
-        public T Update(T entity)
+        public IActionResult Update(T entity)
         {
-            _context.Update(entity); 
-            return entity;
+            try
+            {
+                _context.Update(entity);
+                return new OkObjectResult(entity);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Updating \n: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }
