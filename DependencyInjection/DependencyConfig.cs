@@ -34,7 +34,6 @@ namespace DependencyInjection
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
             Services.AddTransient<IDiscountCodeCouponServices, DiscountCodeCouponServices>();
-            // Services.AddSingleton<IWebHostEnvironment>(Environment);
 
             // inject auto mapper
             var mapperConfig = new MapperConfiguration(cfg =>
@@ -44,21 +43,24 @@ namespace DependencyInjection
             IMapper _mapper = mapperConfig.CreateMapper();
             Services.AddSingleton(_mapper);
 
+            // patch
+            Services.AddControllers().AddNewtonsoftJson();
+
+            // Localization
             //Services.AddLocalization(options => options.ResourcesPath = "Resources");
+            //Services.Configure<RequestLocalizationOptions>(options =>
+            //{
+            //    var supportedCultures = new List<CultureInfo>
+            //    {
+            //        new CultureInfo("en"),
+            //        new CultureInfo("ar")
+            //    };
 
-            Services.Configure<RequestLocalizationOptions>(options =>
-            {
-                var supportedCultures = new List<CultureInfo>
-                {
-                    new CultureInfo("en"),
-                    new CultureInfo("ar")
-                };
-
-                options.DefaultRequestCulture = new RequestCulture("en");
-                options.SupportedCultures = supportedCultures;
-                options.SupportedUICultures = supportedCultures;
-            });
-            return Services;
+            //    options.DefaultRequestCulture = new RequestCulture("en");
+            //    options.SupportedCultures = supportedCultures;
+            //    options.SupportedUICultures = supportedCultures;
+            //});
+            //return Services;
         }
     }
 }
