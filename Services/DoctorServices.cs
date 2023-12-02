@@ -72,7 +72,7 @@ namespace Services
 
                 _unitOfWork.Doctors.Delete(doctor);
                  ApplicationUser User = await _unitOfWork.Doctors.GetDoctorUser(doctor.DoctorUserId);
-                _unitOfWork.ApplicationUser.deleteUser(User);
+                await _unitOfWork.ApplicationUser.deleteUser(User);
                 _unitOfWork.Complete();
                 return new OkObjectResult("Deleted successfully");
             }
