@@ -34,9 +34,9 @@ namespace Services
         }
 
         #region base methods
-        public IEnumerable<Booking> GetAllAsync(int Page, int PageSize)
+        public IActionResult GetAll(int Page, int PageSize, string search)
         {
-            return _unitOfWork.Bookings.GetAll(Page, PageSize);
+            return _unitOfWork.ApplicationUser.GetAll(Page, PageSize, search);
         }
         #endregion
 
