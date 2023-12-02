@@ -11,30 +11,30 @@ namespace Vezeeta.Controllers
     [ApiController]
     public class AdminDoctorController : ControllerBase
     {
-        private readonly IApplicationUserService _applicationUserService;
+        private readonly IDoctorServices _doctorService;
 
-        public AdminDoctorController(IApplicationUserService applicationUserService)
+        public AdminDoctorController(IDoctorServices DoctorService)
         {
-            _applicationUserService = applicationUserService;
+            _doctorService = DoctorService;
         }
 
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                };
+        //    [HttpPost]
+        //    [Consumes("multipart/form-data")]
+        //    public async Task<IActionResult> AddDoctor([FromForm] )
+        //    {
+        //        try
+        //        {
+        //            if (!ModelState.IsValid)
+        //            {
+        //                return BadRequest(ModelState);
+        //            };
 
-                return await _applicationUserService.Add(userDTO, UserRole.Patient, userDTO.RememberMe);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
-            }
-        }
+        //            return await _doctorService.Add(userDTO, UserRole.Patient, userDTO.RememberMe);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
+        //        }
+        //    }
     }
 }
