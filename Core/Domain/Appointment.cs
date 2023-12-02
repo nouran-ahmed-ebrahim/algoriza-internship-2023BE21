@@ -20,7 +20,6 @@ namespace Core.Domain
         [EnumDataType(typeof(DayOfWeek))]
         public DayOfWeek? DayOfWeek { get; set; }
         public Doctor? Doctor { get; set; }
-        public List<AppointmentTime>? AppointmentsTimes { get; set; }
 
     }
 }

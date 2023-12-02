@@ -29,8 +29,6 @@ namespace Core.Domain
         [Required(ErrorMessage = "Date of Birth is required.")]
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
-
-        public List<Booking>? bookings { get; set; }
     }
 }
 

@@ -15,7 +15,5 @@ namespace Core.Domain
         public int Id { get; set; }
         public ApplicationUser? DoctorUser { get; set; }
         public Specialization? Specialization { get; set; }
-        public List<Booking>? Requests { get; set; }
-        public List<Appointment>? Appointments { get; set; }
     }
 }

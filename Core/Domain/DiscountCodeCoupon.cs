@@ -30,6 +30,5 @@ namespace Core.Domain
         [Required(ErrorMessage = "Minimum Requests is required.")]
         [Range(0, int.MaxValue)]
         public int? MinimumRequiredRequests {  get; set; }
-        public List<Booking>? Requests { get; set; } 
     }
 }
