@@ -40,14 +40,16 @@ namespace Services
         {
             try
             {
-                DiscountCodeCoupon DiscountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetById(id);
-                if (DiscountCodeCoupon == null)
+                var IsExist = _unitOfWork.DiscountCodeCoupons.IsExist(id);
+                if (IsExist is not OkObjectResult okResult)
                 {
-                    return new NotFoundObjectResult($"DiscountCodeCoupon with {id} is not found");
+                    return IsExist;
                 }
 
-                DiscountCodeCoupon.IsActivated = false;
-                var result = _unitOfWork.DiscountCodeCoupons.Update(DiscountCodeCoupon);
+                DiscountCodeCoupon coupon = okResult.Value as DiscountCodeCoupon;
+
+                coupon.IsActivated = false;
+                var result = _unitOfWork.DiscountCodeCoupons.Update(coupon);
 
                 _unitOfWork.Complete();
                 return result;
