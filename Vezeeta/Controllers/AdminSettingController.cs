@@ -7,7 +7,7 @@ using Services;
 
 namespace Vezeeta.Controllers
 {
-    [Route("Admin/DiscountCodeCoupon")]
+    [Route("api/Admin/DiscountCodeCoupon")]
     [ApiController]
     public class AdminSettingController : ControllerBase
     {
