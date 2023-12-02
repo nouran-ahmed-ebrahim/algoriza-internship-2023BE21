@@ -18,23 +18,23 @@ namespace Vezeeta.Controllers
             _doctorService = DoctorService;
         }
 
-        //    [HttpPost]
-        //    [Consumes("multipart/form-data")]
-        //    public async Task<IActionResult> AddDoctor([FromForm] )
-        //    {
-        //        try
-        //        {
-        //            if (!ModelState.IsValid)
-        //            {
-        //                return BadRequest(ModelState);
-        //            };
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO,[FromForm] string specialize)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                };
 
-        //            return await _doctorService.Add(userDTO, UserRole.Patient, userDTO.RememberMe);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
-        //        }
-        //    }
+                return await _doctorService.Add(userDTO, UserRole.Patient, userDTO.RememberMe);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
+            }
+        }
     }
 }

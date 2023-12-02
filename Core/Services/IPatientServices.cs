@@ -11,7 +11,6 @@ namespace Core.Services
 {
     public interface IPatientServices:IApplicationUserService
     {
-        public Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe);
 
     }
 }

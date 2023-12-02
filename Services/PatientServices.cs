@@ -15,10 +15,5 @@ namespace Services
 {
     public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper) : ApplicationUserService(UnitOfWork, mapper), IPatientServices
     {
-        public Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe)
-        {
-            ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
-            return Add(user, userRole, rememberMe);
-        }
     }
 }
