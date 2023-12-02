@@ -56,9 +56,27 @@ namespace Services
             }
         }
 
-        public Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            throw new NotImplementedException();
+            // delete doctor (it will delete user also because the delete action is on cascade
+            try
+            {
+                var IsExist = _unitOfWork.Doctors.IsExist(id);
+                if (IsExist is not OkObjectResult okResult)
+                {
+                    return IsExist;
+                }
+
+                Doctor doctor = okResult.Value as Doctor;
+
+                _unitOfWork.Doctors.Delete(doctor);
+                _unitOfWork.Complete();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex.Message);
+            }
         }
     }
 }
