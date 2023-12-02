@@ -33,7 +33,7 @@ namespace Services
         }
         #endregion
 
-        public async Task<IActionResult> Add(UserDTO userDTO, UserRole userRole)
+        public async Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
             string? Role = Enum.GetName(userRole);
