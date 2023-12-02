@@ -9,6 +9,6 @@ namespace Core.Repository
 {
     public interface ISpecializationRepository: IBaseRepository<Specialization>
     {
-        Task<bool> GetAnyAsync();
+        public Specialization GetByName(string Specialization);
     }
 }

@@ -11,9 +11,10 @@ namespace Repository
         {
         }
 
-        public Task<bool> GetAnyAsync()
+        public Specialization GetByName(string Specialization)
         {
-            throw new NotImplementedException();
+            return _context.Specializations.FirstOrDefault(s => s.Name == Specialization);
         }
+
     }
 }
