@@ -14,10 +14,6 @@ namespace Core.Domain
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Price is required.")]
-        [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than or equal to 0")]
-        public int? Price { get; set; }
-
         [NotMapped]
         public int NumOfRequests => Requests.Count();
         public ApplicationUser? DoctorUser { get; set; }
