@@ -5,6 +5,7 @@ using Core.Repository;
 using Core.Services;
 using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,8 +71,10 @@ namespace Services
                 Doctor doctor = okResult.Value as Doctor;
 
                 _unitOfWork.Doctors.Delete(doctor);
+                 ApplicationUser User = await _unitOfWork.Doctors.GetDoctorUser(doctor.DoctorUserId);
+                _unitOfWork.ApplicationUser.deleteUser(User);
                 _unitOfWork.Complete();
-                return new OkResult();
+                return new OkObjectResult("Deleted successfully");
             }
             catch (Exception ex)
             {
