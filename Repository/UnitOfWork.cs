@@ -36,7 +36,7 @@ namespace Repository
             #endregion
 
             #region DI
-            Doctors = new DoctorRepository(_context);
+            Doctors = new DoctorRepository(_context, userManager);
             ApplicationUser = new ApplicationUserRepository(_context, _userManager,
                 _roleManager, _signInManager);
             DiscountCodeCoupons = new DataOperationsRepository<DiscountCodeCoupon>(_context);
