@@ -26,7 +26,7 @@ namespace Vezeeta.Controllers
         }
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
+        public async Task<IActionResult> AddPatient([FromForm]PatientDTO userDTO) 
         {
             try
             {
