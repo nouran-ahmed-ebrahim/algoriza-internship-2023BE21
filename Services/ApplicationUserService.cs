@@ -33,20 +33,20 @@ namespace Services
         }
         #endregion
 
-        public async Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe)
+        public async Task<IActionResult> Add(UserDTO userDTO, UserRole userRole)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
             string? Role = Enum.GetName(userRole);
 
             try
             {
-                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user, Role, rememberMe);
+                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user, Role, userDTO.RememberMe);
                 if (result.Succeeded)
                 {
                     await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
                     try
                     {
-                        await _unitOfWork.ApplicationUser.AddSignInCookie(user, rememberMe);
+                        await _unitOfWork.ApplicationUser.AddSignInCookie(user, userDTO.RememberMe);
                     }
                     catch (Exception ex)
                     {
