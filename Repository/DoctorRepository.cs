@@ -1,5 +1,7 @@
 ﻿using Core.Domain;
 using Core.Repository;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,17 @@ namespace Repository
 {
     public class DoctorRepository : DataOperationsRepository<Doctor>, IDoctorRepository
     {
-        public DoctorRepository(ApplicationDbContext context) : base(context)
+        private UserManager<ApplicationUser> _userManager;
+
+        public DoctorRepository(ApplicationDbContext context, UserManager<ApplicationUser> userManager) : base(context)
         {
+            _userManager = userManager;
         }
-        _unitOfWork._.Entry<Doctor>((doctor).Reference(g => g.Gender).Load();
+
+        public async Task<ApplicationUser> GetDoctorUser(string userId)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(userId);
+            return user;
+        }
     }
 }
