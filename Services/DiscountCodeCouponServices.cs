@@ -40,7 +40,14 @@ namespace Services
         {
             try
             {
-                var result = _unitOfWork.DiscountCodeCoupons.Deactivate(id);
+                DiscountCodeCoupon DiscountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetById(id);
+                if (DiscountCodeCoupon == null)
+                {
+                    return new NotFoundObjectResult($"DiscountCodeCoupon with {id} is not found");
+                }
+
+                DiscountCodeCoupon.IsActivated = false;
+                var result = _unitOfWork.DiscountCodeCoupons.Update(DiscountCodeCoupon);
 
                 _unitOfWork.Complete();
                 return result;
