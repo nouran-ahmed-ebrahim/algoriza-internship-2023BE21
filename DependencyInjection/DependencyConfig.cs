@@ -32,6 +32,8 @@ namespace DependencyInjection
 
             Services.AddTransient<IUnitOfWork, UnitOfWork>();
             Services.AddTransient<IApplicationUserService, ApplicationUserService>();
+            Services.AddTransient<IPatientServices, PatientServices>();
+            Services.AddTransient<IDoctorServices, DoctorServices>();
             Services.AddTransient<IBookingsServices, BookingsServices>();
             Services.AddTransient<IDiscountCodeCouponServices, DiscountCodeCouponServices>();
 
