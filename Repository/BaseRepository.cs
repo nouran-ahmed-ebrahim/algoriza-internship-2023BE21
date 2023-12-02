@@ -1,4 +1,5 @@
 ﻿using Core.Repository;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace Repository
             _context = context;
         }
 
-        public IEnumerable<T> GetAllAsync(int Page, int PageSize)
+        public IActionResult GetAll(int Page, int PageSize, string search)
         {
             throw new NotImplementedException();
         }

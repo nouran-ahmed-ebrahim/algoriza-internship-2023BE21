@@ -11,7 +11,6 @@ namespace Core.Services
     public interface IBookingsServices
     {
         public IActionResult NumOfBookings();
-        IEnumerable<Booking> GetAllAsync(int Page, int PageSize);
-
+        public IActionResult GetAll(int Page, int PageSize, string search);
     }
 }

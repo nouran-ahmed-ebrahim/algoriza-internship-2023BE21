@@ -36,7 +36,7 @@ namespace Services
 
         public IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize)
         {
-            return _unitOfWork.ApplicationUser.GetAllAsync(Page, PageSize);
+            return _unitOfWork.ApplicationUser.GetAll(Page, PageSize);
         }
         #endregion
 

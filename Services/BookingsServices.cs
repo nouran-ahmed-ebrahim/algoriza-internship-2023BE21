@@ -36,7 +36,7 @@ namespace Services
         #region base methods
         public IEnumerable<Booking> GetAllAsync(int Page, int PageSize)
         {
-            return _unitOfWork.Bookings.GetAllAsync(Page, PageSize);
+            return _unitOfWork.Bookings.GetAll(Page, PageSize);
         }
         #endregion
 

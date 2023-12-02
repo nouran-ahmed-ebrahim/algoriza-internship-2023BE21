@@ -12,7 +12,7 @@ namespace Core.Services
     public interface IApplicationUserService
     {
         #region Base methods
-        IEnumerable<ApplicationUser> GetAllAsync(int Page, int PageSize);
+        public IActionResult GetAll(int Page, int PageSize, string search);
         #endregion
         public Task<IActionResult> Add(UserDTO userDTO, bool rememberMe);
         public Task<IActionResult> GetUsersCountInRole(string roleName);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,7 @@ namespace Core.Repository
     public interface IBaseRepository<T> where T : class
     {
         T GetById(int id);
-        IEnumerable<T> GetAllAsync(int Page, int PageSize);
+        IActionResult GetAll(int Page, int PageSize, string search);
 
     }
 }
