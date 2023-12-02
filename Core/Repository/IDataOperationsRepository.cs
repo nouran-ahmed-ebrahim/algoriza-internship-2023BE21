@@ -9,6 +9,6 @@ namespace Core.Repository
 {
     public interface IDataOperationsRepository<T>:ICommonRepository<T> where T : class
     {
-        IActionResult Delete(int Id);
+        IActionResult Delete(T entity);
     }
 }

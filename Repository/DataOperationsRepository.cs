@@ -14,17 +14,10 @@ namespace Repository
         {
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Delete(T entity)
         {
             try
             {
-                var result = IsExist(id);
-                if (result is not OkObjectResult okResult)
-                {
-                    return result;
-                }
-
-                T entity = okResult.Value as T;
                 _context.Set<T>().Remove(entity);
                 return new OkObjectResult("Deleted Successfully");
             }
