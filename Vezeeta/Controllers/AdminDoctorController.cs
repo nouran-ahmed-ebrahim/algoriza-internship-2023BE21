@@ -62,7 +62,7 @@ namespace Vezeeta.Controllers
                 {
                     ModelState.AddModelError("id", "id Is Required");
                 }
-                else if (id == 1)
+                else if (id < 0)
                 {
                     ModelState.AddModelError("id", "id Is Invalid. Id must be greater than 0");
                 }
