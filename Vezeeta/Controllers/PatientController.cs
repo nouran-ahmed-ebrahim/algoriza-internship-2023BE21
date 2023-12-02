@@ -17,16 +17,16 @@ namespace Vezeeta.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IMapper _mapper;
-        private readonly IApplicationUserService _applicationUserService;
+        private readonly IPatientServices _patientServices;
         private readonly IBookingsServices _bookingsServices;
-        public PatientController(IApplicationUserService ApplicationUserService, 
+        public PatientController(IPatientServices PatientServices, 
             IBookingsServices bookingsServices) {
-            _applicationUserService = ApplicationUserService;
+            _patientServices = PatientServices;
             _bookingsServices = bookingsServices;
         }
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddPatient([FromForm]PatientDTO userDTO) 
+        public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Vezeeta.Controllers
                     return BadRequest(ModelState);
                 };
 
-                return await _applicationUserService.Add(userDTO,UserRole.Patient, userDTO.RememberMe);
+                return await _patientServices.AddUser(userDTO,UserRole.Patient);
             }
             catch (Exception ex)
             {
