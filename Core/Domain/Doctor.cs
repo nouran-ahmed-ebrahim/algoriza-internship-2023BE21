@@ -13,9 +13,6 @@ namespace Core.Domain
     public class Doctor
     {
         public int Id { get; set; }
-
-        [NotMapped]
-        public int NumOfRequests => Requests.Count();
         public ApplicationUser? DoctorUser { get; set; }
         public Specialization? Specialization { get; set; }
         public List<Booking>? Requests { get; set; }

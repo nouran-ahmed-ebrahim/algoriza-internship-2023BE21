@@ -18,8 +18,6 @@ namespace Core.Domain
         [Required]
         public string Name { get; set; }
 
-        [NotMapped]
-        public int NumOfRequests => Doctors.Sum(x => x.NumOfRequests);
         public List<Doctor>? Doctors { get; set; }
     }
 }
