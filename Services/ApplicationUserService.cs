@@ -7,6 +7,7 @@ using Core.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
+using Repository.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,16 +41,42 @@ namespace Services
         }
         #endregion
 
-        public Task<IActionResult> Add(UserDTO userDTO, bool rememberMe)
+        public async Task<IActionResult> Add(UserDTO userDTO, bool rememberMe)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
 
             string? Role = Enum.GetName(UserRole.Patient);
 
-            var result =  _unitOfWork.ApplicationUser.Add(user, Role, rememberMe); 
-
-            _unitOfWork.Complete();
-            return result;
+            try
+            {
+                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user, Role, rememberMe);
+                if (result.Succeeded)
+                {
+                    await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
+                    try
+                    {
+                        //await _unitOfWork.ApplicationUser.AddSignInCookie(user, rememberMe);
+                    }
+                    catch (Exception ex)
+                    {
+                        await _unitOfWork.ApplicationUser.deleteUser(user);
+                        return new ObjectResult($"An error occurred while Deactivating the coupone \n: {ex.Message}")
+                        {
+                            StatusCode = 500
+                        };
+                    }
+                    return new OkObjectResult(user);
+                }
+                else
+                {
+                    return new BadRequestResult();
+                }
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.ApplicationUser.deleteUser(user);
+                return new BadRequestObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
+            }
         }
     }
 

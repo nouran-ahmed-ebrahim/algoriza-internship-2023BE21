@@ -19,30 +19,9 @@ namespace Repository
             _signInManager = signInManager;
         }
 
-        public async Task<IActionResult> Add(ApplicationUser user, string roleName, bool rememberMe)
+        public async Task<IdentityResult> Add(ApplicationUser user, string roleName, bool rememberMe)
         {
-            try {
-                IdentityResult result = await _userManager.CreateAsync(user);
-
-                if (result.Succeeded)
-                {
-                    try
-                    {
-                        await AssignRoleToUser(user, roleName);
-                        await AddSignInCookie(user, rememberMe);
-                        return new OkObjectResult(user);
-                    }
-                    catch (Exception ex)
-                    {
-                        return new NotFoundObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
-                    }
-                }
-
-                return new BadRequestResult();
-            } catch (Exception ex)
-            {
-                return new BadRequestObjectResult(($"{ex.Message}\n {ex.InnerException?.Message}"));
-            }
+               return  await _userManager.CreateAsync(user);
         }
 
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)
