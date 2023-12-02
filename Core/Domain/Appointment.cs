@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
@@ -19,7 +20,9 @@ namespace Core.Domain
         [Required(ErrorMessage = "Day is required.")]
         [EnumDataType(typeof(DayOfWeek))]
         public DayOfWeek? DayOfWeek { get; set; }
-        public Doctor? Doctor { get; set; }
 
+        [ForeignKey("FK_Appointments_Doctors_DoctorId")]
+        public int? DoctorId { get; set; }
+        public Doctor? Doctor { get; set; }
     }
 }

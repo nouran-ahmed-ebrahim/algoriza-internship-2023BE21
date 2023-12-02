@@ -13,7 +13,18 @@ namespace Core.Domain
     public class Doctor
     {
         public int Id { get; set; }
+
+        #region ForeignKey
+        [ForeignKey("FK_Doctors_AspNetUsers_DoctorUserId")]
+        public string DoctorUserId { get; set; }
+
+        [ForeignKey("FK_Doctors_Specializations_SpecializationId")]
+        public int SpecializationId { get; set; }
+        #endregion
+
+        #region nav prop
         public ApplicationUser? DoctorUser { get; set; }
         public Specialization? Specialization { get; set; }
+        #endregion
     }
 }
