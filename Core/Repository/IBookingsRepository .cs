@@ -14,6 +14,5 @@ namespace Core.Repository
     {
         public int NumOfBooKings();
         public int NumOfBookings(Expression<Func<Booking, bool>> criteria);
-
     }
 }
