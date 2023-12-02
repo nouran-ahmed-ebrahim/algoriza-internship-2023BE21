@@ -12,6 +12,6 @@ namespace Core.Repository
     {
         IActionResult Update(T entity);
         IActionResult Add(T entity);
-
+        IActionResult IsExist(int id);
     }
 }
