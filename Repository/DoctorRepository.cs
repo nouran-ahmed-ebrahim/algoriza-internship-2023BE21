@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    internal class DoctorRepository : CommonRepository<Doctor>, IDoctorRepository
+    public class DoctorRepository : DataOperationsRepository<Doctor>, IDoctorRepository
     {
         public DoctorRepository(ApplicationDbContext context) : base(context)
         {
