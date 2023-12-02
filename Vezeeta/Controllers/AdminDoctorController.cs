@@ -20,16 +20,24 @@ namespace Vezeeta.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO,[FromForm] string specialize)
+        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO,[FromForm] string Specialize)
         {
             try
             {
+                if(string.IsNullOrEmpty(Specialize))
+                {
+                    ModelState.AddModelError("Specialize", "Specialize Is Required");
+                }
+                if (userDTO.Image == null || userDTO.Image.Length == 0)
+                {
+                    ModelState.AddModelError("userDTO.Image", "Image Is Required");
+                }
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 };
 
-                return await _doctorService.Add(userDTO, UserRole.Patient, userDTO.RememberMe);
+                return await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
             }
             catch (Exception ex)
             {
