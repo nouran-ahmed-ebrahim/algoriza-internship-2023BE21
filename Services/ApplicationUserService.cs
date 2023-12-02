@@ -33,11 +33,11 @@ namespace Services
         }
         #endregion
 
-        public async Task<IActionResult> Add(UserDTO userDTO, bool rememberMe)
+        public async Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
 
-            string? Role = Enum.GetName(UserRole.Patient);
+            string? Role = Enum.GetName(userRole);
 
             try
             {

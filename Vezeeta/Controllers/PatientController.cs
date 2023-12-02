@@ -35,7 +35,7 @@ namespace Vezeeta.Controllers
                     return BadRequest(ModelState);
                 };
 
-                return await _applicationUserService.Add(userDTO, userDTO.RememberMe);
+                return await _applicationUserService.Add(userDTO,UserRole.Patient, userDTO.RememberMe);
             }
             catch (Exception ex)
             {

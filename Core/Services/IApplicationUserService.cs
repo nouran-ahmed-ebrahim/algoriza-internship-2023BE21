@@ -1,5 +1,6 @@
 ﻿using Core.Domain;
 using Core.DTO;
+using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Core.Services
         #region Base methods
         public IActionResult GetAll(int Page, int PageSize, string search);
         #endregion
-        public Task<IActionResult> Add(UserDTO userDTO, bool rememberMe);
+        public Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
     }
 }
