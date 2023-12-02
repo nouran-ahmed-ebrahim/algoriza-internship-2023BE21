@@ -4,6 +4,7 @@ using Core.Services;
 using Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Repository.Migrations;
 
 namespace Vezeeta.Controllers
 {
@@ -20,11 +21,11 @@ namespace Vezeeta.Controllers
 
         [HttpPost]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO,[FromForm] string Specialize)
+        public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO, [FromForm] string Specialize)
         {
             try
             {
-                if(string.IsNullOrEmpty(Specialize))
+                if (string.IsNullOrEmpty(Specialize))
                 {
                     ModelState.AddModelError("Specialize", "Specialize Is Required");
                 }
@@ -41,7 +42,40 @@ namespace Vezeeta.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
+                return StatusCode(500, $"An error occurred while adding the Doctor: {ex.Message}");
+            }
+        }
+
+        [HttpPut]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> UpdateDoctor([FromForm] UserDTO userDTO, [FromForm] string Specialize)
+        {
+            return Ok();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteDoctor(int id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    ModelState.AddModelError("id", "id Is Required");
+                }
+                else if (id == 1)
+                {
+                    ModelState.AddModelError("id", "id Is Invalid. Id must be greater than 0");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                };
+                return await _doctorService.Delete(id);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while Deleting the Doctor:\n" +
+                    $"  {ex.Message} \n  {ex.Message}");
             }
         }
     }
