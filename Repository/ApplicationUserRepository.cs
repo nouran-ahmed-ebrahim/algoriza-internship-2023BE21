@@ -21,11 +21,13 @@ namespace Repository
 
         public async Task<IdentityResult> Add(ApplicationUser user, string roleName, bool rememberMe)
         {
-               return  await _userManager.CreateAsync(user);
+            return await _userManager.CreateAsync(user);
         }
 
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)
         {
+            /// await  _signInManager.PasswordSignInAsync(user.Email, user.PasswordHash, rememberMe, false);
+            
             await _signInManager.SignInAsync(user, rememberMe);
         }
 
@@ -48,6 +50,9 @@ namespace Repository
             return new OkObjectResult(userCount);
         }
 
-
+        public async Task deleteUser(ApplicationUser user)
+        {
+           await _userManager.DeleteAsync(user);
+        }
     }
 }

@@ -55,12 +55,12 @@ namespace Services
                     await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
                     try
                     {
-                        //await _unitOfWork.ApplicationUser.AddSignInCookie(user, rememberMe);
+                        await _unitOfWork.ApplicationUser.AddSignInCookie(user, rememberMe);
                     }
                     catch (Exception ex)
                     {
                         await _unitOfWork.ApplicationUser.deleteUser(user);
-                        return new ObjectResult($"An error occurred while Deactivating the coupone \n: {ex.Message}")
+                        return new ObjectResult($"An error occurred while Creating cookie \n: {ex.Message}")
                         {
                             StatusCode = 500
                         };

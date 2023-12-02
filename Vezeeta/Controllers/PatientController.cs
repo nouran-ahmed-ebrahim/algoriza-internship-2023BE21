@@ -28,7 +28,6 @@ namespace Vezeeta.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
         {
-
             try
             {
                 if (!ModelState.IsValid)
