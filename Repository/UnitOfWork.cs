@@ -18,7 +18,7 @@ namespace Repository
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public IDataOperationsRepository<Doctor> Doctors { get; private set; }
+        public IDoctorRepository Doctors { get; private set; }
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IDataOperationsRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; private set; }
         public IDataOperationsRepository<Appointment> Appointments { get; private set; }
@@ -36,7 +36,7 @@ namespace Repository
             #endregion
 
             #region DI
-            Doctors = new DataOperationsRepository<Doctor>(_context);
+            Doctors = new DoctorRepository(_context);
             ApplicationUser = new ApplicationUserRepository(_context, _userManager,
                 _roleManager, _signInManager);
             DiscountCodeCoupons = new DataOperationsRepository<DiscountCodeCoupon>(_context);
