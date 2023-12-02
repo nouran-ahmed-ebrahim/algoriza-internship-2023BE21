@@ -30,7 +30,7 @@ namespace Core.Domain
         [DataType(DataType.Date)]
         public DateTime DateOfBirth { get; set; }
 
-        public List<Booking>? Requests { get; set; }
+        public List<Booking>? bookings { get; set; }
     }
 }
 
