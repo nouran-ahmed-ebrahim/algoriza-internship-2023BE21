@@ -13,7 +13,8 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper) : ApplicationUserService(UnitOfWork, mapper), IDoctorServices
+    public class DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper) : 
+        ApplicationUserService(UnitOfWork, mapper), IDoctorServices
     {
         public async Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize)
         {
@@ -53,6 +54,11 @@ namespace Services
                     StatusCode = 500
                 };
             }
+        }
+
+        public Task<IActionResult> Delete(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

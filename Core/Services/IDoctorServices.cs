@@ -12,5 +12,6 @@ namespace Core.Services
     public interface IDoctorServices : IApplicationUserService
     {
         Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize);
+        Task<IActionResult> Delete(int id);
     }
 }
