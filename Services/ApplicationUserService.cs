@@ -6,14 +6,6 @@ using Core.Services;
 using Core.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Repository;
-using Repository.Migrations;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Services.ApplicationUserService;
 
 namespace Services
 {

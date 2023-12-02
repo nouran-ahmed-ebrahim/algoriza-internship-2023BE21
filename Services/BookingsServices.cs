@@ -33,6 +33,11 @@ namespace Services
             return new OkObjectResult(result);
         }
 
+        public IActionResult AddBookingToPatient(int AppointmentTimeId, string DiscountCodeCouponName)
+        {
+            throw new NotImplementedException();
+        }
+
         #region base methods
         public IActionResult GetAll(int Page, int PageSize, string search)
         {
