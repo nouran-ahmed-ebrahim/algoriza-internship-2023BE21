@@ -11,6 +11,7 @@ namespace Core.Repository
     public interface ICommonRepository<T> : IBaseRepository<T> where T : class
     {
         IActionResult Update(T entity);
-        IActionResult Delete(int Id);
+        IActionResult Add(T entity);
+
     }
 }

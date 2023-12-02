@@ -15,17 +15,12 @@ namespace Repository
 
         }
 
-        public IActionResult Delete(int id)
+        public IActionResult Add(T entity)
         {
             try
             {
-                T entity = GetById(id);
-                if (entity == null)
-                {
-                    return new NotFoundObjectResult($"{id} is not found");
-                }
-                _context.Set<T>().Remove(entity);
-                return new OkObjectResult("Deleted Successfully");
+                _context.Set<T>().Add(entity);
+                return new OkObjectResult(entity);
             }
             catch (Exception ex)
             {
@@ -35,6 +30,7 @@ namespace Repository
                 };
             }
         }
+        
 
         public IActionResult Update(T entity)
         {
