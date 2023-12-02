@@ -36,7 +36,7 @@ namespace Repository
             T entity = GetById(id);
             if (entity == null)
             {
-                return new NotFoundObjectResult($"{id} is not found");
+                return new NotFoundObjectResult($"Id {id} is not found");
             }
             return new OkObjectResult(entity);
         }
