@@ -13,7 +13,7 @@ namespace Services.Helpers
         public MappingUserDtTOProfile()
         {
 
-            CreateMap<PatientDTO, ApplicationUser>()
+            CreateMap<UserDTO, ApplicationUser>()
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src =>  $"{src.FirstName} {src.LastName}"))
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.PasswordHash, opt => opt.MapFrom(src => HashPassord(src.Password)))

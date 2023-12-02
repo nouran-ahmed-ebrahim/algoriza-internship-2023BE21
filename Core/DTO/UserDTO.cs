@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Core.DTO
 {
-    public class PatientDTO
+    public class UserDTO
     {
         public int Id { get; set; }
 
