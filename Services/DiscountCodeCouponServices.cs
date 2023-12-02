@@ -63,7 +63,14 @@ namespace Services
         {
             try
             {
-                var result = _unitOfWork.DiscountCodeCoupons.Delete(Id);
+                var IsExist = _unitOfWork.DiscountCodeCoupons.IsExist(Id);
+                if (IsExist is not OkObjectResult okResult)
+                {
+                    return IsExist;
+                }
+
+                DiscountCodeCoupon coupon = okResult.Value as DiscountCodeCoupon;
+                var result = _unitOfWork.DiscountCodeCoupons.Delete(coupon);
                 _unitOfWork.Complete();
                 return result;
             }

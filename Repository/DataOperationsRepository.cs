@@ -18,11 +18,13 @@ namespace Repository
         {
             try
             {
-                T entity = GetById(id);
-                if (entity == null)
+                var result = IsExist(id);
+                if (result is not OkObjectResult okResult)
                 {
-                    return new NotFoundObjectResult($"{id} is not found");
+                    return result;
                 }
+
+                T entity = okResult.Value as T;
                 _context.Set<T>().Remove(entity);
                 return new OkObjectResult("Deleted Successfully");
             }
