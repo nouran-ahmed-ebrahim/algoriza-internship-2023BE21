@@ -15,7 +15,7 @@ namespace Core.Services
         #region Base methods
         public IActionResult GetAll(int Page, int PageSize, string search);
         #endregion
-        public Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe);
+        public Task<IActionResult> Add(ApplicationUser user, UserRole userRole, bool rememberMe);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
     }
 }

@@ -11,8 +11,8 @@ namespace Services
 {
     public class ApplicationUserService: IApplicationUserService
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+        protected readonly IUnitOfWork _unitOfWork;
+        protected readonly IMapper _mapper;
 
         public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper)
         {
@@ -33,10 +33,8 @@ namespace Services
         }
         #endregion
 
-        public async Task<IActionResult> Add(UserDTO userDTO, UserRole userRole, bool rememberMe)
+        public async Task<IActionResult> Add(ApplicationUser user, UserRole userRole, bool rememberMe)
         {
-            ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
-
             string? Role = Enum.GetName(userRole);
 
             try
