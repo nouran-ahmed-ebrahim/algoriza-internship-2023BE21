@@ -9,7 +9,7 @@ namespace Core.Repository
 {
     public interface IUnitOfWork : IDisposable
     {
-        public IDoctorRepository Doctors { get; }
+        public IDataOperationsRepository<Doctor> Doctors { get; }
         public IApplicationUserRepository ApplicationUser { get; }
         public IDiscountCodeCouponRepository DiscountCodeCoupons { get; }
         public IDataOperationsRepository<Appointment> Appointments { get; }
