@@ -13,6 +13,7 @@ namespace Core.Services
     {
         Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize);
         Task<IActionResult> Delete(int id);
-        Task<IActionResult> AddAppointments(int DoctorId,int prices, Dictionary<string,List<DateTime>> Appointments);
+        IActionResult AddAppointments(int DoctorId,int prices, Dictionary<string,List<DateTime>> Appointments);
+        IActionResult SetPrice(int doctorId, int price);
     }
 }

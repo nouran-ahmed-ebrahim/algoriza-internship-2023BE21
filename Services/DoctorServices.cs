@@ -19,11 +19,11 @@ namespace Services
         ApplicationUserService(UnitOfWork, mapper), IDoctorServices
     {
         [Authorize(Roles ="Doctor")]
-        public async Task<IActionResult> AddAppointments(int DoctorId,int price,
+        public IActionResult AddAppointments(int DoctorId,int price,
             Dictionary<string, List<DateTime>> Appointments)
         {
             //  set doctor price
-            var SettingPriceResult = await SetPrice(DoctorId, price); 
+            var SettingPriceResult = SetPrice(DoctorId, price); 
             if (SettingPriceResult is not OkResult)
             {
                 return SettingPriceResult;
@@ -35,11 +35,32 @@ namespace Services
             {
                 return AddingDaysResult;
             }
-            
+
+            _unitOfWork.Complete();
             return new OkResult();
         }
 
-        
+        public IActionResult SetPrice(int doctorId, int price)
+        {
+
+            Doctor doctor = _unitOfWork.Doctors.GetById(doctorId);
+            if (doctor == null)
+            {
+                return new NotFoundObjectResult($"Doctor with id {doctorId} is not found");
+
+            }
+
+            doctor.Price = price;
+
+            var updatingResult = _unitOfWork.Doctors.Update(doctor);
+            if (updatingResult is not OkResult)
+            {
+                return updatingResult;
+            }
+
+            return new OkResult();
+        }
+
         public async Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize)
         {
             // get specializeId by name
@@ -86,13 +107,11 @@ namespace Services
             // delete doctor (it will delete user also because the delete action is on cascade
             try
             {
-                var IsExist = _unitOfWork.Doctors.IsExist(id);
-                if (IsExist is not OkObjectResult okResult)
+                Doctor doctor = _unitOfWork.Doctors.GetById(id);
+                if (doctor != null)
                 {
-                    return IsExist;
+                    return new NotFoundObjectResult($"Id {id} is not found");
                 }
-
-                Doctor doctor = okResult.Value as Doctor;
 
                 _unitOfWork.Doctors.Delete(doctor);
                  ApplicationUser User = await _unitOfWork.Doctors.GetDoctorUser(doctor.DoctorUserId);
