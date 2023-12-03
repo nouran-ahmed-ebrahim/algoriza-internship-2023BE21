@@ -44,7 +44,7 @@ namespace Services
             };
             try
             {
-                _unitOfWork.Doctors.Add(doctor);
+                await _unitOfWork.Doctors.Add(doctor);
                 _unitOfWork.Complete();
                 return new OkObjectResult(doctor);
             }

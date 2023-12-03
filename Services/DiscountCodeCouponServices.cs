@@ -20,11 +20,11 @@ namespace Services
             _unitOfWork = UnitOfWork;
         }
 
-        public IActionResult Add(DiscountCodeCoupon Coupon)
+        public async Task<IActionResult> Add(DiscountCodeCoupon Coupon)
         {
             try
             {
-                var result = _unitOfWork.DiscountCodeCoupons.Add(Coupon);
+                var result = await _unitOfWork.DiscountCodeCoupons.Add(Coupon);
 
                 _unitOfWork.Complete();
                 return result;

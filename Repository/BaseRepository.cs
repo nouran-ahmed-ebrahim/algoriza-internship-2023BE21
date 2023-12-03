@@ -16,6 +16,21 @@ namespace Repository
             _context = context;
         }
 
+        public virtual async Task<IActionResult> Add(T entity)
+        {
+            try
+            {
+                _context.Set<T>().Add(entity);
+                return new OkObjectResult(entity);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while adding: {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
         public IActionResult GetAll(int Page, int PageSize, string search)
         {
             throw new NotImplementedException();

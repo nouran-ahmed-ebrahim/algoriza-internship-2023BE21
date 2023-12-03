@@ -21,9 +21,10 @@ namespace Repository
             _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> Add(ApplicationUser user)
+        public override async Task<IActionResult> Add(ApplicationUser user)
         {
-            return await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user);
+            return result.Succeeded ? new OkResult() : new BadRequestResult();
         }
 
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)

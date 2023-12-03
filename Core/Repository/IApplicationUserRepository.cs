@@ -9,7 +9,7 @@ namespace Core.Repository
     public interface IApplicationUserRepository: IBaseRepository<ApplicationUser>
     {
         Task<IActionResult> GetUsersCountInRole(string roleName);
-        Task<IdentityResult> Add(ApplicationUser user);
+        //Task<IActionResult> Add(ApplicationUser user);
         Task AssignRoleToUser(ApplicationUser user, string roleName);
         Task AddSignInCookie(ApplicationUser user, bool rememberMe);
         Task<bool> IsInRole(ApplicationUser user, string role);

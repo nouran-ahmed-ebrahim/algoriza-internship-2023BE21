@@ -9,6 +9,7 @@ namespace Core.Repository
 {
     public interface IBaseRepository<T> where T : class
     {
+        Task<IActionResult> Add(T entity);
         T GetById(int id);
         IActionResult GetAll(int Page, int PageSize, string search);
 

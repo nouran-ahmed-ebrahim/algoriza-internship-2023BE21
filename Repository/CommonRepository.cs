@@ -15,22 +15,6 @@ namespace Repository
 
         }
 
-        public IActionResult Add(T entity)
-        {
-            try
-            {
-                _context.Set<T>().Add(entity);
-                return new OkObjectResult(entity);
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult($"An error occurred while adding: {ex.Message}")
-                {
-                    StatusCode = 500
-                };
-            }
-        }
-
         public IActionResult IsExist(int id)
         {
             T entity = GetById(id);

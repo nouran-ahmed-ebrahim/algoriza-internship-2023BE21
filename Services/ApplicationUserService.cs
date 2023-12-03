@@ -46,8 +46,8 @@ namespace Services
 
             try
             {
-                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user);
-                if (result.Succeeded)
+                var result = await _unitOfWork.ApplicationUser.Add(user);
+                if (result is OkResult)
                 {
                     await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
                     try
@@ -66,7 +66,7 @@ namespace Services
                 }
                 else
                 {
-                    return new BadRequestResult();
+                    return result;
                 }
             }
             catch (Exception ex)

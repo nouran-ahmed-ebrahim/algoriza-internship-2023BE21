@@ -47,14 +47,14 @@ namespace Vezeeta.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
+        public async Task<IActionResult> AddDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             };
 
-            return _discountCodeCouponServices.Add(DiscountCodeCoupon);
+            return await _discountCodeCouponServices.Add(DiscountCodeCoupon);
 
         }
 

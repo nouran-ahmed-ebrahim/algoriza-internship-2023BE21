@@ -10,7 +10,7 @@ namespace Core.Services
 {
     public interface IDiscountCodeCouponServices
     {
-        IActionResult Add(DiscountCodeCoupon Coupon);
+        Task<IActionResult> Add(DiscountCodeCoupon Coupon);
         IActionResult Update(DiscountCodeCoupon Coupon);
         IActionResult Delete(int Id);
         IActionResult Deactivate(int id);
