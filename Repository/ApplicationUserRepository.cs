@@ -2,6 +2,7 @@
 using Core.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Repository
@@ -69,6 +70,12 @@ namespace Repository
         public async Task<ApplicationUser> GetUserByEmail(string Email)
         {
             return await _userManager.FindByEmailAsync(Email);
+        }
+
+        public async Task<string> GetUserIdFromClaim(ApplicationUser user)
+        {
+            var Claims = await _userManager.GetClaimsAsync(user);
+            return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }
     }
 }
