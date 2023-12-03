@@ -67,7 +67,7 @@ namespace Services
             Specialization specialization = _unitOfWork.Specializations.GetByName(specialize);
             if(specialization == null)
             {
-                return new BadRequestObjectResult($"There is no Specialization called {specialize}");
+                return new NotFoundObjectResult($"There is no Specialization called {specialize}");
             }
 
             // create user
@@ -123,6 +123,11 @@ namespace Services
             {
                 return new BadRequestObjectResult(ex.Message);
             }
+        }
+
+        public IActionResult ConfirmCheckUp(int BookingId)
+        {
+            return _bookingsServices.ChangeBookingState(BookingId, BookingState.Completed);
         }
     }
 }
