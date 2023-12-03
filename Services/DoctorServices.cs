@@ -42,7 +42,16 @@ namespace Services
 
         private IActionResult AddDays(int doctorId, Dictionary<string, List<DateTime>> appointments)
         {
-            throw new NotImplementedException();
+            IActionResult result;
+           foreach (var day in appointments)
+           {
+                result = AddDays(day);
+                if(result is not OkResult)
+                {
+                    return result;
+                }
+           }
+            return new OkResult();
         }
 
         public IActionResult SetPrice(int doctorId, int price)
