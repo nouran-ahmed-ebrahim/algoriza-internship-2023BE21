@@ -90,9 +90,9 @@ namespace Vezeeta.Controllers
         }
 
 
-        [HttpPatch("ConfirmCheckUp")]
+        [HttpPatch("/Booking/Confirm")]
         [Authorize(Roles = "Doctor")]
-        public IActionResult ConfirmCheckUp(int BookingId)
+        public IActionResult ConfirmBooking(int BookingId)
         {
             return _doctorServices.ConfirmCheckUp(BookingId);
         }
