@@ -43,23 +43,32 @@ namespace Services
                 return new BadRequestObjectResult($"Inter Time Slots for day {day}");
             }
 
-            Appointment appointment = new Appointment()
-            {
-                DoctorId = doctorId,
-                DayOfWeek = day.Key,
-            };
+            Appointment appointment = _unitOfWork.Appointments.GetByDoctorIdAndDay(doctorId, day.Key);
+            int DayId;
 
-            try
+            if (appointment == null)
             {
-                _unitOfWork.Appointments.Add(appointment);
+                appointment = new Appointment()
+                {
+                    DoctorId = doctorId,
+                    DayOfWeek = day.Key,
+                };
+                DayId = _unitOfWork.Appointments.GetNextAppointmentId();
+                try
+                {
+                    _unitOfWork.Appointments.Add(appointment);
+                }
+                catch (Exception ex)
+                {
+                    return new BadRequestObjectResult($"There is a problem while Adding {day} \n {ex.Message}" +
+                         $"\n {ex.InnerException?.Message}");
+                }
             }
-            catch (Exception ex)
+            else
             {
-                return new BadRequestObjectResult($"There is a problem while Adding {day} \n {ex.Message}" +
-                     $"\n {ex.InnerException?.Message}");
+                DayId = appointment.Id;
             }
 
-            int DayId = _unitOfWork.Appointments.GetNextAppointmentId();
             IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, day.Value);
             if (addingDayTimesResult is not OkResult)
             {

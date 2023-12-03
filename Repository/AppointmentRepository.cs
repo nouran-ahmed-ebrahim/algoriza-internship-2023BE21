@@ -11,6 +11,11 @@ namespace Repository
     public class AppointmentRepository(ApplicationDbContext context) :
             BaseRepository<Appointment>(context), IAppointmentRepository
     {
+        public Appointment GetByDoctorIdAndDay(int doctorId, DayOfWeek day)
+        {
+            return _context.Appointments.FirstOrDefault(a => a.DoctorId == doctorId && a.DayOfWeek == day);
+        }
+
         public int GetNextAppointmentId()
         {
             var maxId = _context.Appointments.Select(d => d.Id).DefaultIfEmpty(0).Max();
