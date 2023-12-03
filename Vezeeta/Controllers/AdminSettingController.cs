@@ -83,7 +83,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpGet("SignIn")]
-        public async Task<IActionResult> SignIn(string Email, string Password, bool RememberMe)
+        public async Task<IActionResult> SignIn([FromForm] string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
             if (string.IsNullOrEmpty(Email))
             {
