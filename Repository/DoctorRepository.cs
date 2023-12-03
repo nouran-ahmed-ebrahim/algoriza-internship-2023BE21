@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,12 @@ namespace Repository
         {
             ApplicationUser user = await _userManager.FindByIdAsync(userId);
             return user;
+        }
+
+        public async Task<string> GetDoctorIdFromClaim(ApplicationUser user)
+        {
+            var Claims = await _userManager.GetClaimsAsync(user);
+            return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
         }
     }
 }
