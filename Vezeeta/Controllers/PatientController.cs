@@ -24,6 +24,22 @@ namespace Vezeeta.Controllers
             _patientServices = PatientServices;
             _bookingsServices = bookingsServices;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SignIn(string Email, string Password, bool RememberMe)
+        {
+            if(string.IsNullOrEmpty(Email))
+            {
+                return BadRequest("Email is required");
+            }
+            
+            if (string.IsNullOrEmpty(Password))
+            {
+                return BadRequest("Password is required");
+            }
+
+            return await _patientServices.SignIn(Email, Password, RememberMe);
+        }
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
