@@ -15,7 +15,5 @@ namespace Core.Services
         Task<IActionResult> Delete(int id);
         IActionResult AddAppointments(int DoctorId,int prices, Dictionary<DayOfWeek, List<DateTime>> Appointments);
         IActionResult SetPrice(int doctorId, int price);
-        IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<DateTime>> appointments);
-        IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<DateTime>> day);
     }
 }
