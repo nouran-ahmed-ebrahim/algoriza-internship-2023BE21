@@ -15,7 +15,7 @@ namespace Services
         private readonly IUnitOfWork _unitOfWork;
         public AppointmentTimeServices(IUnitOfWork _unitOfWork) { 
         }
-        public IActionResult AddingDayTime(int dayId, DateTime timeSlot)
+        public IActionResult AddDayTime(int dayId, DateTime timeSlot)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace Services
                     AppointmentId = dayId,
                     Time = timeSlot
                 };
-                _unitOfWork.AppointmentTimes.Add();
+                _unitOfWork.AppointmentTimes.Add(appointmentTime);
                 return new OkResult();
             }
             catch (Exception ex)
@@ -34,6 +34,22 @@ namespace Services
             }
 
             
+        }
+
+        public IActionResult AddDayTimes(int dayId, List<DateTime> value)
+        {
+            IActionResult result;
+
+            foreach (DateTime time in value)
+            {
+                result = AddDayTime(dayId, time);
+                if (result is not OkResult)
+                { 
+                    return result;
+                }
+            }
+
+            return new OkResult();
         }
     }
 }

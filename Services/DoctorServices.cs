@@ -45,7 +45,7 @@ namespace Services
             }
 
             _unitOfWork.Complete();
-            return new OkResult();
+            return new OkObjectResult("Price & Appointments Added Successfully");
         }
 
         public IActionResult SetPrice(int doctorId, int price)
