@@ -60,5 +60,15 @@ namespace Repository
         {
             return await _signInManager.PasswordSignInAsync(Email,Password, RememberMe, false);
         }
+
+        public Task<bool> IsInRole(ApplicationUser user, string role)
+        {
+            return _userManager.IsInRoleAsync(user, role);
+        }
+
+        public async Task<ApplicationUser> GetUserByEmail(string Email)
+        {
+            return await _userManager.FindByEmailAsync(Email);
+        }
     }
 }

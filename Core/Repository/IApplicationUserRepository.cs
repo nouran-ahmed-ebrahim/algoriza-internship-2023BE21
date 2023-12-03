@@ -11,6 +11,9 @@ namespace Core.Repository
         public Task<IdentityResult> Add(ApplicationUser user, string roleName, bool rememberMe);
         public Task AssignRoleToUser(ApplicationUser user, string roleName);
         public Task AddSignInCookie(ApplicationUser user, bool rememberMe);
+        public Task<bool> IsInRole(ApplicationUser user, string role);
+
+        public Task<ApplicationUser> GetUserByEmail(string Email);
         public Task DeleteUser(ApplicationUser user);
         public Task<SignInResult> SignInUser(string Email, String Password, bool RememberMe);
     }
