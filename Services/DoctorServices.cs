@@ -20,7 +20,7 @@ namespace Services
     {
         [Authorize(Roles ="Doctor")]
         public IActionResult AddAppointments(int DoctorId,int price,
-            Dictionary<string, List<DateTime>> Appointments)
+            Dictionary<DayOfWeek, List<DateTime>> Appointments)
         {
             //  set doctor price
             var SettingPriceResult = SetPrice(DoctorId, price); 
@@ -40,17 +40,45 @@ namespace Services
             return new OkResult();
         }
 
-        private IActionResult AddDays(int doctorId, Dictionary<string, List<DateTime>> appointments)
+        public IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<DateTime>> appointments)
         {
             IActionResult result;
            foreach (var day in appointments)
            {
-                result = AddDays(day);
+                result = AddDay(doctorId,day);
                 if(result is not OkResult)
                 {
                     return result;
                 }
            }
+            return new OkResult();
+        }
+
+        public IActionResult AddDay(int doctorId,KeyValuePair<DayOfWeek, List<DateTime>> day)
+        {
+            Appointment appointment = new Appointment()
+            {
+                DoctorId = doctorId,
+                DayOfWeek = day.Key,
+            };
+
+            try
+            {
+                _unitOfWork.Appointments.Add(appointment);
+            }
+            catch (Exception ex)
+            {
+               return new BadRequestObjectResult($"There is a problem while Adding {day} \n {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}");
+            }
+
+            int DayId = _unitOfWork.Appointments.GetNextAppointmentId();
+            var addingDayTimesResult = addingDayTimesResult(day.Value);
+            if(addingDayTimesResult is not OkResult)
+            {
+                return OkResult;
+            }
+
             return new OkResult();
         }
 
