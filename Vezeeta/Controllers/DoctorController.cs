@@ -88,5 +88,13 @@ namespace Vezeeta.Controllers
                 };
             }
         }
+
+
+        [HttpPatch("ConfirmCheckUp")]
+        [Authorize(Roles = "Doctor")]
+        public IActionResult ConfirmCheckUp(int BookingId)
+        {
+            return _doctorServices.ConfirmCheckUp(BookingId);
+        }
     }
 }
