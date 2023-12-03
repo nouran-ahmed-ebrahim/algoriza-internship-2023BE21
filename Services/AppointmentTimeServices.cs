@@ -43,6 +43,11 @@ namespace Services
 
         public IActionResult AddDayTimes(int dayId, List<string> Times)
         {    
+            if(Times.Count == 0)
+            {
+                return new BadRequestObjectResult("Times is required");
+            }
+
             List<AppointmentTime> dayTimes = new List<AppointmentTime>();
             IActionResult result;
             TimeSpan timeSlot;
