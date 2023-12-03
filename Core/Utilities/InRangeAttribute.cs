@@ -33,14 +33,14 @@ namespace Core.Utilities
             var currentValue = (int)value;
             var errorMessage = $"The value must be in the range ";
 
-            if (discountTypeValue == DiscountType.Value && (currentValue < MinValueForDiscountType0 || currentValue > MaxValueForDiscountType0))
+            if (discountTypeValue == DiscountType.Value && (currentValue < MinValueForDiscountType1 && currentValue > MaxValueForDiscountType1))
             {
-                errorMessage += $"({MinValueForDiscountType0} - {MaxValueForDiscountType0})";
+                errorMessage += $"({MinValueForDiscountType1} - {MaxValueForDiscountType1})";
                 return new ValidationResult(errorMessage);
             }
-            else if (discountTypeValue == DiscountType.Percentage && (currentValue < MinValueForDiscountType1 || currentValue > MaxValueForDiscountType1))
+            else if (discountTypeValue == DiscountType.Percentage && (currentValue < MinValueForDiscountType0 || currentValue > MaxValueForDiscountType0))
             {
-                errorMessage += $"({MinValueForDiscountType1} : {MaxValueForDiscountType1})";
+                errorMessage += $"({MinValueForDiscountType0} : {MaxValueForDiscountType0})";
                 return new ValidationResult(errorMessage);
             }
 
