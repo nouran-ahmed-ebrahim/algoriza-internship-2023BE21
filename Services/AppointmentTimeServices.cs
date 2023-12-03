@@ -14,8 +14,11 @@ namespace Services
     public class AppointmentTimeServices : IAppointmentTimeServices
     {
         private readonly IUnitOfWork _unitOfWork;
-        public AppointmentTimeServices(IUnitOfWork _unitOfWork) { 
+        public AppointmentTimeServices(IUnitOfWork unitOfWork)
+        {
+            _unitOfWork = unitOfWork;
         }
+
         public IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
         {
             AppointmentTime appointmentTime;
@@ -48,8 +51,8 @@ namespace Services
                 timeSlot = ConvertStringTotTimeSpan(time);
                 result = AddDayTime(dayId, timeSlot);
                 if (result is not OkObjectResult okObject)
-                { 
-                    return result;
+                {
+                    continue;
                 }
                 dayTimes.Add(okObject.Value as AppointmentTime);
             }

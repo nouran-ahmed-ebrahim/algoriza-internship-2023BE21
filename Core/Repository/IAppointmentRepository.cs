@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IAppointmentRepository:IBaseRepository<Appointment>
+    public interface IAppointmentRepository:ICommonRepository<Appointment>
     {
         Appointment GetByDoctorIdAndDay(int doctorId, DayOfWeek day);
     }

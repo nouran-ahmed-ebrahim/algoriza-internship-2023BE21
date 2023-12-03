@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace Repository
 {
     public class AppointmentRepository(ApplicationDbContext context) :
-            BaseRepository<Appointment>(context), IAppointmentRepository
+            CommonRepository<Appointment>(context), IAppointmentRepository
     {
-        public Appointment GetByDoctorIdAndDay(int doctorId, DayOfWeek day)
+        public Appointment? GetByDoctorIdAndDay(int doctorId, DayOfWeek day)
         {
             return _context.Appointments.FirstOrDefault(a => a.DoctorId == doctorId && a.DayOfWeek == day);
         }

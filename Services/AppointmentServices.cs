@@ -88,12 +88,23 @@ namespace Services
                 return addingDayTimesResult;
             }
 
-            
-            appointment.AppointmentTimes = (List<AppointmentTime>)addingTimesResult.Value; ;
+            var addingTimesList = (List<AppointmentTime>)addingTimesResult.Value;
+            if(addingTimesList.Count == 0)
+            {
+                return new OkResult();
+            }
+            appointment.AppointmentTimes = addingTimesList; 
 
             try
             {
-                _unitOfWork.Appointments.Add(appointment);
+                if (DayId == 0)
+                {
+                    _unitOfWork.Appointments.Add(appointment);
+                }
+                else
+                {
+                    _unitOfWork.Appointments.Update(appointment);
+                }
                 return new OkResult();
             }
             catch (Exception ex)
