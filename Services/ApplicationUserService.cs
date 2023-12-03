@@ -100,8 +100,8 @@ namespace Services
                 return new UnauthorizedObjectResult($"No User With Email {Email}");
             }
 
-            bool result = await _unitOfWork.ApplicationUser.CheckUserPassword(user, Password);
-            if (result)
+            bool valid = await _unitOfWork.ApplicationUser.CheckUserPassword(user, Password);
+            if (!valid)
             {
                 return new UnauthorizedObjectResult(new { message = "Invalid email or password" });
             }
@@ -122,14 +122,11 @@ namespace Services
 
             // Store user and doctor information in Cookie
             List<Claim> userClaims = new List<Claim>();
-            //{
-            //        new Claim(ClaimTypes.NameIdentifier, UserId)
-            //};
 
             bool IsDoctor = await _unitOfWork.ApplicationUser.IsInRole(User, "Doctor");
             if (IsDoctor)
             {
-                int doctorId = _unitOfWork.Doctors.GetByUserId(UserId);
+                int doctorId =  _unitOfWork.Doctors.GetDoctorIdByUserId(UserId);
                 userClaims.Add(new Claim("DoctorId", doctorId.ToString()));
             }
 

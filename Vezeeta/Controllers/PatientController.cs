@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.DependencyResolver;
 using Services;
+using System.Text.RegularExpressions;
 
 
 namespace Vezeeta.Controllers
@@ -30,16 +31,29 @@ namespace Vezeeta.Controllers
         {
             if(string.IsNullOrEmpty(Email))
             {
-                return BadRequest("Email is required");
-            }
-            
-            if (string.IsNullOrEmpty(Password))
-            {
-                return BadRequest("Password is required");
+                ModelState.AddModelError("Email", "Email is required");
             }
 
+            if (string.IsNullOrEmpty(Password))
+            {
+                ModelState.AddModelError("Password","Password is required");
+            }
+
+            string pattern = ".+@.+\\.com";
+            bool isMatch = Regex.IsMatch(Email, pattern);
+
+            if (!isMatch)
+            {
+                ModelState.AddModelError("Email", "Invalid Email");
+            }
+
+            if (! ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
             return await _patientServices.SignIn(Email, Password, RememberMe);
         }
+
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 

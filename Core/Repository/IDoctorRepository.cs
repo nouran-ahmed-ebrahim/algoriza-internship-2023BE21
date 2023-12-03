@@ -11,7 +11,7 @@ namespace Core.Repository
 {
     public interface IDoctorRepository : IDataOperationsRepository<Doctor>
     {
-        int GetByUserId(string UserId);
+        int GetDoctorIdByUserId(string UserId);
         Task<ApplicationUser> GetDoctorUser(string userId);
         Task<string> GetDoctorIdFromClaim(ApplicationUser user);
 

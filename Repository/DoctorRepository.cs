@@ -20,7 +20,7 @@ namespace Repository
             _userManager = userManager;
         }
 
-        public int GetByUserId(string UserId)
+        public int GetDoctorIdByUserId(string UserId)
         {
             Doctor? doctor = _context.Doctors.FirstOrDefault( d => d.DoctorUserId ==  UserId);
             return doctor == null ? 0 : doctor.Id;
