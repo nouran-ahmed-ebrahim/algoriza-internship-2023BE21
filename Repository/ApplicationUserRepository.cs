@@ -50,7 +50,7 @@ namespace Repository
             return new OkObjectResult(userCount);
         }
 
-        public async Task deleteUser(ApplicationUser user)
+        public async Task DeleteUser(ApplicationUser user)
         {
            await _userManager.DeleteAsync(user);
         }

@@ -51,7 +51,7 @@ namespace Services
                     }
                     catch (Exception ex)
                     {
-                        await _unitOfWork.ApplicationUser.deleteUser(user);
+                        await _unitOfWork.ApplicationUser.DeleteUser(user);
                         return new ObjectResult($"An error occurred while Creating cookie \n: {ex.Message}")
                         {
                             StatusCode = 500
@@ -66,7 +66,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                await _unitOfWork.ApplicationUser.deleteUser(user);
+                await _unitOfWork.ApplicationUser.DeleteUser(user);
                 return new BadRequestObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }
