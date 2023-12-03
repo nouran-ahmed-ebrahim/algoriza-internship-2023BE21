@@ -18,5 +18,7 @@ namespace Core.Services
         public Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
         public IActionResult GetImage(string imagePath);
+        public Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);
+        public Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe);
     }
 }

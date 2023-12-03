@@ -4,9 +4,14 @@ using Core.DTO;
 using Core.Repository;
 using Core.Services;
 using Core.Utilities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Repository;
+using System.Security.Claims;
 
 namespace Services
 {
@@ -86,7 +91,56 @@ namespace Services
 
             return new OkObjectResult(formFile);
         }
+        public async Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe)
+        {
+            ApplicationUser user = await _unitOfWork.ApplicationUser.GetUserByEmail(Email);
+
+            if (user == null)
+            {
+                return new UnauthorizedObjectResult($"No User With Email {Email}");
+            }
+
+            bool result = await _unitOfWork.ApplicationUser.CheckUserPassword(user, Password);
+            if (result)
+            {
+                return new UnauthorizedObjectResult(new { message = "Invalid email or password" });
+            }
+            return new OkObjectResult(user);
+        }
+        public async Task<IActionResult> SignIn(string Email, string Password, bool RememberMe)
+        {
+            // Handle failed login scenarios
+            var ValidationResult =  await ValidateUser(Email, Password, RememberMe);
+
+            if (ValidationResult is not OkObjectResult OkReult)
+            {
+                return ValidationResult;
+            }
+
+            ApplicationUser User = OkReult.Value as ApplicationUser;
+            string UserId = (User as IdentityUser).Id;
+
+            // Store user and doctor information in Cookie
+            List<Claim> userClaims = new List<Claim>();
+            //{
+            //        new Claim(ClaimTypes.NameIdentifier, UserId)
+            //};
+
+            bool IsDoctor = await _unitOfWork.ApplicationUser.IsInRole(User, "Doctor");
+            if (IsDoctor)
+            {
+                int doctorId = _unitOfWork.Doctors.GetByUserId(UserId);
+                userClaims.Add(new Claim("DoctorId", doctorId.ToString()));
+            }
+
+
+             await _unitOfWork.ApplicationUser.SignInUser(User, RememberMe, userClaims); ;
+
+             return new OkObjectResult(User);
+        }
+          
     }
-
-
 }
+
+
+
