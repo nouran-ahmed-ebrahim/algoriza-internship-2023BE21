@@ -54,7 +54,7 @@ namespace Services
             }
 
             int DayId = _unitOfWork.Appointments.GetNextAppointmentId();
-            IActionResult addingDayTimesResult = _timeServices.AddingDayTime(DayId, day.Value);
+            IActionResult addingDayTimesResult = _timeServices.AddingDayTimes(DayId, day.Value);
             if (addingDayTimesResult is not OkResult)
             {
                 return new OkResult();
