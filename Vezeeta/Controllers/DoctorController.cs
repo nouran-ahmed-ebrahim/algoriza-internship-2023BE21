@@ -10,9 +10,9 @@ namespace Vezeeta.Controllers
     [ApiController]
     public class DoctorController : ControllerBase
     {
-        private readonly IPatientServices _doctorServices;
+        private readonly IDoctorServices _doctorServices;
 
-        public DoctorController(IPatientServices DoctorServices) 
+        public DoctorController(IDoctorServices DoctorServices) 
         {
             _doctorServices = DoctorServices;
         }
@@ -50,6 +50,40 @@ namespace Vezeeta.Controllers
         {
             await _doctorServices.SignOut();
             return Ok("LogOut Successfully");
+        }
+
+        [HttpPost("Appointments")]
+        public async Task<IActionResult> AddApointments([FromForm] int Price,
+            [FromForm] Dictionary<DayOfWeek, List<DateTime>> Appointments)
+        {
+            if(Price <= 0)
+            {
+                ModelState.AddModelError("Price","Invalid Price");
+            }
+
+            if(Appointments == null)
+            {
+                ModelState.AddModelError("Appointments", "Appointments is required");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            string? doctorId = (User.Claims.FirstOrDefault(c => c.Type == "DoctorId")?.Value);
+
+            if (int.TryParse(doctorId, out int id))
+            {
+                return _doctorServices.AddAppointments(id,Price, Appointments);
+            }
+            else
+            {
+                new ObjectResult("There is a problem in current user data\n Invalid DoctorId")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }

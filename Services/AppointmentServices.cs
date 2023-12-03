@@ -2,6 +2,7 @@
 using Core.Repository;
 using Core.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,11 @@ namespace Services
 
         public IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<DateTime>> day)
         {
+            if (day.Value == null)
+            {
+                return new BadRequestObjectResult($"Inter Time Slots for day {day}");
+            }
+
             Appointment appointment = new Appointment()
             {
                 DoctorId = doctorId,
@@ -54,7 +60,7 @@ namespace Services
             }
 
             int DayId = _unitOfWork.Appointments.GetNextAppointmentId();
-            IActionResult addingDayTimesResult = _timeServices.AddingDayTimes(DayId, day.Value);
+            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, day.Value);
             if (addingDayTimesResult is not OkResult)
             {
                 return new OkResult();

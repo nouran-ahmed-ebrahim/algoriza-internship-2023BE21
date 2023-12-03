@@ -37,7 +37,7 @@ namespace Services
         }
 
         public IActionResult AddDayTimes(int dayId, List<DateTime> value)
-        {
+        {        
             IActionResult result;
 
             foreach (DateTime time in value)
