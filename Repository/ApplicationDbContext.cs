@@ -148,7 +148,6 @@ namespace Repository
             }
             #endregion
         }
-        public DbSet<ApplicationUser> Patients { get; set; }
         public DbSet<AppointmentTime> AppointmentTimes { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
