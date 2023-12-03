@@ -4,6 +4,7 @@ using Core.DTO;
 using Core.Repository;
 using Core.Services;
 using Core.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -17,6 +18,28 @@ namespace Services
     public class DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper) : 
         ApplicationUserService(UnitOfWork, mapper), IDoctorServices
     {
+        [Authorize(Roles ="Doctor")]
+        public async Task<IActionResult> AddAppointments(int DoctorId,int price,
+            Dictionary<string, List<DateTime>> Appointments)
+        {
+            //  set doctor price
+            var SettingPriceResult = await SetPrice(DoctorId, price); 
+            if (SettingPriceResult is not OkResult)
+            {
+                return SettingPriceResult;
+            }
+
+            // set Days 
+            var AddingDaysResult = new AddDays(DoctorId, Appointments);
+            if (AddingDaysResult is not OkResult)
+            {
+                return AddingDaysResult;
+            }
+            
+            return new OkResult();
+        }
+
+        
         public async Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize)
         {
             // get specializeId by name
