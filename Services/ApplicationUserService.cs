@@ -19,11 +19,13 @@ namespace Services
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
+        protected readonly IBookingsServices _bookingsServices;
 
-        public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper)
+        public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper, IBookingsServices bookingsServices)
         {
             _unitOfWork = UnitOfWork;
             _mapper = mapper;
+            _bookingsServices = bookingsServices;
         }
 
         public async Task<IActionResult> GetUsersCountInRole(string roleName)
