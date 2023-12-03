@@ -9,6 +9,6 @@ namespace Core.Services
 {
     public interface IAppointmentTimeServices
     {
-        IActionResult AddingDayTime(int dayId, List<DateTime> value);
+        IActionResult AddDayTime(int dayId, DateTime timeSlot);
     }
 }
