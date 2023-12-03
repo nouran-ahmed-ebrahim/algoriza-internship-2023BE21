@@ -73,6 +73,15 @@ namespace Vezeeta.Controllers
             }
         }
 
+        [HttpPost("LogOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            await _patientServices.SignOut();
+            return Ok("LogOut Successfully");
+        }
+    }
+}
+
 //{
 //  "firstName": "nouran",
 //  "lastName": "ahmed",
@@ -83,5 +92,3 @@ namespace Vezeeta.Controllers
 //  "dateOfBirth": "2001-05-08",
 //  "rememberMe": true
 //}
-}
-}
