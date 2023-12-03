@@ -4,6 +4,7 @@ using Core.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,39 +18,48 @@ namespace Services
         }
         public IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
         {
-            try
+            AppointmentTime appointmentTime;
+            // if the day exist previously check timeSlot existence
+            if (dayId > 0)
             {
-                AppointmentTime appointmentTime = new AppointmentTime()
+                appointmentTime = _unitOfWork.AppointmentTimes.GetByDayIdAndSlot(dayId, timeSlot);
+
+                if (appointmentTime != null)
                 {
-                    AppointmentId = dayId,
-                    Time = timeSlot
-                };
-                _unitOfWork.AppointmentTimes.Add(appointmentTime);
-                return new OkResult();
-            }
-            catch (Exception ex)
-            {
-                return new BadRequestObjectResult($"There is a problem while adding time slot " +
-                    $"{timeSlot} \n {ex.Message} : \n {ex.InnerException?.Message}");
-            }
-
-            
-        }
-
-        public IActionResult AddDayTimes(int dayId, List<TimeSpan> value)
-        {        
-            IActionResult result;
-
-            foreach (TimeSpan time in value)
-            {
-                result = AddDayTime(dayId, time);
-                if (result is not OkResult)
-                { 
-                    return result;
+                    return new OkResult();
                 }
             }
 
-            return new OkResult();
+            appointmentTime = new AppointmentTime()
+            {
+                Time = timeSlot
+            };
+            return new OkObjectResult(appointmentTime);
+
+        }
+
+        public IActionResult AddDayTimes(int dayId, List<string> Times)
+        {    
+            List<AppointmentTime> dayTimes = new List<AppointmentTime>();
+            IActionResult result;
+            TimeSpan timeSlot;
+            foreach (var time in Times)
+            {
+                timeSlot = ConvertStringTotTimeSpan(time);
+                result = AddDayTime(dayId, timeSlot);
+                if (result is not OkObjectResult okObject)
+                { 
+                    return result;
+                }
+                dayTimes.Add(okObject.Value as AppointmentTime);
+            }
+
+            return new OkObjectResult(dayTimes);
+        }
+
+        public TimeSpan ConvertStringTotTimeSpan(string strTime)
+        { 
+            return Convert.ToDateTime(strTime).TimeOfDay; ;
         }
     }
 }

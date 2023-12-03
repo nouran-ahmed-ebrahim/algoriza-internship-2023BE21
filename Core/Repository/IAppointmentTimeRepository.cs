@@ -9,6 +9,6 @@ namespace Core.Repository
 {
     public interface IAppointmentTimeRepository : IBaseRepository<AppointmentTime>
     {
-
+        AppointmentTime GetByDayIdAndSlot(int dayId, TimeSpan timeSlot);
     }
 }

@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace Repository
 {
-    public class AppointmentTimeRepository(ApplicationDbContext context) : 
+    public class AppointmentTimeRepository(ApplicationDbContext context) :
                             BaseRepository<AppointmentTime>(context), IAppointmentTimeRepository
     {
-
+        public AppointmentTime GetByDayIdAndSlot(int dayId, TimeSpan timeSlot)
+        {
+            return _context.AppointmentTimes.FirstOrDefault(t => t.AppointmentId == dayId &&
+                                                              t.Time == timeSlot);
+        }
     }
 }

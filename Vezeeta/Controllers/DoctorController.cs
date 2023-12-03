@@ -1,4 +1,6 @@
-﻿using Core.Services;
+﻿using Core.DTO;
+using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -53,29 +55,30 @@ namespace Vezeeta.Controllers
         }
 
         [HttpPost("Appointments")]
-        public async Task<IActionResult> AddAppointments([FromForm] int Price,
-            [FromForm] Dictionary<DayOfWeek, List<TimeSpan>> Appointments)
+        [Authorize(Roles = "Doctor")]
+        public async Task<IActionResult> AddAppointments(AppointmentsDTO appointments)
         {
-            if(Price <= 0)
+            if (appointments == null)
             {
-                ModelState.AddModelError("Price","Invalid Price");
+                return BadRequest("Price and appointment are required");
+
             }
 
-            if(Appointments == null)
+            if (appointments.Price <= 0)
             {
-                ModelState.AddModelError("Appointments", "Appointments is required");
+               return BadRequest("Invalid Price");
             }
 
-            if (!ModelState.IsValid)
+            if(appointments.Days == null)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Appointments is required");
             }
 
             string? doctorId = (User.Claims.FirstOrDefault(c => c.Type == "DoctorId")?.Value);
 
             if (int.TryParse(doctorId, out int id))
             {
-                return _doctorServices.AddAppointments(id,Price, Appointments);
+                return _doctorServices.AddAppointments(id, appointments);
             }
             else
             {

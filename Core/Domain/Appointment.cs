@@ -21,5 +21,6 @@ namespace Core.Domain
         [ForeignKey("FK_Appointments_Doctors_DoctorId")]
         public int? DoctorId { get; set; }
         public Doctor? Doctor { get; set; }
+        public List<AppointmentTime>? AppointmentTimes { get; set; }
     }
 }

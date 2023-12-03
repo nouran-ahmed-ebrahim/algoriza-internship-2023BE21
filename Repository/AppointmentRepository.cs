@@ -16,10 +16,5 @@ namespace Repository
             return _context.Appointments.FirstOrDefault(a => a.DoctorId == doctorId && a.DayOfWeek == day);
         }
 
-        public int GetNextAppointmentId()
-        {
-            var maxId = _context.Appointments.Select(d => d.Id).DefaultIfEmpty(0).Max();
-            return (maxId + 1);
-        }
     }
 }

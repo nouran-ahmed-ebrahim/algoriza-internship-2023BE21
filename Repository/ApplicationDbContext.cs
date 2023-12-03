@@ -35,6 +35,10 @@ namespace Repository
                 .HasIndex(c => c.Name)
                 .IsUnique();
 
+            modelBuilder.Entity<Doctor>()
+            .Property(d => d.Price)
+            .HasColumnType("decimal(18, 2)");
+
             #region dataSeeding
 
             modelBuilder.Entity<Specialization>()

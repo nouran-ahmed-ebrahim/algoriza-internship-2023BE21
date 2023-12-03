@@ -25,20 +25,17 @@ namespace Services
             _appointmentServices = appointmentServices;
         }
 
-
-        [Authorize(Roles ="Doctor")]
-        public IActionResult AddAppointments(int DoctorId,int price,
-            Dictionary<DayOfWeek, List<TimeSpan>> Appointments)
+        public IActionResult AddAppointments(int DoctorId, AppointmentsDTO appointments)
         {
             //  set doctor price
-            var SettingPriceResult = SetPrice(DoctorId, price); 
-            if (SettingPriceResult is not OkResult)
+            var SettingPriceResult = SetPrice(DoctorId, appointments.Price); 
+            if (SettingPriceResult is not OkObjectResult)
             {
                 return SettingPriceResult;
             }
 
             // set Days 
-            var AddingDaysResult = _appointmentServices.AddDays(DoctorId, Appointments);
+            var AddingDaysResult = _appointmentServices.AddDays(DoctorId, appointments.Days);
             if (AddingDaysResult is not OkResult)
             {
                 return AddingDaysResult;
@@ -48,7 +45,7 @@ namespace Services
             return new OkObjectResult("Price & Appointments Added Successfully");
         }
 
-        public IActionResult SetPrice(int doctorId, int price)
+        public IActionResult SetPrice(int doctorId, decimal price)
         {
             Doctor doctor = _unitOfWork.Doctors.GetById(doctorId);
             if (doctor == null)
@@ -60,12 +57,8 @@ namespace Services
             doctor.Price = price;
 
             var updatingResult = _unitOfWork.Doctors.Update(doctor);
-            if (updatingResult is not OkResult)
-            {
-                return updatingResult;
-            }
-
-            return new OkResult();
+            return updatingResult;
+           
         }
 
         public async Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize)

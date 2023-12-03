@@ -10,6 +10,5 @@ namespace Core.Repository
     public interface IAppointmentRepository:IBaseRepository<Appointment>
     {
         Appointment GetByDoctorIdAndDay(int doctorId, DayOfWeek day);
-        int GetNextAppointmentId();
     }
 }

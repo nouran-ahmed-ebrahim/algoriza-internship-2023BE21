@@ -17,7 +17,7 @@ namespace Core.Domain
 
         [AllowNull]
         [Range(0, int.MaxValue, ErrorMessage = "The value must be greater than or equal to 0")]
-        public int? Price { get; set; }
+        public decimal? Price { get; set; }
 
         #region ForeignKey
         [ForeignKey("FK_Doctors_AspNetUsers_DoctorUserId")]

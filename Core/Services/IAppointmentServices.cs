@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Core.DTO;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace Core.Services
 {
     public interface IAppointmentServices
     {
-        IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<TimeSpan>> appointments);
-        IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<TimeSpan>> day);
+        IActionResult ConvertStringToDayOfWeek(string day);
+        IActionResult AddDays(int doctorId, List<DaySchedule> appointments);
+        IActionResult AddDay(int doctorId, DaySchedule day);
     }
 }
