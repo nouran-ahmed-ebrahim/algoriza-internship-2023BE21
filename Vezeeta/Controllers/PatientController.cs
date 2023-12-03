@@ -26,7 +26,7 @@ namespace Vezeeta.Controllers
             _bookingsServices = bookingsServices;
         }
 
-        [HttpGet]
+        [HttpGet("SignIn")]
         public async Task<IActionResult> SignIn(string Email, string Password, bool RememberMe)
         {
             if(string.IsNullOrEmpty(Email))
