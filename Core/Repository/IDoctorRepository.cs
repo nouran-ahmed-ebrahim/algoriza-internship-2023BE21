@@ -9,6 +9,7 @@ namespace Core.Repository
 {
     public interface IDoctorRepository : IDataOperationsRepository<Doctor>
     {
+        int GetByUserId(string UserId);
         Task<ApplicationUser> GetDoctorUser(string userId);
     }
 }
