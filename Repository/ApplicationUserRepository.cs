@@ -57,9 +57,9 @@ namespace Repository
            await _userManager.DeleteAsync(user);
         }
 
-        public async Task<SignInResult> SignInUser(string Email, string Password, bool RememberMe)
+        public async Task SignInUser(ApplicationUser User, bool RememberMe, List<Claim> Claims)
         {
-            return await _signInManager.PasswordSignInAsync(Email,Password, RememberMe, false);
+             await _signInManager.SignInWithClaimsAsync(User, RememberMe, Claims);
         }
 
         public Task<bool> IsInRole(ApplicationUser user, string role)
@@ -76,6 +76,11 @@ namespace Repository
         {
             var Claims = await _userManager.GetClaimsAsync(user);
             return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        }
+
+        public async Task<bool> CheckUserPassword(ApplicationUser user, string password)
+        {
+           return await _userManager.CheckPasswordAsync(user, password);
         }
     }
 }
