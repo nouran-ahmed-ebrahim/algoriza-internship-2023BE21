@@ -21,7 +21,7 @@ namespace Repository
             _signInManager = signInManager;
         }
 
-        public async Task<IdentityResult> Add(ApplicationUser user, string roleName, bool rememberMe)
+        public async Task<IdentityResult> Add(ApplicationUser user)
         {
             return await _userManager.CreateAsync(user);
         }

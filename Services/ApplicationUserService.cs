@@ -46,7 +46,7 @@ namespace Services
 
             try
             {
-                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user, Role, userDTO.RememberMe);
+                IdentityResult result = await _unitOfWork.ApplicationUser.Add(user);
                 if (result.Succeeded)
                 {
                     await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
