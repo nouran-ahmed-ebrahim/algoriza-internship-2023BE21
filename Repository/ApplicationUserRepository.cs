@@ -82,5 +82,10 @@ namespace Repository
         {
            return await _userManager.CheckPasswordAsync(user, password);
         }
+
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

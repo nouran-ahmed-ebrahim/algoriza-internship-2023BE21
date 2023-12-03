@@ -18,5 +18,6 @@ namespace Core.Repository
         Task DeleteUser(ApplicationUser user);
         Task SignInUser( ApplicationUser User, bool RememberMe, List<Claim> Claims);
         Task<bool> CheckUserPassword(ApplicationUser user, string password);
+        Task SignOut();
     }
 }
