@@ -2,6 +2,7 @@
 using Core.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Repository
 {
@@ -53,6 +54,11 @@ namespace Repository
         public async Task DeleteUser(ApplicationUser user)
         {
            await _userManager.DeleteAsync(user);
+        }
+
+        public async Task<SignInResult> SignInUser(string Email, string Password, bool RememberMe)
+        {
+            return await _signInManager.PasswordSignInAsync(Email,Password, RememberMe, false);
         }
     }
 }

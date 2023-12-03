@@ -1,11 +1,7 @@
 ﻿using Core.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace Core.Repository
 {
@@ -16,5 +12,6 @@ namespace Core.Repository
         public Task AssignRoleToUser(ApplicationUser user, string roleName);
         public Task AddSignInCookie(ApplicationUser user, bool rememberMe);
         public Task DeleteUser(ApplicationUser user);
+        public Task<SignInResult> SignInUser(string Email, String Password, bool RememberMe);
     }
 }
