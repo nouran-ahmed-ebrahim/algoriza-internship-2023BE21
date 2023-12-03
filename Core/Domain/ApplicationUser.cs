@@ -14,13 +14,11 @@ namespace Core.Domain
 {
     public class ApplicationUser: IdentityUser
     {
-        public int Id { get; set; }
-
        [RequiredAttributeForDoctor(ErrorMessage = "This property is required for users with the 'doctor' role.")]
         public string? Image { get; set; }
 
         [Required(ErrorMessage = "FullName is required.")]
-        public string FullName { get; set; }
+        public string? FullName { get; set; }
 
         [Required(ErrorMessage = "Gender is required.")]
         [EnumDataType(typeof(Gender))]

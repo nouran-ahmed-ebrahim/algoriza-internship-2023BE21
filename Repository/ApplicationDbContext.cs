@@ -137,7 +137,6 @@ namespace Repository
                 modelBuilder.Entity<ApplicationUser>()
                 .HasData(new ApplicationUser
                 {
-                    Id = 1,
                     UserName = "Admin Admin",
                     DateOfBirth = new DateTime(2001, 5, 8),
                     Email = "admin@gmail.com",

@@ -14,7 +14,7 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Name is required.")]
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
         [Required(ErrorMessage = "IsActivated is required.")]
         public bool? IsActivated { get; set; }

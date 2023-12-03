@@ -30,7 +30,7 @@ namespace Services
             }
 
             // set Days 
-            var AddingDaysResult = new AddDays(DoctorId, Appointments);
+            var AddingDaysResult = AddDays(DoctorId, Appointments);
             if (AddingDaysResult is not OkResult)
             {
                 return AddingDaysResult;
@@ -40,9 +40,13 @@ namespace Services
             return new OkResult();
         }
 
+        private IActionResult AddDays(int doctorId, Dictionary<string, List<DateTime>> appointments)
+        {
+            throw new NotImplementedException();
+        }
+
         public IActionResult SetPrice(int doctorId, int price)
         {
-
             Doctor doctor = _unitOfWork.Doctors.GetById(doctorId);
             if (doctor == null)
             {

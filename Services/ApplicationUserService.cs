@@ -44,6 +44,11 @@ namespace Services
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
             string? Role = Enum.GetName(userRole);
 
+            if (Role == null)
+            {
+                return new NotFoundObjectResult($"Role {userRole} is not found");
+            }
+
             try
             {
                 var result = await _unitOfWork.ApplicationUser.Add(user);
@@ -117,8 +122,13 @@ namespace Services
                 return ValidationResult;
             }
 
+            if(OkReult == null)
+            {
+                return new ObjectResult("User") { StatusCode = 500 };
+            }
+            
             ApplicationUser User = OkReult.Value as ApplicationUser;
-            string UserId = (User as IdentityUser).Id;
+            string UserId = User.Id;
 
             // Store user and doctor information in Cookie
             List<Claim> userClaims = new List<Claim>();
