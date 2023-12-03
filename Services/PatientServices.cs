@@ -15,5 +15,9 @@ namespace Services
 {
     public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper) : ApplicationUserService(UnitOfWork, mapper), IPatientServices
     {
+        public IActionResult CancelBooking(int BookingId)
+        {
+            return _bookingsServices.ChangeBookingState(BookingId, BookingState.Cancelled);
+        }
     }
 }
