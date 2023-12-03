@@ -50,7 +50,8 @@ namespace Services
             }
             catch (Exception ex)
             {
-                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}")
+                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
                 {
                     StatusCode = 500
                 };
