@@ -3,6 +3,7 @@ using Core.Domain;
 using Core.DTO;
 using Core.Services;
 using Core.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -71,6 +72,13 @@ namespace Vezeeta.Controllers
             {
                 return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
             }
+        }
+
+        [HttpPatch("Booking/Cancel")]
+        [Authorize(Roles = "Patient")]
+        public IActionResult ConfirmCheckUp(int BookingId)
+        {
+            return _patientServices.CancelBooking(BookingId);
         }
 
         [HttpPost("LogOut")]
