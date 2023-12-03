@@ -10,6 +10,8 @@ namespace Core.Repository
     {
         Task<IActionResult> GetUsersCountInRole(string roleName);
         //Task<IActionResult> Add(ApplicationUser user);
+        public string GetFullName(string id);
+
         Task AssignRoleToUser(ApplicationUser user, string roleName);
         Task AddSignInCookie(ApplicationUser user, bool rememberMe);
         Task<bool> IsInRole(ApplicationUser user, string role);

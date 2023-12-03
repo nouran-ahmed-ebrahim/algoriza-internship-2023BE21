@@ -27,6 +27,11 @@ namespace Repository
             return result.Succeeded ? new OkResult() : new BadRequestResult();
         }
 
+        public string GetFullName(string id)
+        {
+            return _context.Users.FirstOrDefault(user => user.Id == id)?.FullName;
+        }
+
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)
         {
             /// await  _signInManager.PasswordSignInAsync(user.Email, user.PasswordHash, rememberMe, false);
