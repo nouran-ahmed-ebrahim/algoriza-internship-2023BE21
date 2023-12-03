@@ -4,6 +4,7 @@ using Core.DTO;
 using Core.Repository;
 using Core.Services;
 using Core.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -68,6 +69,22 @@ namespace Services
                 await _unitOfWork.ApplicationUser.deleteUser(user);
                 return new BadRequestObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
             }
+        }
+
+        public IActionResult GetImage(string imagePath)
+        {
+            if (string.IsNullOrEmpty(imagePath))
+            {
+                return new NotFoundResult();
+            }
+
+            //return PhysicalFile(imagePath, "image/jpeg");
+            byte[] fileBytes = System.IO.File.ReadAllBytes(imagePath);
+            var fileStream = new MemoryStream(fileBytes);
+            string fileName = Path.GetFileName(imagePath);
+            var formFile = new FormFile(fileStream, 0, fileStream.Length, null, fileName);
+
+            return new OkObjectResult(formFile);
         }
     }
 

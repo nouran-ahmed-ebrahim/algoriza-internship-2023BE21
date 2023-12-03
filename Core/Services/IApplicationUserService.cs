@@ -17,5 +17,6 @@ namespace Core.Services
         #endregion
         public Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
         public Task<IActionResult> GetUsersCountInRole(string roleName);
+        public IActionResult GetImage(string imagePath);
     }
 }
