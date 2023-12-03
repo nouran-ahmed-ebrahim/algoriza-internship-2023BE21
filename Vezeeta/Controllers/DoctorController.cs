@@ -45,5 +45,11 @@ namespace Vezeeta.Controllers
             return await _doctorServices.SignIn(Email, Password, RememberMe);
         }
 
+        [HttpPost("LogOut")]
+        public async Task<IActionResult> LogOut()
+        {
+            await _doctorServices.SignOut();
+            return Ok("LogOut Successfully");
+        }
     }
 }
