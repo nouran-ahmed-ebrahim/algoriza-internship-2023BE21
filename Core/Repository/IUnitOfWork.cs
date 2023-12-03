@@ -12,7 +12,7 @@ namespace Core.Repository
         public IDoctorRepository Doctors { get; }
         public IApplicationUserRepository ApplicationUser { get; }
         public IDataOperationsRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; }
-        public IBaseRepository<AppointmentTime> AppointmentTimes { get; }
+        public IAppointmentTimeRepository AppointmentTimes { get; }
         public IAppointmentRepository Appointments { get; }
         public IBookingsRepository Bookings { get; }
         public ISpecializationRepository Specializations { get; }
