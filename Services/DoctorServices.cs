@@ -19,8 +19,9 @@ namespace Services
     {
         private readonly IAppointmentServices _appointmentServices;
 
-        public DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper, 
-            IAppointmentServices appointmentServices) : base(UnitOfWork, mapper)
+        public DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper,
+            IAppointmentServices appointmentServices, IBookingsServices bookingsServices) : 
+            base(UnitOfWork, mapper, bookingsServices)
         {
             _appointmentServices = appointmentServices;
         }
