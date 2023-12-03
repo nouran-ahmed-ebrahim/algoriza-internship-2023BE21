@@ -13,7 +13,8 @@ namespace Core.Domain
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Time is required.")]
-        public DateTime? Time { get; set; }
+        [DataType(DataType.Time)]
+        public TimeSpan Time { get; set; }
         [ForeignKey("FK_AppointmentTimes_Appointments_AppointmentId")]
         public int? AppointmentId { get; set; }
         public Appointment? Appointment { get; set; }

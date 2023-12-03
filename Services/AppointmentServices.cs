@@ -22,7 +22,7 @@ namespace Services
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<DateTime>> appointments)
+        public IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<TimeSpan>> appointments)
         {
             IActionResult result;
             foreach (var day in appointments)
@@ -36,7 +36,7 @@ namespace Services
             return new OkResult();
         }
 
-        public IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<DateTime>> day)
+        public IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<TimeSpan>> day)
         {
             if (day.Value == null)
             {

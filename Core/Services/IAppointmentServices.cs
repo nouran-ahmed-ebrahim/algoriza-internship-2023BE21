@@ -9,7 +9,7 @@ namespace Core.Services
 {
     public interface IAppointmentServices
     {
-        IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<DateTime>> appointments);
-        IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<DateTime>> day);
+        IActionResult AddDays(int doctorId, Dictionary<DayOfWeek, List<TimeSpan>> appointments);
+        IActionResult AddDay(int doctorId, KeyValuePair<DayOfWeek, List<TimeSpan>> day);
     }
 }

@@ -53,8 +53,8 @@ namespace Vezeeta.Controllers
         }
 
         [HttpPost("Appointments")]
-        public async Task<IActionResult> AddApointments([FromForm] int Price,
-            [FromForm] Dictionary<DayOfWeek, List<DateTime>> Appointments)
+        public async Task<IActionResult> AddAppointments([FromForm] int Price,
+            [FromForm] Dictionary<DayOfWeek, List<TimeSpan>> Appointments)
         {
             if(Price <= 0)
             {
@@ -79,7 +79,7 @@ namespace Vezeeta.Controllers
             }
             else
             {
-                new ObjectResult("There is a problem in current user data\n Invalid DoctorId")
+               return new ObjectResult("There is a problem in current user data\n Invalid DoctorId")
                 {
                     StatusCode = 500
                 };

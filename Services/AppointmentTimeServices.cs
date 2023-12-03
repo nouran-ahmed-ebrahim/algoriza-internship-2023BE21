@@ -15,7 +15,7 @@ namespace Services
         private readonly IUnitOfWork _unitOfWork;
         public AppointmentTimeServices(IUnitOfWork _unitOfWork) { 
         }
-        public IActionResult AddDayTime(int dayId, DateTime timeSlot)
+        public IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
         {
             try
             {
@@ -36,11 +36,11 @@ namespace Services
             
         }
 
-        public IActionResult AddDayTimes(int dayId, List<DateTime> value)
+        public IActionResult AddDayTimes(int dayId, List<TimeSpan> value)
         {        
             IActionResult result;
 
-            foreach (DateTime time in value)
+            foreach (TimeSpan time in value)
             {
                 result = AddDayTime(dayId, time);
                 if (result is not OkResult)

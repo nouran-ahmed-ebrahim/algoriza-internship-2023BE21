@@ -28,7 +28,7 @@ namespace Services
 
         [Authorize(Roles ="Doctor")]
         public IActionResult AddAppointments(int DoctorId,int price,
-            Dictionary<DayOfWeek, List<DateTime>> Appointments)
+            Dictionary<DayOfWeek, List<TimeSpan>> Appointments)
         {
             //  set doctor price
             var SettingPriceResult = SetPrice(DoctorId, price); 
