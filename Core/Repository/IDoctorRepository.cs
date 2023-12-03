@@ -13,7 +13,6 @@ namespace Core.Repository
     {
         int GetByUserId(string UserId);
         Task<ApplicationUser> GetDoctorUser(string userId);
-
         Task<string> GetDoctorIdFromClaim(ApplicationUser user);
 
     }
