@@ -15,16 +15,6 @@ namespace Repository
 
         }
 
-        public IActionResult IsExist(int id)
-        {
-            T entity = GetById(id);
-            if (entity == null)
-            {
-                return new NotFoundObjectResult($"Id {id} is not found");
-            }
-            return new OkObjectResult(entity);
-        }
-
         public IActionResult Update(T entity)
         {
             try

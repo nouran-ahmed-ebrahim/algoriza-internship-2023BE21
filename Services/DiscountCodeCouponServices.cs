@@ -40,13 +40,11 @@ namespace Services
         {
             try
             {
-                var IsExist = _unitOfWork.DiscountCodeCoupons.IsExist(id);
-                if (IsExist is not OkObjectResult okResult)
+                DiscountCodeCoupon coupon = _unitOfWork.DiscountCodeCoupons.GetById(id);
+                if (coupon != null)
                 {
-                    return IsExist;
+                    return new NotFoundObjectResult($"Id {id} is not found");
                 }
-
-                DiscountCodeCoupon coupon = okResult.Value as DiscountCodeCoupon;
 
                 coupon.IsActivated = false;
                 var result = _unitOfWork.DiscountCodeCoupons.Update(coupon);
@@ -65,13 +63,12 @@ namespace Services
         {
             try
             {
-                var IsExist = _unitOfWork.DiscountCodeCoupons.IsExist(Id);
-                if (IsExist is not OkObjectResult okResult)
+                DiscountCodeCoupon coupon = _unitOfWork.DiscountCodeCoupons.GetById(Id);
+                if (coupon != null)
                 {
-                    return IsExist;
+                    return new NotFoundObjectResult($"Id {Id} is not found");
                 }
 
-                DiscountCodeCoupon coupon = okResult.Value as DiscountCodeCoupon;
                 var result = _unitOfWork.DiscountCodeCoupons.Delete(coupon);
                 _unitOfWork.Complete();
                 return result;
