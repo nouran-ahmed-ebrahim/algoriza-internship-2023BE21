@@ -38,6 +38,30 @@ namespace Services
             throw new NotImplementedException();
         }
 
+        public IActionResult ChangeBookingState(int BookingId, BookingState bookingState)
+        {
+            Booking booking = _unitOfWork.Bookings.GetById(BookingId);
+            if (booking == null)
+            {
+                return new NotFoundObjectResult("Booking Id {BookingId} is not exist");
+            }
+
+            booking.BookingState = bookingState;
+            try
+            {
+                _unitOfWork.Bookings.Update(booking);
+                _unitOfWork.Complete();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is problem during booking confirmation")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
         #region base methods
         public IActionResult GetAll(int Page, int PageSize, string search)
         {
