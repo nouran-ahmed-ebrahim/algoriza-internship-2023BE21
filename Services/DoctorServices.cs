@@ -26,6 +26,10 @@ namespace Services
             _appointmentServices = appointmentServices;
         }
 
+        public IActionResult GetTop10()
+        {
+            return _unitOfWork.Doctors.GetTop10Doctors();
+        }
         public IActionResult AddAppointments(int DoctorId, AppointmentsDTO appointments)
         {
             //  set doctor price

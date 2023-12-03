@@ -5,6 +5,7 @@ using Core.Utilities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Migrations;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Vezeeta.Controllers
 {
@@ -77,6 +78,6 @@ namespace Vezeeta.Controllers
                 return StatusCode(500, $"An error occurred while Deleting the Doctor:\n" +
                     $"  {ex.Message} \n  {ex.Message}");
             }
-        }
+        }       
     }
 }

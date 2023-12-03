@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,29 +42,46 @@ namespace Repository
 
         public IActionResult GetTop10Doctors()
         {
-            var topDoctors = _context.Bookings
-            .GroupBy(b => b.DoctorId)
-            .Select(group => new
+            try
             {
-                DoctorId = group.Key,
-                RequestCount = group.Count()
-            })
-            .OrderByDescending(doctor => doctor.RequestCount)
-            .Take(10)
-            .Join(_context.Doctors,
-                doctor => doctor.DoctorId,
-                d => d.Id,
-                (doctor, d) => new
+                var topDoctors = _context.Bookings
+                 .GroupBy(b => b.DoctorId)
+                 .Select(group => new
+                 {
+                     DoctorId = group.Key,
+                     RequestCount = group.Count()
+                 })
+                 .OrderByDescending(doctor => doctor.RequestCount)
+                 .Take(10)
+                 .Join(_context.Doctors,
+                     doctor => doctor.DoctorId,
+                     d => d.Id,
+                     (doctor, d) => new
+                     {
+                         UserId = d.DoctorUserId,
+                         RequestCount = doctor.RequestCount
+                     })
+                 .Join(_context.Users,
+                      d => d.UserId,
+                      u => u.Id,
+                      (d, u) => new
+                      {
+                          DoctorName = u.FullName,
+                          RequestCount = d.RequestCount
+                      })
+                 .ToList();
+
+                return new OkObjectResult(topDoctors);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"{ex.Message} \n {ex.InnerException.Message}")
                 {
-                    UserId = d.DoctorUserId,
-                    RequestCount = doctor.RequestCount
-                })
-                .ToList();
+                    StatusCode = 500,
+                };
+            }
         }
         
-        public string GetFullName(string id)
-        {
-            return _context.Users.FirstOrDefault(user => user.Id == id)?.FullName;
-        }
+       
     }
 }

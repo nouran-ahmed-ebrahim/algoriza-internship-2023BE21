@@ -11,6 +11,7 @@ namespace Core.Services
 {
     public interface IDoctorServices : IApplicationUserService
     {
+        public IActionResult GetTop10();
         IActionResult ConfirmCheckUp(int BookingId);
         Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize);
         Task<IActionResult> Delete(int id);

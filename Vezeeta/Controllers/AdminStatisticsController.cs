@@ -17,11 +17,14 @@ namespace Vezeeta.Controllers
     {
         private readonly IApplicationUserService _applicationUserService;
         private readonly IBookingsServices _bookingsServices;
+        private readonly IDoctorServices _doctorServices;
 
-        public AdminStatisticsController(IApplicationUserService ApplicationUserService, IBookingsServices bookingsServices)
+        public AdminStatisticsController(IApplicationUserService ApplicationUserService, 
+            IBookingsServices bookingsServices,IDoctorServices doctorServices)
         {
             _applicationUserService = ApplicationUserService;
             _bookingsServices = bookingsServices;
+            _doctorServices = doctorServices;
         }
         
         [HttpGet("Doctors")]
@@ -43,6 +46,12 @@ namespace Vezeeta.Controllers
         public IActionResult GetNumberOfBookings()
         {
             return  _bookingsServices.NumOfBookings();
+        }
+
+        [HttpGet("Doctor/Top10")]
+        public IActionResult GetTop10Doctors()
+        {
+            return _doctorServices.GetTop10();
         }
     }
 }
