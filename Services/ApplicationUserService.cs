@@ -135,7 +135,11 @@ namespace Services
 
              return new OkObjectResult(User);
         }
-          
+
+        public async Task SignOut()
+        {
+            await _unitOfWork.ApplicationUser.SignOut();
+        }
     }
 }
 

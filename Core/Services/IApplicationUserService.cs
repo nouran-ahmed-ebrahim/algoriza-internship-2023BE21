@@ -13,12 +13,13 @@ namespace Core.Services
     public interface IApplicationUserService
     {
         #region Base methods
-        public IActionResult GetAll(int Page, int PageSize, string search);
+        IActionResult GetAll(int Page, int PageSize, string search);
         #endregion
-        public Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
-        public Task<IActionResult> GetUsersCountInRole(string roleName);
-        public IActionResult GetImage(string imagePath);
-        public Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);
-        public Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe);
+        Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
+        Task<IActionResult> GetUsersCountInRole(string roleName);
+        IActionResult GetImage(string imagePath);
+        Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);
+        Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe);
+        Task SignOut();
     }
 }
