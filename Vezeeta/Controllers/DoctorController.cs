@@ -73,7 +73,7 @@ namespace Vezeeta.Controllers
                return BadRequest("Invalid Price");
             }
 
-            if(appointments.DayOfWeek == null)
+            if(appointments.days == null)
             {
                 return BadRequest("Appointments is required");
             }

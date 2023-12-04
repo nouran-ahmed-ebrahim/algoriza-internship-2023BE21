@@ -40,7 +40,7 @@ namespace Services
             }
 
             // set DayOfWeek 
-            var AddingDayOfWeekResult = _appointmentServices.AddDayOfWeek(DoctorId, appointments.DayOfWeek);
+            var AddingDayOfWeekResult = _appointmentServices.AddDays(DoctorId, appointments.days);
             if (AddingDayOfWeekResult is not OkResult)
             {
                 return AddingDayOfWeekResult;

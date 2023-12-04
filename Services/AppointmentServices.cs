@@ -25,7 +25,7 @@ namespace Services
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult AddDayOfWeek(int doctorId, List<DayOfWeekchedule> appointments)
+        public IActionResult AddDays(int doctorId, List<Day> appointments)
         {
             IActionResult result;
             foreach (var day in appointments)
@@ -51,14 +51,14 @@ namespace Services
                 return new BadRequestObjectResult("Day is invalid");
             }
         }
-        private IActionResult AddDay(int doctorId, DayOfWeekchedule DayOfWeekchedule)
+        private IActionResult AddDay(int doctorId, Day Day)
         {
-            if (DayOfWeekchedule.Day == null)
+            if (Day.Times == null)
             {
-                return new BadRequestObjectResult($"Inter Time Slots for day {DayOfWeekchedule}");
+                return new BadRequestObjectResult($"Inter Time Slots for day {Day.day}");
             }
 
-            var result = ConvertStringToDayOfWeek(DayOfWeekchedule.Day);
+            var result = ConvertStringToDayOfWeek(Day.day);
 
             if (result is not OkObjectResult okResult)
             {
@@ -83,7 +83,7 @@ namespace Services
 
          //   List<AppointmentTime> AppointmentTimes = appointment.AppointmentTimes;
             
-            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, DayOfWeekchedule.Times);
+            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, Day.Times);
             if (addingDayTimesResult is not OkObjectResult addingTimesResult)
             {
                 return addingDayTimesResult;
@@ -110,7 +110,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                return new BadRequestObjectResult($"There is a problem while Adding {DayOfWeekchedule} \n {ex.Message}" +
+                return new BadRequestObjectResult($"There is a problem while Adding {Day} \n {ex.Message}" +
                      $"\n {ex.InnerException?.Message}");
             }
         }
