@@ -47,7 +47,7 @@ namespace Services
             bool IsAvailable = CheckAppointmentAvailability(AppointmentTimeId);
             if(!IsAvailable)
             {
-                return new BadRequestObjectResult("AppointmentTime is held by another patient");
+                return new BadRequestObjectResult("AppointmentTime is held currently");
             }
 
             // Add Booking

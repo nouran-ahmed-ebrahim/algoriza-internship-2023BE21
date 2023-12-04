@@ -72,6 +72,7 @@ namespace Repository
             .OnDelete(DeleteBehavior.Restrict)
             .HasConstraintName("FK_Bookings_Doctors_DoctorId");
 
+
             #endregion
 
             #region dataSeeding

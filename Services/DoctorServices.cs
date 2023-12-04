@@ -113,7 +113,7 @@ namespace Services
             try
             {
                 Doctor doctor = _unitOfWork.Doctors.GetById(id);
-                if (doctor != null)
+                if (doctor == null)
                 {
                     return new NotFoundObjectResult($"Id {id} is not found");
                 }

@@ -39,11 +39,6 @@ namespace Vezeeta.Controllers
                     return BadRequest(ModelState);
                 };
 
-                //var result = await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
-                //if(result is not OkObjectResult)
-                //{
-
-                //}
                 return  await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
 
                 
