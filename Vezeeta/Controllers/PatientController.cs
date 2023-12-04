@@ -27,7 +27,7 @@ namespace Vezeeta.Controllers
             _bookingsServices = bookingsServices;
         }
 
-        #region authentication methods
+        #region Authentication APIs
         [HttpPost]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> SignUp([FromForm] UserDTO userDTO)
@@ -83,7 +83,7 @@ namespace Vezeeta.Controllers
         }
         #endregion
 
-        #region booking methods
+        #region Booking APIs
         [HttpPatch("Booking/Cancel")]
         [Authorize(Roles = "Patient")]
         public IActionResult ConfirmCheckUp(int BookingId)
@@ -91,6 +91,12 @@ namespace Vezeeta.Controllers
             return _patientServices.CancelBooking(BookingId);
         }
 
+        [HttpPost("Booking")]
+        [Authorize(Roles = "Patient")]
+        public IActionResult AddBooking()
+        {
+            return Ok(ModelState);
+        }
         #endregion
 
     }

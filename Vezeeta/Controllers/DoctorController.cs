@@ -19,6 +19,7 @@ namespace Vezeeta.Controllers
             _doctorServices = DoctorServices;
         }
 
+        #region authentication APIs
         [HttpGet("SignIn")]
         public async Task<IActionResult> SignIn([FromForm]string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
@@ -54,6 +55,9 @@ namespace Vezeeta.Controllers
             return Ok("LogOut Successfully");
         }
 
+        #endregion
+
+        #region Appointments APIs
         [HttpPost("Appointments")]
         [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> AddAppointments(AppointmentsDTO appointments)
@@ -88,13 +92,15 @@ namespace Vezeeta.Controllers
                 };
             }
         }
+        #endregion
 
-
+        #region Booking APIs
         [HttpPatch("/Booking/Confirm")]
         [Authorize(Roles = "Doctor")]
         public IActionResult ConfirmBooking(int BookingId)
         {
             return _doctorServices.ConfirmCheckUp(BookingId);
         }
+        #endregion
     }
 }

@@ -22,6 +22,7 @@ namespace Vezeeta.Controllers
             _adminServices = AdminServices;
         }
 
+        #region DiscountCodeCoupon APIs
         [HttpPut]
         public IActionResult UpdateDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
         {
@@ -80,7 +81,7 @@ namespace Vezeeta.Controllers
 
         [HttpPatch]
         [Route("Deactivate")]
-        public IActionResult DeActivateDiscountCodeCoupon(int id)
+        public IActionResult DeactivateDiscountCodeCoupon(int id)
         {
             if (id <= 0)
             {
@@ -94,7 +95,9 @@ namespace Vezeeta.Controllers
             return _discountCodeCouponServices.Deactivate(id);
 
         }
+        #endregion
 
+        #region Authentication APIs
         [HttpGet("SignIn")]
         public async Task<IActionResult> SignIn([FromForm] string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
@@ -129,5 +132,6 @@ namespace Vezeeta.Controllers
             await _adminServices.SignOut();
             return Ok("LogOut Successfully");
         }
+        #endregion
     }
 }
