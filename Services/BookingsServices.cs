@@ -99,7 +99,7 @@ namespace Services
             return appointment.DoctorId;
         }
 
-        public Appointment GetAppointment(int appointmentId)
+        private Appointment GetAppointment(int appointmentId)
         {
             return _unitOfWork.Appointments.GetById(appointmentId); ;
         }

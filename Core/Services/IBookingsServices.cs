@@ -11,7 +11,6 @@ namespace Core.Services
 {
     public interface IBookingsServices
     {
-        public Appointment GetAppointment(int appointmentId);
 
         IActionResult NumOfBookings();
         IActionResult GetAll(int Page, int PageSize, string search);
