@@ -36,6 +36,12 @@ namespace Services
 
         public IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName)
         {
+            // check if the appointment time is exist
+            AppointmentTime appointmentTime = GetAppointmentTime(AppointmentTimeId);
+            if(appointmentTime == null)
+            {
+                return new BadRequestObjectResult($"There is no Appointment with id : {AppointmentTimeId}");
+            }
 
             // check if Appointment empty
             bool IsAvailable = CheckAppointmentAvailability(AppointmentTimeId);
@@ -49,6 +55,8 @@ namespace Services
             {
                 PatientId = PatientId,
                 AppointmentTimeId = AppointmentTimeId,
+                DoctorId = GetDoctorId(AppointmentTimeId),
+                BookingState = BookingState.Pending
             };
 
             if (!string.IsNullOrEmpty(DiscountCodeCouponName))
@@ -56,6 +64,10 @@ namespace Services
                 // Get DiscountCoupon
                 DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
 
+                if (discountCodeCoupon != null)
+                {
+                    return new BadRequestObjectResult($"{discountCodeCoupon.Name} not Exist");
+                }
                 // Check if it applicable
                 var ValiditionReult = CheckCouponApplicability(discountCodeCoupon, PatientId);
                 if (ValiditionReult is not OkResult)
@@ -69,17 +81,32 @@ namespace Services
             {
                 _unitOfWork.Bookings.Add(NewBooking);
                 _unitOfWork.Complete();
-
+                return new OkObjectResult(NewBooking);
             }
             catch (Exception ex)
             {
-                new ObjectResult($"There is a Problem during booking Appointment \n" +
+               return new ObjectResult($"There is a Problem during booking Appointment \n" +
                     $"{ex.Message} \n {ex.InnerException?.Message}")
                 {
                     StatusCode = 500,
                 };
             }
-            return new OkObjectResult(NewBooking);
+        }
+
+        private int? GetDoctorId(int appointmentTime)
+        {
+            Appointment appointment = GetAppointment(appointmentTime);
+            return appointment.DoctorId;
+        }
+
+        private Appointment GetAppointment(int appointmentId)
+        {
+            return _unitOfWork.Appointments.GetById(appointmentId); ;
+        }
+
+        private AppointmentTime GetAppointmentTime(int appointmentTimeId)
+        {
+            return _unitOfWork.AppointmentTimes.GetById(appointmentTimeId);
         }
 
         private bool CheckAppointmentAvailability(int appointmentTimeId)
