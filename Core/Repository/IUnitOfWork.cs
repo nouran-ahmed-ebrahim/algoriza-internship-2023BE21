@@ -11,7 +11,7 @@ namespace Core.Repository
     {
         public IDoctorRepository Doctors { get; }
         public IApplicationUserRepository ApplicationUser { get; }
-        public IDataOperationsRepository<DiscountCodeCoupon> DiscountCodeCoupons { get; }
+        public IDiscountCodeCouponRepository DiscountCodeCoupons { get; }
         public IAppointmentTimeRepository AppointmentTimes { get; }
         public IAppointmentRepository Appointments { get; }
         public IBookingsRepository Bookings { get; }
