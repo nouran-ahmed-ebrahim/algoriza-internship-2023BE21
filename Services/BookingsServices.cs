@@ -42,7 +42,7 @@ namespace Services
         {
 
             // check if Appointment empty
-            bool IsAvailable =  _appointmentServices.CheckAppointmentAvailablity(AppointmentTimeId);
+            bool IsAvailable =  _appointmentServices.CheckAppointmentAvailability(AppointmentTimeId);
             if(!IsAvailable)
             {
                 return new BadRequestObjectResult("AppointmentTime is held by another patient");
@@ -52,7 +52,7 @@ namespace Services
             DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
 
             // Check if it applicable
-            var ValiditionReult = _couponServices.CheckCouponApplicablty(discountCodeCoupon, PatientId);
+            var ValiditionReult = _couponServices.CheckCouponApplicability(discountCodeCoupon, PatientId);
             if(ValiditionReult is not OkResult)
             {
                 return ValiditionReult;
@@ -66,9 +66,20 @@ namespace Services
                 DiscountCodeCouponId = discountCodeCoupon.Id,
             };
 
-            _unitOfWork.Bookings.Add(NewBooking);
-            _unitOfWork.Complete();
+            try
+            {
+                _unitOfWork.Bookings.Add(NewBooking);
+                _unitOfWork.Complete();
 
+            }
+            catch (Exception ex)
+            {
+                new ObjectResult($"There is a Problem during booking Appointment \n" +
+                    $"{ex.Message} \n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500,
+                };
+            }
             return new OkObjectResult(NewBooking);
         }
 
