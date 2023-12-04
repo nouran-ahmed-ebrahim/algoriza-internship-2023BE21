@@ -13,10 +13,12 @@ namespace Vezeeta.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorServices;
+        private readonly object _appointmentTimeServices;
 
-        public DoctorController(IDoctorServices DoctorServices) 
+        public DoctorController(IDoctorServices DoctorServices, IAppointmentTimeServices appointmentTimeServices) 
         {
             _doctorServices = DoctorServices;
+            _appointmentTimeServices = appointmentTimeServices;
         }
 
         #region authentication APIs
@@ -91,6 +93,22 @@ namespace Vezeeta.Controllers
                     StatusCode = 500
                 };
             }
+        }
+
+        [HttpDelete("Appointment")]
+        [Authorize(Roles = "Doctor")]
+        public IActionResult DeleteAppointment([FromForm]int TimeId)
+        {
+            if(TimeId == 0)
+            {
+                ModelState.AddModelError("TimeId", "Time Id is required");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return _appointmentTimeServices.DeleteAppointment(TimeId);
         }
         #endregion
 
