@@ -14,5 +14,6 @@ namespace Core.Services
         IActionResult Update(DiscountCodeCoupon Coupon);
         IActionResult Delete(int Id);
         IActionResult Deactivate(int id);
+        IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId);
     }
 }
