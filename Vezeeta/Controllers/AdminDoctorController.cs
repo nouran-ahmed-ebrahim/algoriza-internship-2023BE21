@@ -57,7 +57,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteDoctor(int id)
+        public async Task<IActionResult> DeleteDoctor([FromForm]int id)
         {
             try
             {

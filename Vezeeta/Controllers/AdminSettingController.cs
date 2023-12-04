@@ -24,7 +24,7 @@ namespace Vezeeta.Controllers
 
         #region DiscountCodeCoupon APIs
         [HttpPut]
-        public IActionResult UpdateDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
+        public IActionResult UpdateDiscountCodeCoupon([FromBody]DiscountCodeCoupon DiscountCodeCoupon)
         {
             if (DiscountCodeCoupon == null)
             {
@@ -52,7 +52,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDiscountCodeCoupon(DiscountCodeCoupon DiscountCodeCoupon)
+        public async Task<IActionResult> AddDiscountCodeCoupon([FromBody]DiscountCodeCoupon DiscountCodeCoupon)
         {
             if (!ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpDelete]
-        public IActionResult DeleteDiscountCodeCoupon(int id)
+        public IActionResult DeleteDiscountCodeCoupon([FromForm]int id)
         {
             if (id <= 0)
             {
@@ -81,7 +81,7 @@ namespace Vezeeta.Controllers
 
         [HttpPatch]
         [Route("Deactivate")]
-        public IActionResult DeactivateDiscountCodeCoupon(int id)
+        public IActionResult DeactivateDiscountCodeCoupon([FromForm] int id)
         {
             if (id <= 0)
             {
