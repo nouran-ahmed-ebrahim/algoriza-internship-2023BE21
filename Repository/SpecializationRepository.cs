@@ -4,17 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
-    internal class SpecializationRepository : BaseRepository<Specialization>, ISpecializationRepository
+    public class SpecializationRepository(ApplicationDbContext context) : BaseRepository<Specialization>(context), ISpecializationRepository
     {
-        
-        public SpecializationRepository(ApplicationDbContext context) : base(context)
-        {
-        }
-
         public Specialization GetByName(string Specialization)
         {
             return _context.Specializations.FirstOrDefault(s => s.Name == Specialization);
         }
-
     }
 }
