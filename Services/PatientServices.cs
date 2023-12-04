@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper, IBookingsServices 
-        bookingsServices) : ApplicationUserService(UnitOfWork, mapper, bookingsServices), IPatientServices
+    public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper) : ApplicationUserService(UnitOfWork, mapper), IPatientServices
     {
+        
         public IActionResult CancelBooking(int BookingId)
         {
-            return _bookingsServices.ChangeBookingState(BookingId, BookingState.Cancelled);
+            return ChangeBookingState(BookingId, BookingState.Cancelled);
         }
     }
 }

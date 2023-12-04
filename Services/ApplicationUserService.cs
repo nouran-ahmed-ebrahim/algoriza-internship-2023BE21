@@ -19,13 +19,11 @@ namespace Services
     {
         protected readonly IUnitOfWork _unitOfWork;
         protected readonly IMapper _mapper;
-        protected readonly IBookingsServices _bookingsServices;
 
-        public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper, IBookingsServices bookingsServices)
+        public ApplicationUserService(IUnitOfWork UnitOfWork, IMapper mapper)
         {
             _unitOfWork = UnitOfWork;
             _mapper = mapper;
-            _bookingsServices = bookingsServices;
         }
 
         public async Task<IActionResult> GetUsersCountInRole(string roleName)
@@ -152,6 +150,31 @@ namespace Services
         {
             await _unitOfWork.ApplicationUser.SignOut();
         }
+
+        public IActionResult ChangeBookingState(int BookingId, BookingState bookingState)
+        {
+            Booking booking = _unitOfWork.Bookings.GetById(BookingId);
+            if (booking == null)
+            {
+                return new NotFoundObjectResult("Booking Id {BookingId} is not exist");
+            }
+
+            booking.BookingState = bookingState;
+            try
+            {
+                _unitOfWork.Bookings.Update(booking);
+                _unitOfWork.Complete();
+                return new OkResult();
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is problem during booking confirmation")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
     }
 }
 

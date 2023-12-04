@@ -29,6 +29,7 @@ namespace Core.Domain
         public string? PatientId { get; set; }
 
         [ForeignKey("FK_Bookings_DiscountCodeCoupons_DiscountCodeCouponId")]
+        [AllowNull]
         public int? DiscountCodeCouponId { get; set; }
         #endregion
         #region nav prop

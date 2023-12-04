@@ -20,7 +20,7 @@ namespace Core.Domain
         public bool IsActivated { get; set; }
 
         [Required(ErrorMessage = "Value is required.")]
-        [InRangeAttribute]
+        [InRange]
         public int? Value { get; set; }
 
         [Required(ErrorMessage = "Discount Type is required.")]
@@ -29,6 +29,6 @@ namespace Core.Domain
 
         [Required(ErrorMessage = "Minimum Requests is required.")]
         [Range(0, int.MaxValue)]
-        public int? MinimumRequiredRequests {  get; set; }
+        public int? MinimumRequiredBookings {  get; set; }
     }
 }

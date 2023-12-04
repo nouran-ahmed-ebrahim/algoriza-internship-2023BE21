@@ -21,5 +21,7 @@ namespace Core.Services
         Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);
         Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe);
         Task SignOut();
+        IActionResult ChangeBookingState(int BookingId, BookingState bookingState);
+
     }
 }

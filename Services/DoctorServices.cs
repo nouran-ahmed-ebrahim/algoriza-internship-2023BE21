@@ -20,8 +20,8 @@ namespace Services
         private readonly IAppointmentServices _appointmentServices;
 
         public DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper,
-            IAppointmentServices appointmentServices, IBookingsServices bookingsServices) : 
-            base(UnitOfWork, mapper, bookingsServices)
+            IAppointmentServices appointmentServices) : 
+            base(UnitOfWork, mapper)
         {
             _appointmentServices = appointmentServices;
         }
@@ -132,7 +132,7 @@ namespace Services
 
         public IActionResult ConfirmCheckUp(int BookingId)
         {
-            return _bookingsServices.ChangeBookingState(BookingId, BookingState.Completed);
+            return ChangeBookingState(BookingId, BookingState.Completed);
         }
     }
 }

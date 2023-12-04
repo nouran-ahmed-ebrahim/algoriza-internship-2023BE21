@@ -114,12 +114,5 @@ namespace Services
             }
         }
 
-        public bool CheckAppointmentAvailability(int appointmentTimeId)
-        {
-            bool IsHeld= _unitOfWork.Bookings.IsExist(a => a.AppointmentTimeId == appointmentTimeId &&
-             a.BookingState == BookingState.Pending);
-
-            return !IsHeld;
-        }
     }
 }

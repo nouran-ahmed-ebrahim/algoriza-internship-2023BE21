@@ -10,14 +10,10 @@ namespace Services
     public class BookingsServices : IBookingsServices
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IDiscountCodeCouponServices _couponServices;
-        private readonly IAppointmentServices _appointmentServices;
 
-        public BookingsServices(IUnitOfWork UnitOfWork, IDiscountCodeCouponServices CouponServices,
+        public BookingsServices(IUnitOfWork UnitOfWork,
             IAppointmentServices AppointmentServices) {
             _unitOfWork = UnitOfWork;
-            _couponServices = CouponServices;
-            _appointmentServices = AppointmentServices;
         }
         public IActionResult NumOfBookings()
         {
@@ -42,7 +38,7 @@ namespace Services
         {
 
             // check if Appointment empty
-            bool IsAvailable =  _appointmentServices.CheckAppointmentAvailability(AppointmentTimeId);
+            bool IsAvailable = CheckAppointmentAvailability(AppointmentTimeId);
             if(!IsAvailable)
             {
                 return new BadRequestObjectResult("AppointmentTime is held by another patient");
@@ -52,7 +48,7 @@ namespace Services
             DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
 
             // Check if it applicable
-            var ValiditionReult = _couponServices.CheckCouponApplicability(discountCodeCoupon, PatientId);
+            var ValiditionReult = CheckCouponApplicability(discountCodeCoupon, PatientId);
             if(ValiditionReult is not OkResult)
             {
                 return ValiditionReult;
@@ -83,30 +79,50 @@ namespace Services
             return new OkObjectResult(NewBooking);
         }
 
-        public IActionResult ChangeBookingState(int BookingId, BookingState bookingState)
+        public bool CheckMinimumBookings(string patientId, int? minimumRequiredRequests)
         {
-            Booking booking = _unitOfWork.Bookings.GetById(BookingId);
-            if (booking == null)
-            {
-                return new NotFoundObjectResult("Booking Id {BookingId} is not exist");
-            }
-
-            booking.BookingState = bookingState;
-            try
-            {
-                _unitOfWork.Bookings.Update(booking);
-                _unitOfWork.Complete();
-                return new OkResult();
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult($"There is problem during booking confirmation")
-                {
-                    StatusCode = 500
-                };
-            }
+            int NumberOfPatientBookings = 0;
+            return NumberOfPatientBookings == minimumRequiredRequests;
         }
 
+        public bool CheckAppointmentAvailability(int appointmentTimeId)
+        {
+            bool IsHeld = _unitOfWork.Bookings.IsExist(a => a.AppointmentTimeId == appointmentTimeId &&
+             a.BookingState == BookingState.Pending);
+
+            return !IsHeld;
+        }
+        public IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId)
+        {
+            // Check if is active
+            if (!discountCodeCoupon.IsActivated)
+            {
+                return new BadRequestObjectResult($"DiscountCodeCoupon {discountCodeCoupon.Name}" +
+                    $" is deactivated");
+            }
+
+            // check minimum booking
+            bool IsMeet = CheckMinimumBookings(patientId,
+                discountCodeCoupon.MinimumRequiredBookings);
+
+            if (!IsMeet)
+            {
+                return new BadRequestObjectResult($"You must have atleast " +
+                    $"{discountCodeCoupon.MinimumRequiredBookings} to use {discountCodeCoupon.Name}" +
+                    $" coupon");
+            }
+
+            // Check if is used 
+            //bool IsUsed = _bookingsServices.CheckIfCouponUsedPreviuosly(patientId,
+            //    discountCodeCoupon.MinimumRequiredBookings);
+
+            //if (IsUsed)
+            //{
+            //    return new BadRequestObjectResult($"You have already used this coupon");
+            //}
+
+            return new OkResult();
+        }
         #region base methods
         public IActionResult GetAll(int Page, int PageSize, string search)
         {

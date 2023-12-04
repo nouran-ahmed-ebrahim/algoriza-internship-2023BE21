@@ -11,10 +11,12 @@ namespace Core.Services
 {
     public interface IBookingsServices
     {
-        IActionResult ChangeBookingState(int BookingId, BookingState bookingState);
-        public IActionResult NumOfBookings();
-        public IActionResult GetAll(int Page, int PageSize, string search);
-        public IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName);
+        IActionResult NumOfBookings();
+        IActionResult GetAll(int Page, int PageSize, string search);
+        IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName);
+        bool CheckMinimumBookings(string patientId, int? minimumRequiredRequests);
+        IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId);
+        bool CheckAppointmentAvailability(int appointmentTimeId);
 
     }
 }
