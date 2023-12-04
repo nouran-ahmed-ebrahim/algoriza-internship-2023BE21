@@ -34,7 +34,11 @@ namespace Vezeeta.Controllers
             if (DiscountCodeCoupon == null || DiscountCodeCoupon.Id == default)
             {
                 ModelState.AddModelError("Id", "The Id is required.");
-                return BadRequest(ModelState);
+            }
+
+            else if (DiscountCodeCoupon.Id <0)
+            {
+                ModelState.AddModelError("Id", "The Id is Invalid. Must be greater than 0.");
             }
 
             if (!ModelState.IsValid)
@@ -61,6 +65,11 @@ namespace Vezeeta.Controllers
         [HttpDelete]
         public IActionResult DeleteDiscountCodeCoupon(int id)
         {
+            if (id <= 0)
+            {
+                ModelState.AddModelError("id", "The Id is Invalid. Must be greater than 0.");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -73,6 +82,10 @@ namespace Vezeeta.Controllers
         [Route("Deactivate")]
         public IActionResult DeActivateDiscountCodeCoupon(int id)
         {
+            if (id <= 0)
+            {
+                ModelState.AddModelError("id", "The Id is Invalid. Must be greater than 0.");
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

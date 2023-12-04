@@ -24,6 +24,7 @@ namespace Services
         {
             try
             {
+                Coupon.Id = 0;
                 var result = await _unitOfWork.DiscountCodeCoupons.Add(Coupon);
 
                 _unitOfWork.Complete();
@@ -41,7 +42,7 @@ namespace Services
             try
             {
                 DiscountCodeCoupon coupon = _unitOfWork.DiscountCodeCoupons.GetById(id);
-                if (coupon != null)
+                if (coupon == null)
                 {
                     return new NotFoundObjectResult($"Id {id} is not found");
                 }
@@ -64,7 +65,7 @@ namespace Services
             try
             {
                 DiscountCodeCoupon coupon = _unitOfWork.DiscountCodeCoupons.GetById(Id);
-                if (coupon != null)
+                if (coupon == null)
                 {
                     return new NotFoundObjectResult($"Id {Id} is not found");
                 }
@@ -84,6 +85,11 @@ namespace Services
         {
             try
             {
+                bool IsCouponExist = _unitOfWork.DiscountCodeCoupons.IsExist(c=>c.Id== Coupon.Id);
+                if (!IsCouponExist)
+                {
+                    return new NotFoundObjectResult($"Id {Coupon.Id} is not found");
+                }
                 var result = _unitOfWork.DiscountCodeCoupons.Update(Coupon);
 
                 _unitOfWork.Complete();
