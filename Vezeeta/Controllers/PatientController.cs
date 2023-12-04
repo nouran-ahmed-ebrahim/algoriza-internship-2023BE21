@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.DependencyResolver;
 using Services;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 
@@ -93,9 +94,23 @@ namespace Vezeeta.Controllers
 
         [HttpPost("Booking")]
         [Authorize(Roles = "Patient")]
-        public IActionResult AddBooking()
+        public IActionResult AddBooking(int TimeId, string CouponName)
         {
-            return Ok(ModelState);
+            if(string.IsNullOrEmpty(CouponName))
+            {
+                ModelState.AddModelError("CouponName", "CouponName is required");
+            }
+
+            if (TimeId == 0)
+            {
+                ModelState.AddModelError("TimeId", "TimeId is required");
+            }
+            else if (TimeId  < 0)
+            {
+                ModelState.AddModelError("TimeId", "TimeId is invalid");
+            }
+            string? PatientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            return _bookingsServices.AddBookingToPatient(PatientId,TimeId,CouponName);
         }
         #endregion
 
