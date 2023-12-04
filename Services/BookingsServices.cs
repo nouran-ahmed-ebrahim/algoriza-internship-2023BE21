@@ -55,7 +55,7 @@ namespace Services
             {
                 PatientId = PatientId,
                 AppointmentTimeId = AppointmentTimeId,
-                DoctorId = GetDoctorId(AppointmentTimeId),
+                DoctorId = GetDoctorId(appointmentTime.AppointmentId),
                 BookingState = BookingState.Pending
             };
 
@@ -64,9 +64,9 @@ namespace Services
                 // Get DiscountCoupon
                 DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
 
-                if (discountCodeCoupon != null)
+                if (discountCodeCoupon == null)
                 {
-                    return new BadRequestObjectResult($"{discountCodeCoupon.Name} not Exist");
+                    return new BadRequestObjectResult($"{DiscountCodeCouponName} not Exist");
                 }
                 // Check if it applicable
                 var ValiditionReult = CheckCouponApplicability(discountCodeCoupon, PatientId);
@@ -93,9 +93,9 @@ namespace Services
             }
         }
 
-        private int? GetDoctorId(int appointmentTime)
+        private int? GetDoctorId(int appointmentId)
         {
-            Appointment appointment = GetAppointment(appointmentTime);
+            Appointment appointment = GetAppointment(appointmentId);
             return appointment.DoctorId;
         }
 

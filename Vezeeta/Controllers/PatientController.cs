@@ -94,7 +94,7 @@ namespace Vezeeta.Controllers
 
         [HttpPost("Booking")]
         [Authorize(Roles = "Patient")]
-        public IActionResult AddBooking(int TimeId, string? CouponName)
+        public IActionResult AddBooking([FromForm]int TimeId, [FromForm]string? CouponName)
         {
 
             if (TimeId == 0)

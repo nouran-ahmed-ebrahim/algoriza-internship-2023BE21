@@ -32,11 +32,5 @@ namespace Core.Domain
         [AllowNull]
         public int? DiscountCodeCouponId { get; set; }
         #endregion
-        #region nav prop
-        public AppointmentTime? AppointmentTime { get; set; }
-        public Doctor? Doctor { get; set; }
-        public ApplicationUser? Patient { get; set; }
-        public DiscountCodeCoupon? DiscountCodeCoupon { get; set; }
-        #endregion
     }
 }
