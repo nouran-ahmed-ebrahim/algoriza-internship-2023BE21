@@ -10,8 +10,6 @@ namespace Core.Services
 {
     public interface IAppointmentServices
     {
-        IActionResult ConvertStringToDayOfWeek(string day);
         IActionResult AddDays(int doctorId, List<DaySchedule> appointments);
-        IActionResult AddDay(int doctorId, DaySchedule day);
     }
 }

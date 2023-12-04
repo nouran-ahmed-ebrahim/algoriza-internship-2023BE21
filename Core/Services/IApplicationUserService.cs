@@ -17,9 +17,7 @@ namespace Core.Services
         #endregion
         Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
         Task<IActionResult> GetUsersCountInRole(string roleName);
-        IActionResult GetImage(string imagePath);
         Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);
-        Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe);
         Task SignOut();
         IActionResult ChangeBookingState(int BookingId, BookingState bookingState);
 

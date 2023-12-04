@@ -81,7 +81,7 @@ namespace Services
             }
         }
 
-        public IActionResult GetImage(string imagePath)
+        private IActionResult GetImage(string imagePath)
         {
             if (string.IsNullOrEmpty(imagePath))
             {
@@ -96,7 +96,7 @@ namespace Services
 
             return new OkObjectResult(formFile);
         }
-        public async Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe)
+        private async Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe)
         {
             ApplicationUser user = await _unitOfWork.ApplicationUser.GetUserByEmail(Email);
 

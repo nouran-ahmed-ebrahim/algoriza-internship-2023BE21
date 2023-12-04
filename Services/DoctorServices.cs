@@ -50,7 +50,7 @@ namespace Services
             return new OkObjectResult("Price & Appointments Added Successfully");
         }
 
-        public IActionResult SetPrice(int doctorId, decimal price)
+        private IActionResult SetPrice(int doctorId, decimal price)
         {
             Doctor doctor = _unitOfWork.Doctors.GetById(doctorId);
             if (doctor == null)

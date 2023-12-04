@@ -19,7 +19,7 @@ namespace Services
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
+        private IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
         {
             AppointmentTime appointmentTime;
             // if the day exist previously check timeSlot existence

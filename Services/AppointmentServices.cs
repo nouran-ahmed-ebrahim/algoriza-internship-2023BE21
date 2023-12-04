@@ -38,7 +38,7 @@ namespace Services
             return new OkResult();
         }
 
-        public IActionResult ConvertStringToDayOfWeek(string day)
+        private IActionResult ConvertStringToDayOfWeek(string day)
         {
             DayOfWeek dayOfWeek;
             if (Enum.TryParse(day, true, out dayOfWeek))
@@ -50,7 +50,7 @@ namespace Services
                 return new BadRequestObjectResult("Day is invalid");
             }
         }
-        public IActionResult AddDay(int doctorId, DaySchedule DaySchedule)
+        private IActionResult AddDay(int doctorId, DaySchedule DaySchedule)
         {
             if (DaySchedule.Day == null)
             {
