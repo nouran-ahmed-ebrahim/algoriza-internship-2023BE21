@@ -20,7 +20,7 @@ namespace Vezeeta.Controllers
         }
 
         #region authentication APIs
-        [HttpGet("SignIn")]
+        [HttpPost("SignIn")]
         public async Task<IActionResult> SignIn([FromForm]string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
             if (string.IsNullOrEmpty(Email))
