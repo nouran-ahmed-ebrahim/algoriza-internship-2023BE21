@@ -61,7 +61,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.ToTable("AppointmentDays");
+                    b.ToTable("AppointmentDayOfWeek");
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentTime", b =>
@@ -341,7 +341,7 @@ namespace Repository.Migrations
             modelBuilder.Entity("Core.Domain.AppointmentDay", b =>
                 {
                     b.HasOne("Core.Domain.Appointment", "Appointment")
-                        .WithMany("AppointmentsDays")
+                        .WithMany("AppointmentsDayOfWeek")
                         .HasForeignKey("AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -427,7 +427,7 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Core.Domain.Appointment", b =>
                 {
-                    b.Navigation("AppointmentsDays");
+                    b.Navigation("AppointmentsDayOfWeek");
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentDay", b =>

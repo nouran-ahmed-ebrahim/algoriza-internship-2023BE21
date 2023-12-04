@@ -10,6 +10,6 @@ namespace Core.Services
 {
     public interface IAppointmentServices
     {
-        IActionResult AddDays(int doctorId, List<DaySchedule> appointments);
+        IActionResult AddDayOfWeek(int doctorId, List<DayOfWeekchedule> appointments);
     }
 }

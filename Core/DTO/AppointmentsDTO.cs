@@ -9,10 +9,10 @@ namespace Core.DTO
     public class AppointmentsDTO
     {
         public decimal Price { get; set; }
-        public List<DaySchedule>? Days { get; set; }
+        public List<DayOfWeekchedule>? DayOfWeek { get; set; }
     }
 
-    public class DaySchedule
+    public class DayOfWeekchedule
     {
         public string? Day { get; set; }
         public List<string>? Times { get; set; }

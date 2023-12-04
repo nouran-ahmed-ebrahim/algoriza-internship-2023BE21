@@ -141,7 +141,7 @@ namespace Repository.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppointmentDays",
+                name: "AppointmentDayOfWeek",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -151,9 +151,9 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppointmentDays", x => x.Id);
+                    table.PrimaryKey("PK_AppointmentDayOfWeek", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppointmentDays_Appointments_AppointmentId",
+                        name: "FK_AppointmentDayOfWeek_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
                         principalColumn: "Id",
@@ -173,16 +173,16 @@ namespace Repository.Migrations
                 {
                     table.PrimaryKey("PK_AppointmentTimes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppointmentTimes_AppointmentDays_AppointmentDayId",
+                        name: "FK_AppointmentTimes_AppointmentDayOfWeek_AppointmentDayId",
                         column: x => x.AppointmentDayId,
-                        principalTable: "AppointmentDays",
+                        principalTable: "AppointmentDayOfWeek",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppointmentDays_AppointmentId",
-                table: "AppointmentDays",
+                name: "IX_AppointmentDayOfWeek_AppointmentId",
+                table: "AppointmentDayOfWeek",
                 column: "AppointmentId");
 
             migrationBuilder.CreateIndex(
@@ -236,7 +236,7 @@ namespace Repository.Migrations
                 name: "Requests");
 
             migrationBuilder.DropTable(
-                name: "AppointmentDays");
+                name: "AppointmentDayOfWeek");
 
             migrationBuilder.DropTable(
                 name: "DiscountCodeCoupons");

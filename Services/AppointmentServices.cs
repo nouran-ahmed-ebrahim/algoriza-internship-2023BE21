@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DayOfWeek = Core.Utilities.DayOfWeek;
 
 namespace Services
 {
@@ -24,7 +25,7 @@ namespace Services
             _unitOfWork = unitOfWork;
         }
 
-        public IActionResult AddDays(int doctorId, List<DaySchedule> appointments)
+        public IActionResult AddDayOfWeek(int doctorId, List<DayOfWeekchedule> appointments)
         {
             IActionResult result;
             foreach (var day in appointments)
@@ -40,39 +41,39 @@ namespace Services
 
         private IActionResult ConvertStringToDayOfWeek(string day)
         {
-            DayOfWeek dayOfWeek;
-            if (Enum.TryParse(day, true, out dayOfWeek))
+            DayOfWeek DayOfWeek;
+            if (Enum.TryParse(day, true, out DayOfWeek))
             {
-                return new OkObjectResult(dayOfWeek);
+                return new OkObjectResult(DayOfWeek);
             }
             else
             {
                 return new BadRequestObjectResult("Day is invalid");
             }
         }
-        private IActionResult AddDay(int doctorId, DaySchedule DaySchedule)
+        private IActionResult AddDay(int doctorId, DayOfWeekchedule DayOfWeekchedule)
         {
-            if (DaySchedule.Day == null)
+            if (DayOfWeekchedule.Day == null)
             {
-                return new BadRequestObjectResult($"Inter Time Slots for day {DaySchedule}");
+                return new BadRequestObjectResult($"Inter Time Slots for day {DayOfWeekchedule}");
             }
 
-            var result = ConvertStringToDayOfWeek(DaySchedule.Day);
+            var result = ConvertStringToDayOfWeek(DayOfWeekchedule.Day);
 
             if (result is not OkObjectResult okResult)
             {
                 return result;
             }
-            DayOfWeek dayOfWeek = (DayOfWeek)okResult.Value;
+            DayOfWeek DayOfWeek = (DayOfWeek)okResult.Value;
 
-            Appointment appointment = _unitOfWork.Appointments.GetByDoctorIdAndDay(doctorId, dayOfWeek);
+            Appointment appointment = _unitOfWork.Appointments.GetByDoctorIdAndDay(doctorId, DayOfWeek);
             int DayId = 0;
             if (appointment == null)
             {
                 appointment = new Appointment()
                 {
                     DoctorId = doctorId,
-                    DayOfWeek = dayOfWeek,
+                    DayOfWeek = DayOfWeek,
                 };
             }
             else
@@ -82,7 +83,7 @@ namespace Services
 
          //   List<AppointmentTime> AppointmentTimes = appointment.AppointmentTimes;
             
-            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, DaySchedule.Times);
+            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, DayOfWeekchedule.Times);
             if (addingDayTimesResult is not OkObjectResult addingTimesResult)
             {
                 return addingDayTimesResult;
@@ -109,7 +110,7 @@ namespace Services
             }
             catch (Exception ex)
             {
-                return new BadRequestObjectResult($"There is a problem while Adding {DaySchedule} \n {ex.Message}" +
+                return new BadRequestObjectResult($"There is a problem while Adding {DayOfWeekchedule} \n {ex.Message}" +
                      $"\n {ex.InnerException?.Message}");
             }
         }

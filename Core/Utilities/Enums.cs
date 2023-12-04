@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Utilities
 {
-    public enum Days
+    public enum DayOfWeek
     {
         Saturday,
         Sunday,

@@ -39,11 +39,11 @@ namespace Services
                 return SettingPriceResult;
             }
 
-            // set Days 
-            var AddingDaysResult = _appointmentServices.AddDays(DoctorId, appointments.Days);
-            if (AddingDaysResult is not OkResult)
+            // set DayOfWeek 
+            var AddingDayOfWeekResult = _appointmentServices.AddDayOfWeek(DoctorId, appointments.DayOfWeek);
+            if (AddingDayOfWeekResult is not OkResult)
             {
-                return AddingDaysResult;
+                return AddingDayOfWeekResult;
             }
 
             _unitOfWork.Complete();

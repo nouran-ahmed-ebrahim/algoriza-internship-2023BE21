@@ -14,11 +14,11 @@ namespace Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_AppointmentTimes_AppointmentDays_AppointmentDayId",
+                name: "FK_AppointmentTimes_AppointmentDayOfWeek_AppointmentDayId",
                 table: "AppointmentTimes");
 
             migrationBuilder.DropTable(
-                name: "AppointmentDays");
+                name: "AppointmentDayOfWeek");
 
             migrationBuilder.RenameColumn(
                 name: "AppointmentDayId",
@@ -68,7 +68,7 @@ namespace Repository.Migrations
                 newName: "IX_AppointmentTimes_AppointmentDayId");
 
             migrationBuilder.CreateTable(
-                name: "AppointmentDays",
+                name: "AppointmentDayOfWeek",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -78,9 +78,9 @@ namespace Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppointmentDays", x => x.Id);
+                    table.PrimaryKey("PK_AppointmentDayOfWeek", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppointmentDays_Appointments_AppointmentId",
+                        name: "FK_AppointmentDayOfWeek_Appointments_AppointmentId",
                         column: x => x.AppointmentId,
                         principalTable: "Appointments",
                         principalColumn: "Id",
@@ -103,15 +103,15 @@ namespace Repository.Migrations
                 values: new object[] { "b5ddabce-3811-4c2d-a53f-c3b302eb823c", 0, "785ecdf4-a6f7-43a3-8699-b3d59b23f3d0", new DateTime(2001, 5, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@gmail.com", false, 1, null, false, null, null, null, "AQAAAAIAAYagAAAAELoqsB/KvzqzyB1PGpVNlx8GdoPKhrWKEo2LqNCXnnaUKDzgo6K4C6/bwF0Syd+49g==", "1234567890", false, "f69f20bf-a466-46ae-9926-baef746903dc", false, "Admin Admin" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AppointmentDays_AppointmentId",
-                table: "AppointmentDays",
+                name: "IX_AppointmentDayOfWeek_AppointmentId",
+                table: "AppointmentDayOfWeek",
                 column: "AppointmentId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AppointmentTimes_AppointmentDays_AppointmentDayId",
+                name: "FK_AppointmentTimes_AppointmentDayOfWeek_AppointmentDayId",
                 table: "AppointmentTimes",
                 column: "AppointmentDayId",
-                principalTable: "AppointmentDays",
+                principalTable: "AppointmentDayOfWeek",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

@@ -164,7 +164,7 @@ namespace Services
             {
                 _unitOfWork.Bookings.Update(booking);
                 _unitOfWork.Complete();
-                return new OkObjectResult("Confirmed Successfully");
+                return new OkObjectResult("Successful operation");
             }
             catch (Exception ex)
             {

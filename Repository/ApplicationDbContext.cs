@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,40 @@ namespace Repository
             modelBuilder.Entity<Doctor>()
             .Property(d => d.Price)
             .HasColumnType("decimal(18, 2)");
+
+            #region relations
+
+            modelBuilder.Entity<Booking>()
+            .HasOne<AppointmentTime>()
+            .WithMany()
+            .HasForeignKey(p => p.AppointmentTimeId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasConstraintName("FK_Bookings_AppointmentTimes_AppointmentTimeId");
+
+            modelBuilder.Entity<Booking>()
+            .HasOne<ApplicationUser>()
+            .WithMany()
+            .HasForeignKey(p => p.PatientId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasConstraintName("FK_Bookings_AspNetUsers_PatientId");
+
+
+            modelBuilder.Entity<Booking>()
+            .HasOne<DiscountCodeCoupon>()
+            .WithMany()
+            .HasForeignKey(b => b.DiscountCodeCouponId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasConstraintName("FK_Bookings_DiscountCodeCoupons_DiscountCodeCouponId");
+
+         
+             modelBuilder.Entity<Booking>()
+            .HasOne<Doctor>()
+            .WithMany()
+            .HasForeignKey(b => b.DoctorId)
+            .OnDelete(DeleteBehavior.Restrict)
+            .HasConstraintName("FK_Bookings_Doctors_DoctorId");
+
+            #endregion
 
             #region dataSeeding
 
