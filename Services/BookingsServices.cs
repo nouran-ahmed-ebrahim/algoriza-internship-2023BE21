@@ -79,20 +79,14 @@ namespace Services
             return new OkObjectResult(NewBooking);
         }
 
-        public bool CheckMinimumBookings(string patientId, int? minimumRequiredRequests)
-        {
-            int NumberOfPatientBookings = 0;
-            return NumberOfPatientBookings == minimumRequiredRequests;
-        }
-
-        public bool CheckAppointmentAvailability(int appointmentTimeId)
+        private bool CheckAppointmentAvailability(int appointmentTimeId)
         {
             bool IsHeld = _unitOfWork.Bookings.IsExist(a => a.AppointmentTimeId == appointmentTimeId &&
              a.BookingState == BookingState.Pending);
 
             return !IsHeld;
         }
-        public IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId)
+        private IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId)
         {
             // Check if is active
             if (!discountCodeCoupon.IsActivated)
@@ -113,16 +107,29 @@ namespace Services
             }
 
             // Check if is used 
-            //bool IsUsed = _bookingsServices.CheckIfCouponUsedPreviuosly(patientId,
-            //    discountCodeCoupon.MinimumRequiredBookings);
+            bool IsUsed = CheckIfCouponUsedPreviously(patientId, discountCodeCoupon.Id);
 
-            //if (IsUsed)
-            //{
-            //    return new BadRequestObjectResult($"You have already used this coupon");
-            //}
+            if (IsUsed)
+            {
+                return new BadRequestObjectResult($"You have already used this coupon");
+            }
 
             return new OkResult();
         }
+
+        private bool CheckIfCouponUsedPreviously(string patientId, int CouponId)
+        {
+            return _unitOfWork.Bookings.IsExist( b => b.PatientId ==  patientId &&
+            b.DiscountCodeCouponId == CouponId );
+        }
+
+        private bool CheckMinimumBookings(string patientId, int? minimumRequiredRequests)
+        {
+            int NumberOfPatientBookings = _unitOfWork.Bookings.NumOfBookings(
+                                                        b => b.PatientId == patientId);
+            return NumberOfPatientBookings >= minimumRequiredRequests;
+        }
+
         #region base methods
         public IActionResult GetAll(int Page, int PageSize, string search)
         {
