@@ -17,7 +17,7 @@ namespace Core.Domain
         public string? Name { get; set; }
 
         [Required(ErrorMessage = "IsActivated is required.")]
-        public bool? IsActivated { get; set; }
+        public bool IsActivated { get; set; }
 
         [Required(ErrorMessage = "Value is required.")]
         [InRangeAttribute]

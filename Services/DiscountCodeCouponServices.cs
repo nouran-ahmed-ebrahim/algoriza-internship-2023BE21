@@ -15,9 +15,11 @@ namespace Services
     public class DiscountCodeCouponServices : IDiscountCodeCouponServices
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IBookingsServices _bookingsServices;
 
-        public DiscountCodeCouponServices(IUnitOfWork UnitOfWork) {
+        public DiscountCodeCouponServices(IUnitOfWork UnitOfWork, IBookingsServices BookingsServices) {
             _unitOfWork = UnitOfWork;
+            _bookingsServices = BookingsServices;
         }
 
         public async Task<IActionResult> Add(DiscountCodeCoupon Coupon)
@@ -85,7 +87,7 @@ namespace Services
         {
             try
             {
-                bool IsCouponExist = _unitOfWork.DiscountCodeCoupons.IsExist(c=>c.Id== Coupon.Id);
+                bool IsCouponExist = _unitOfWork.DiscountCodeCoupons.IsExist(c => c.Id == Coupon.Id);
                 if (!IsCouponExist)
                 {
                     return new NotFoundObjectResult($"Id {Coupon.Id} is not found");
@@ -100,6 +102,38 @@ namespace Services
 
                 return new BadRequestObjectResult($"{ex.Message} \n {ex.InnerException?.Message}");
             }
+        }
+
+        public IActionResult CheckCouponApplicability(DiscountCodeCoupon discountCodeCoupon, string patientId)
+        {
+            // Check if is active
+            if (!discountCodeCoupon.IsActivated)
+            {
+                return new BadRequestObjectResult($"DiscountCodeCoupon {discountCodeCoupon.Name}" +
+                    $" is deactivated");
+            }
+
+            // check minimum booking
+            bool IsMeet = _bookingsServices.CheckMinimumRequests(patientId,
+                discountCodeCoupon.MinimumRequiredRequests);
+
+            if (!IsMeet)
+            {
+                return new BadRequestObjectResult($"You must have atleast " +
+                    $"{discountCodeCoupon.MinimumRequiredRequests} to use {discountCodeCoupon.Name}" +
+                    $" coupon");
+            }
+
+            // Check if is used 
+            bool IsUsed = _bookingsServices.CheckMinimumRequests(patientId,
+                discountCodeCoupon.MinimumRequiredRequests);
+
+            if (IsUsed)
+            {
+                return new BadRequestObjectResult($"You have already used this coupon");
+            }
+
+            return new OkResult();
         }
     }
 }
