@@ -27,6 +27,26 @@ namespace Vezeeta.Controllers
             _bookingsServices = bookingsServices;
         }
 
+        #region authentication methods
+        [HttpPost]
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> SignUp([FromForm] UserDTO userDTO)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                };
+
+                return await _patientServices.AddUser(userDTO, UserRole.Patient);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
+            }
+        }
+
         [HttpGet("SignIn")]
         public async Task<IActionResult> SignIn([FromForm] string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
@@ -55,25 +75,15 @@ namespace Vezeeta.Controllers
             return await _patientServices.SignIn(Email, Password, RememberMe);
         }
 
-        [HttpPost]
-        [Consumes("multipart/form-data")]
-        public async Task<IActionResult> AddPatient([FromForm]UserDTO userDTO) 
+        [HttpPost("LogOut")]
+        public async Task<IActionResult> LogOut()
         {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                };
-
-                return await _patientServices.AddUser(userDTO,UserRole.Patient);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"An error occurred while adding the patient: {ex.Message}");
-            }
+            await _patientServices.SignOut();
+            return Ok("LogOut Successfully");
         }
+        #endregion
 
+        #region booking methods
         [HttpPatch("Booking/Cancel")]
         [Authorize(Roles = "Patient")]
         public IActionResult ConfirmCheckUp(int BookingId)
@@ -81,12 +91,8 @@ namespace Vezeeta.Controllers
             return _patientServices.CancelBooking(BookingId);
         }
 
-        [HttpPost("LogOut")]
-        public async Task<IActionResult> LogOut()
-        {
-            await _patientServices.SignOut();
-            return Ok("LogOut Successfully");
-        }
+        #endregion
+
     }
 }
 
