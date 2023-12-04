@@ -13,7 +13,7 @@ namespace Vezeeta.Controllers
     public class DoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorServices;
-        private readonly object _appointmentTimeServices;
+        private readonly IAppointmentTimeServices _appointmentTimeServices;
 
         public DoctorController(IDoctorServices DoctorServices, IAppointmentTimeServices appointmentTimeServices) 
         {

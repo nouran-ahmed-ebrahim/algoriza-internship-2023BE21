@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Core.Repository;
 using Core.Services;
+using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -69,5 +70,72 @@ namespace Services
         { 
             return Convert.ToDateTime(strTime).TimeOfDay; ;
         }
+
+        public IActionResult DeleteAppointment(int TimeId)
+        {
+            try
+            {
+                AppointmentTime appointmentTime = _unitOfWork.AppointmentTimes.GetById(TimeId);
+                if (appointmentTime == null)
+                {
+                    return new NotFoundObjectResult($"There is no appointment time with id {TimeId}");
+                }
+
+                bool IsUsed = _unitOfWork.Bookings.IsExist(b => b.AppointmentTimeId == TimeId);
+                if (IsUsed)
+                {
+                    return new BadRequestObjectResult($"Can't delete appointment time with id {TimeId} " +
+                        "has already been used");
+                }
+
+                _unitOfWork.AppointmentTimes.Delete(appointmentTime);
+                _unitOfWork.Complete();
+                return new OkObjectResult($"appointment time with id {TimeId} has been deleted successfully");
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while deleting appointmentTime: \n " +
+                    $"{ex.Message} \n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public IActionResult UpdateAppointment(int TimeId, string NewTime)
+        {
+            try
+            {
+                AppointmentTime appointmentTime = _unitOfWork.AppointmentTimes.GetById(TimeId);
+                if (appointmentTime == null)
+                {
+                    return new NotFoundObjectResult($"There is no appointment time with id {TimeId}");
+                }
+
+                bool IsUsed = _unitOfWork.Bookings.IsExist(b => b.AppointmentTimeId == TimeId &&
+                (b.BookingState == BookingState.Pending || b.BookingState == BookingState.Cancelled) );
+                if (IsUsed)
+                {
+                    return new BadRequestObjectResult($"Can't delete appointment time with id {TimeId} " +
+                        "has already been used");
+                }
+
+                appointmentTime.Time = ConvertStringTotTimeSpan(NewTime);
+
+                _unitOfWork.AppointmentTimes.Update(appointmentTime);
+                _unitOfWork.Complete();
+                return new OkObjectResult(appointmentTime);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while deleting appointmentTime: \n " +
+                    $"{ex.Message} \n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+
     }
 }

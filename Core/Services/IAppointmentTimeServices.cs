@@ -10,5 +10,6 @@ namespace Core.Services
     public interface IAppointmentTimeServices
     {
         IActionResult AddDayTimes(int dayId, List<String> value);
+        IActionResult DeleteAppointment(int TimeId);
     }
 }
