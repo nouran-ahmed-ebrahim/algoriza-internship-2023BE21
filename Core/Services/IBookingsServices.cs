@@ -14,7 +14,7 @@ namespace Core.Services
         IActionResult ChangeBookingState(int BookingId, BookingState bookingState);
         public IActionResult NumOfBookings();
         public IActionResult GetAll(int Page, int PageSize, string search);
-        public IActionResult AddBookingToPatient(int AppointmentTimeId, string DiscountCodeCouponName);
+        public IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName);
 
     }
 }

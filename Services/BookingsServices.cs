@@ -10,9 +10,14 @@ namespace Services
     public class BookingsServices : IBookingsServices
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IDiscountCodeCouponServices _couponServices;
+        private readonly IAppointmentServices _appointmentServices;
 
-        public BookingsServices(IUnitOfWork UnitOfWork) {
+        public BookingsServices(IUnitOfWork UnitOfWork, IDiscountCodeCouponServices CouponServices,
+            IAppointmentServices AppointmentServices) {
             _unitOfWork = UnitOfWork;
+            _couponServices = CouponServices;
+            _appointmentServices = AppointmentServices;
         }
         public IActionResult NumOfBookings()
         {
@@ -33,9 +38,38 @@ namespace Services
             return new OkObjectResult(result);
         }
 
-        public IActionResult AddBookingToPatient(int AppointmentTimeId, string DiscountCodeCouponName)
+        public IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName)
         {
-            throw new NotImplementedException();
+
+            // check if Appointment empty
+            bool IsAvailable =  _appointmentServices.CheckAppointmentAvailablity(AppointmentTimeId);
+            if(!IsAvailable)
+            {
+                return new BadRequestObjectResult("AppointmentTime is held by another patient");
+            }
+
+            // Get DiscountCoupon
+            DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
+
+            // Check if it applicable
+            var ValiditionReult = _couponServices.CheckCouponApplicablty(discountCodeCoupon, PatientId);
+            if(ValiditionReult is not OkResult)
+            {
+                return ValiditionReult;
+            }
+
+            // Add Booking
+            Booking NewBooking = new()
+            {
+                PatientId = PatientId,
+                AppointmentTimeId = AppointmentTimeId,
+                DiscountCodeCouponId = discountCodeCoupon.Id,
+            };
+
+            _unitOfWork.Bookings.Add(NewBooking);
+            _unitOfWork.Complete();
+
+            return new OkObjectResult(NewBooking);
         }
 
         public IActionResult ChangeBookingState(int BookingId, BookingState bookingState)
