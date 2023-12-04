@@ -94,6 +94,26 @@ namespace Vezeeta.Controllers
                 };
             }
         }
+        
+        [HttpPatch("Appointment")]
+        [Authorize(Roles = "Doctor")]
+        public IActionResult DeleteAppointment([FromForm] int TimeId, [FromForm] string NewTime)
+        {
+            if (TimeId == 0)
+            {
+                ModelState.AddModelError("TimeId", "Time Id is required");
+            }
+
+            if (string.IsNullOrEmpty(NewTime))
+            {
+                ModelState.AddModelError("NewTime", "NewTime Id is required");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            return _appointmentTimeServices.UpdateAppointment(TimeId, NewTime);
+        }
 
         [HttpDelete("Appointment")]
         [Authorize(Roles = "Doctor")]

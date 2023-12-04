@@ -11,5 +11,6 @@ namespace Core.Services
     {
         IActionResult AddDayTimes(int dayId, List<String> value);
         IActionResult DeleteAppointment(int TimeId);
+        IActionResult UpdateAppointment(int TimeId, string NewTime);
     }
 }
