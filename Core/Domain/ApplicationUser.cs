@@ -14,7 +14,6 @@ namespace Core.Domain
 {
     public class ApplicationUser: IdentityUser
     {
-       [RequiredAttributeForDoctor(ErrorMessage = "This property is required for users with the 'doctor' role.")]
         public string? Image { get; set; }
 
         [Required(ErrorMessage = "FullName is required.")]
