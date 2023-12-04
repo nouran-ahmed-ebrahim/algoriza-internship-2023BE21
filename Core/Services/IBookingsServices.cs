@@ -13,6 +13,6 @@ namespace Core.Services
     {
         IActionResult NumOfBookings();
         IActionResult GetAll(int Page, int PageSize, string search);
-        IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName);;
+        IActionResult AddBookingToPatient(string PatientId, int AppointmentTimeId, string DiscountCodeCouponName);
     }
 }

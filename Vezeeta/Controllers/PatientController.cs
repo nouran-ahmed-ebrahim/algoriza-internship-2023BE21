@@ -94,12 +94,8 @@ namespace Vezeeta.Controllers
 
         [HttpPost("Booking")]
         [Authorize(Roles = "Patient")]
-        public IActionResult AddBooking(int TimeId, string CouponName)
+        public IActionResult AddBooking(int TimeId, string? CouponName)
         {
-            if(string.IsNullOrEmpty(CouponName))
-            {
-                ModelState.AddModelError("CouponName", "CouponName is required");
-            }
 
             if (TimeId == 0)
             {

@@ -44,23 +44,26 @@ namespace Services
                 return new BadRequestObjectResult("AppointmentTime is held by another patient");
             }
 
-            // Get DiscountCoupon
-            DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
-
-            // Check if it applicable
-            var ValiditionReult = CheckCouponApplicability(discountCodeCoupon, PatientId);
-            if(ValiditionReult is not OkResult)
-            {
-                return ValiditionReult;
-            }
-
             // Add Booking
             Booking NewBooking = new()
             {
                 PatientId = PatientId,
                 AppointmentTimeId = AppointmentTimeId,
-                DiscountCodeCouponId = discountCodeCoupon.Id,
             };
+
+            if (!string.IsNullOrEmpty(DiscountCodeCouponName))
+            {
+                // Get DiscountCoupon
+                DiscountCodeCoupon discountCodeCoupon = _unitOfWork.DiscountCodeCoupons.GetByName(DiscountCodeCouponName);
+
+                // Check if it applicable
+                var ValiditionReult = CheckCouponApplicability(discountCodeCoupon, PatientId);
+                if (ValiditionReult is not OkResult)
+                {
+                    return ValiditionReult;
+                }
+                NewBooking.DiscountCodeCouponId = discountCodeCoupon.Id;
+            }
 
             try
             {
