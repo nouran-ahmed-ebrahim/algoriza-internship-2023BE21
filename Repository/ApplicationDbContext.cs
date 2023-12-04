@@ -24,6 +24,7 @@ namespace Repository
         {
             base.OnModelCreating(modelBuilder);
 
+            #region Index
             modelBuilder.Entity<Specialization>()
             .HasIndex(p => p.Name)
             .IsUnique();
@@ -33,8 +34,9 @@ namespace Repository
             .IsUnique();
 
             modelBuilder.Entity<DiscountCodeCoupon>()
-                .HasIndex(c => c.Name)
-                .IsUnique();
+            .HasIndex(c => c.Name)
+            .IsUnique();
+            #endregion
 
             modelBuilder.Entity<Doctor>()
             .Property(d => d.Price)

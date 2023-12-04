@@ -113,7 +113,7 @@ namespace Services
                 }
 
                 bool IsUsed = _unitOfWork.Bookings.IsExist(b => b.AppointmentTimeId == TimeId &&
-                (b.BookingState == BookingState.Pending || b.BookingState == BookingState.Cancelled) );
+                (b.BookingState == BookingState.Pending || b.BookingState == BookingState.Completed) );
                 if (IsUsed)
                 {
                     return new BadRequestObjectResult($"Can't delete appointment time with id {TimeId} " +
@@ -121,6 +121,16 @@ namespace Services
                 }
 
                 appointmentTime.Time = ConvertStringTotTimeSpan(NewTime);
+
+                // check if there is a similar one then delete it
+                bool IsSimilarExist = _unitOfWork.AppointmentTimes.IsExist(at => 
+                                at.AppointmentId == appointmentTime.AppointmentId &&
+                                at.Time == appointmentTime.Time); 
+
+                if (IsSimilarExist)
+                {
+                    return new BadRequestObjectResult("This time is already exists.");
+                }
 
                 _unitOfWork.AppointmentTimes.Update(appointmentTime);
                 _unitOfWork.Complete();
