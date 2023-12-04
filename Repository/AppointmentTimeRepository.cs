@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace Repository
 {
     public class AppointmentTimeRepository(ApplicationDbContext context) :
-                            BaseRepository<AppointmentTime>(context), IAppointmentTimeRepository
+                            DataOperationsRepository<AppointmentTime>(context), IAppointmentTimeRepository
     {
         public AppointmentTime GetByDayIdAndSlot(int dayId, TimeSpan timeSlot)
         {

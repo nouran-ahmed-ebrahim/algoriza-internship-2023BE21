@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IAppointmentTimeRepository : IBaseRepository<AppointmentTime>
+    public interface IAppointmentTimeRepository : IDataOperationsRepository<AppointmentTime>
     {
         AppointmentTime GetByDayIdAndSlot(int dayId, TimeSpan timeSlot);
     }
