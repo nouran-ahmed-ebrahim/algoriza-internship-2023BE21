@@ -156,7 +156,7 @@ namespace Services
             Booking booking = _unitOfWork.Bookings.GetById(BookingId);
             if (booking == null)
             {
-                return new NotFoundObjectResult("Booking Id {BookingId} is not exist");
+                return new NotFoundObjectResult($"Booking Id {BookingId} is not exist");
             }
 
             booking.BookingState = bookingState;
@@ -164,7 +164,7 @@ namespace Services
             {
                 _unitOfWork.Bookings.Update(booking);
                 _unitOfWork.Complete();
-                return new OkResult();
+                return new OkObjectResult("Confirmed Successfully");
             }
             catch (Exception ex)
             {

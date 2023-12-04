@@ -95,9 +95,9 @@ namespace Vezeeta.Controllers
         #endregion
 
         #region Booking APIs
-        [HttpPatch("/Booking/Confirm")]
+        [HttpPatch("Booking/Confirm")]
         [Authorize(Roles = "Doctor")]
-        public IActionResult ConfirmBooking(int BookingId)
+        public IActionResult ConfirmBooking([FromForm]int BookingId)
         {
             return _doctorServices.ConfirmCheckUp(BookingId);
         }
