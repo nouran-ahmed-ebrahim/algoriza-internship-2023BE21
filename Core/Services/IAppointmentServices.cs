@@ -13,5 +13,6 @@ namespace Core.Services
         IActionResult ConvertStringToDayOfWeek(string day);
         IActionResult AddDays(int doctorId, List<DaySchedule> appointments);
         IActionResult AddDay(int doctorId, DaySchedule day);
+        bool CheckAppointmentAvailability(int appointmentTimeId);
     }
 }
