@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,12 @@ namespace Repository
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Doctor>()
+            .Property(d => d.Price)
+            .HasColumnType("decimal(18,2)")
+            .IsRequired()
+            .HasDefaultValue((decimal)0.0);
 
             #region Index
             modelBuilder.Entity<Specialization>()
