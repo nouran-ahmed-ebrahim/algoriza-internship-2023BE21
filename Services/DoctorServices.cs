@@ -188,9 +188,9 @@ namespace Services
                 return new NotFoundObjectResult($"No doctor found with id {id}");
             }
 
-            var doctorInfo = _unitOfWork.Doctors.GetDoctorInfo(id);
+            return _unitOfWork.Doctors.GetDoctorInfo(id);
             
-            return new OkObjectResult(doctorInfo);
+             
         }
     }
 }

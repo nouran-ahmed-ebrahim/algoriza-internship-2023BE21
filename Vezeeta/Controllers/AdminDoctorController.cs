@@ -21,6 +21,21 @@ namespace Vezeeta.Controllers
         {
             _doctorService = DoctorService;
         }
+        [HttpGet]
+        public IActionResult GetById(int Id)
+        {
+            if(Id == 0)
+            {
+                ModelState.AddModelError("Id", "Id is required");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return _doctorService.GetById(Id);
+        }
 
         [HttpPost]
         [Consumes("multipart/form-data")]

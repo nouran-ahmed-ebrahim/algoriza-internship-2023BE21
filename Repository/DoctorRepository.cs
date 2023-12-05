@@ -83,12 +83,14 @@ namespace Repository
                 };
             }
         }
-        
-       public IActionResult GetDoctorInfo(int doctorId)
+
+        public IActionResult GetDoctorInfo(int doctorId)
         {
             try
             {
-                var doctor = _context.Doctors.Join
+
+                var doctor = _context.Doctors.Where(d=>d.Id==doctorId)
+                           .Join
                             (
                                 _context.Users,
                                 doctor => doctor.DoctorUserId,
@@ -118,15 +120,18 @@ namespace Repository
                                     BirthOfDate = doctor.DateOfBirth,
                                     Specialization = specialization.Name
                                 }
-                            )
-                            .ToList();
+                            ).FirstOrDefault();
                 return new OkObjectResult(doctor);
             }
             catch (Exception ex)
             {
                 return new ObjectResult($"There is a problem during Getting doctor Info \n" +
-                    $"{ex.Message}\n {ex.InnerException?.Message}");
+                    $"{ex.Message}\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
             }
         }
+
     }
 }
