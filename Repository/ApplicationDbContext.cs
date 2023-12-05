@@ -28,7 +28,6 @@ namespace Repository
             modelBuilder.Entity<Doctor>()
             .Property(d => d.Price)
             .HasColumnType("decimal(18,2)")
-            .IsRequired()
             .HasDefaultValue((decimal)0.0);
 
             #region Index
@@ -44,10 +43,6 @@ namespace Repository
             .HasIndex(c => c.Name)
             .IsUnique();
             #endregion
-
-            modelBuilder.Entity<Doctor>()
-            .Property(d => d.Price)
-            .HasColumnType("decimal(18, 2)");
 
             #region relations
 
@@ -183,16 +178,16 @@ namespace Repository
                 //await _roleManager.CreateAsync(new IdentityRole() { Name = "Doctor" });
                 //await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
 
-                modelBuilder.Entity<ApplicationUser>()
-                .HasData(new ApplicationUser
-                {
-                    UserName = "Admin Admin",
-                    DateOfBirth = new DateTime(2001, 5, 8),
-                    Email = "admin@gmail.com",
-                    PhoneNumber = "1234567890",
-                    Gender = Core.Utilities.Gender.Female,
-                    PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
-                });
+                //modelBuilder.Entity<ApplicationUser>()
+                //.HasData(new ApplicationUser
+                //{
+                //    UserName = "Admin Admin",
+                //    DateOfBirth = new DateTime(2001, 5, 8),
+                //    Email = "admin@gmail.com",
+                //    PhoneNumber = "1234567890",
+                //    Gender = Core.Utilities.Gender.Female,
+                //    PasswordHash = new PasswordHasher<ApplicationUser>().HashPassword(null, "123456")
+                //});
             }
             #endregion
         }
