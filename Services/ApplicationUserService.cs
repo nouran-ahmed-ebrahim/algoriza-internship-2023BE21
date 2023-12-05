@@ -82,7 +82,8 @@ namespace Services
             catch (Exception ex)
             {
                 await _unitOfWork.ApplicationUser.DeleteUser(user);
-                return new BadRequestObjectResult($"{ex.Message}\n {ex.InnerException?.Message}");
+                return new BadRequestObjectResult($"There is a problem during adding user \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }
 
@@ -177,6 +178,20 @@ namespace Services
                 {
                     StatusCode = 500
                 };
+            }
+        }
+        public async Task<IActionResult> UpdateUser(UserDTO userDTO)
+        {
+            try
+            {
+                ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
+                var result = await _unitOfWork.ApplicationUser.Update(user);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult($"There is a problem during updating user\n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
             }
         }
 
