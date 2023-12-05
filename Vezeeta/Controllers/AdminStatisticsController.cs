@@ -2,6 +2,7 @@
 using Core.Repository;
 using Core.Services;
 using Core.Utilities;
+using DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -18,13 +19,16 @@ namespace Vezeeta.Controllers
         private readonly IApplicationUserService _applicationUserService;
         private readonly IBookingsServices _bookingsServices;
         private readonly IDoctorServices _doctorServices;
+        private readonly ISpecializationServices _specializationServices;
 
         public AdminStatisticsController(IApplicationUserService ApplicationUserService, 
-            IBookingsServices bookingsServices,IDoctorServices doctorServices)
+            IBookingsServices bookingsServices,IDoctorServices doctorServices,
+            ISpecializationServices specializationServices)
         {
             _applicationUserService = ApplicationUserService;
             _bookingsServices = bookingsServices;
             _doctorServices = doctorServices;
+            _specializationServices = specializationServices;
         }
         
         [HttpGet("Doctors")]
@@ -52,6 +56,12 @@ namespace Vezeeta.Controllers
         public IActionResult GetTop10Doctors()
         {
             return _doctorServices.GetTop10();
+        }
+
+        [HttpGet("Specialization/Top5")]
+        public IActionResult GetTop5Specialization()
+        {
+            return _specializationServices.GetTop5();
         }
     }
 }
