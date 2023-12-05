@@ -22,5 +22,6 @@ namespace Core.Repository
         Task<bool> CheckUserPassword(ApplicationUser user, string password);
         Task SignOut();
         Task<IActionResult> Update(ApplicationUser user);
+        Task<ApplicationUser> GetUser(string UserId);
     }
 }

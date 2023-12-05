@@ -156,10 +156,11 @@ namespace Services
                 doctor.SpecializationId = specialization.Id;
 
                 // Update User
-                var result = await UpdateUser(userDTO);
+                ApplicationUser user = await _unitOfWork.ApplicationUser.GetUser(doctor.DoctorUserId);
+                var result = await UpdateUser(user, userDTO);
 
                 //User Creation Failed
-                if (result is not OkObjectResult)
+                if (result is not OkResult)
                 {
                     return result;
                 }

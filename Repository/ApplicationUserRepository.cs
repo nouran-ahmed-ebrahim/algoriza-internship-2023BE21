@@ -99,5 +99,11 @@ namespace Repository
             var result = await _userManager.UpdateAsync(user);
             return result.Succeeded ? new OkResult() : new BadRequestObjectResult(result.Errors);
         }
+
+        public async Task<ApplicationUser> GetUser(string UserId)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
+            return user;
+        }
     }
 }
