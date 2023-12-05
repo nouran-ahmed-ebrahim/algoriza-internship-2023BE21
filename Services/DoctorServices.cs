@@ -68,31 +68,32 @@ namespace Services
 
         public async Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize)
         {
-            // get specializeId by name
-            Specialization specialization = _unitOfWork.Specializations.GetByName(specialize);
-            if(specialization == null)
-            {
-                return new NotFoundObjectResult($"There is no Specialization called {specialize}");
-            }
-
-            // create user
-            var result = await AddUser(userDTO, UserRole.Doctor);
-
-            //User Creation Failed
-            if (result is not OkObjectResult okResult)
-            {
-                return result;
-            }
-
-
-            ApplicationUser User = okResult.Value as ApplicationUser;
-            Doctor doctor = new()
-            {
-                DoctorUser = User,
-                Specialization = specialization,
-            };
             try
             {
+                // get specializeId by name
+                Specialization specialization = _unitOfWork.Specializations.GetByName(specialize);
+                if (specialization == null)
+                {
+                    return new NotFoundObjectResult($"There is no Specialization called {specialize}");
+                }
+
+                // create user
+                var result = await AddUser(userDTO, UserRole.Doctor);
+
+                //User Creation Failed
+                if (result is not OkObjectResult okResult)
+                {
+                    return result;
+                }
+
+
+                ApplicationUser User = okResult.Value as ApplicationUser;
+                Doctor doctor = new()
+                {
+                    DoctorUser = User,
+                    Specialization = specialization,
+                };
+
                 await _unitOfWork.Doctors.Add(doctor);
                 _unitOfWork.Complete();
                 return new OkObjectResult(doctor);
@@ -134,5 +135,49 @@ namespace Services
         {
             return ChangeBookingState(BookingId, BookingState.Completed);
         }
+
+        public async Task<IActionResult> UpdateDoctor(int id, UserDTO userDTO, string specialize)
+        {
+            try
+            {
+                // Get Old Data
+                Doctor doctor = _unitOfWork.Doctors.GetById(id);
+                if(doctor == null)
+                {
+                    return new NotFoundObjectResult($"There is no Doctor with id: {id}.");
+                }
+
+                // Get & Set new specializeId
+                Specialization specialization = _unitOfWork.Specializations.GetByName(specialize);
+                if (specialization == null)
+                {
+                    return new NotFoundObjectResult($"There is no Specialization called {specialize}");
+                }
+                doctor.SpecializationId = specialization.Id;
+
+                // Update User
+                var result = await UpdateUser(userDTO);
+
+                //User Creation Failed
+                if (result is not OkObjectResult)
+                {
+                    return result;
+                }
+
+                _unitOfWork.Doctors.Update(doctor);
+                _unitOfWork.Complete();
+                return new OkObjectResult(doctor);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Adding Doctor \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        
     }
 }

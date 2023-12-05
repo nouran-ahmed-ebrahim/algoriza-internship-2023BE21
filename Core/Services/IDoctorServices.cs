@@ -16,5 +16,6 @@ namespace Core.Services
         Task<IActionResult> AddDoctor(UserDTO userDTO, UserRole patient, string specialize);
         Task<IActionResult> Delete(int id);
         IActionResult AddAppointments(int DoctorId,AppointmentsDTO appointments);
+        Task<IActionResult> UpdateDoctor(int id, UserDTO userDTO, string specialize);
     }
 }
