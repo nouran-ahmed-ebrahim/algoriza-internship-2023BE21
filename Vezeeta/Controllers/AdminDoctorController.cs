@@ -2,6 +2,7 @@
 using Core.Repository;
 using Core.Services;
 using Core.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repository.Migrations;
@@ -11,6 +12,7 @@ namespace Vezeeta.Controllers
 {
     [Route("api/Admin/Doctor")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminDoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorService;

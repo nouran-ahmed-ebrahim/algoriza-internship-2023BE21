@@ -3,6 +3,7 @@ using Core.Repository;
 using Core.Services;
 using Core.Utilities;
 using DependencyInjection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace Vezeeta.Controllers
 {
     [Route("api/admin/statistics")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminStatisticsController : ControllerBase
     {
         private readonly IApplicationUserService _applicationUserService;

@@ -1,6 +1,7 @@
 ﻿using Core.Domain;
 using Core.DTO;
 using Core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -10,6 +11,7 @@ namespace Vezeeta.Controllers
 {
     [Route("api/Admin/DiscountCodeCoupon")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminSettingController : ControllerBase
     {
         private readonly IDiscountCodeCouponServices _discountCodeCouponServices;
