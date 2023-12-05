@@ -24,7 +24,7 @@ namespace Repository
         public override async Task<IActionResult> Add(ApplicationUser user)
         {
             var result = await _userManager.CreateAsync(user);
-            return result.Succeeded ? new OkResult() : new BadRequestResult();
+            return result.Succeeded ? new OkResult() : new BadRequestObjectResult(result.Errors);
         }
 
         public string GetFullName(string id)
@@ -92,6 +92,12 @@ namespace Repository
         public async Task SignOut()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<IActionResult> Update(ApplicationUser user)
+        {
+            var result = await _userManager.UpdateAsync(user);
+            return result.Succeeded ? new OkResult() : new BadRequestObjectResult(result.Errors);
         }
     }
 }
