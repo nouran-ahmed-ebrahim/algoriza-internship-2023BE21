@@ -87,7 +87,7 @@ namespace Vezeeta.Controllers
         #region Booking APIs
         [HttpPatch("Booking/Cancel")]
         [Authorize(Roles = "Patient")]
-        public IActionResult ConfirmCheckUp([FromForm]int BookingId)
+        public IActionResult CancelBooking([FromForm]int BookingId)
         {
             return _patientServices.CancelBooking(BookingId);
         }
