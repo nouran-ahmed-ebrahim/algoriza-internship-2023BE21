@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Repository;
 using System.Security.Claims;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 namespace Services
 {
@@ -180,12 +181,20 @@ namespace Services
                 };
             }
         }
-        public async Task<IActionResult> UpdateUser(UserDTO userDTO)
+        public async Task<IActionResult> UpdateUser(ApplicationUser CurrentUser, UserDTO userDTO)
         {
             try
             {
-                ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);
-                var result = await _unitOfWork.ApplicationUser.Update(user);
+                ApplicationUser NewUserData = _mapper.Map<ApplicationUser>(userDTO);
+                CurrentUser.PhoneNumber = NewUserData.PhoneNumber;
+                CurrentUser.FullName = NewUserData.FullName;
+                CurrentUser.DateOfBirth = NewUserData.DateOfBirth;
+                CurrentUser.Email = NewUserData.Email;
+                CurrentUser.Gender = NewUserData.Gender;
+                CurrentUser.Image = NewUserData.Image;
+                CurrentUser.PasswordHash = NewUserData.PasswordHash;
+
+                var result = await _unitOfWork.ApplicationUser.Update(CurrentUser);
                 return result;
             }
             catch (Exception ex)
