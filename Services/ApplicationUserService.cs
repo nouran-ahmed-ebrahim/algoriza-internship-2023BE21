@@ -55,17 +55,22 @@ namespace Services
                 if (result is OkResult)
                 {
                     await _unitOfWork.ApplicationUser.AssignRoleToUser(user, Role);
-                    try
+
+                    //Don't log in if added user is doctor
+                    if (userRole == UserRole.Patient)
                     {
-                        await _unitOfWork.ApplicationUser.AddSignInCookie(user, userDTO.RememberMe);
-                    }
-                    catch (Exception ex)
-                    {
-                        await _unitOfWork.ApplicationUser.DeleteUser(user);
-                        return new ObjectResult($"An error occurred while Creating cookie \n: {ex.Message}")
+                        try
                         {
-                            StatusCode = 500
-                        };
+                            await _unitOfWork.ApplicationUser.AddSignInCookie(user, userDTO.RememberMe);
+                        }
+                        catch (Exception ex)
+                        {
+                            await _unitOfWork.ApplicationUser.DeleteUser(user);
+                            return new ObjectResult($"An error occurred while Creating cookie \n: {ex.Message}")
+                            {
+                                StatusCode = 500
+                            };
+                        } 
                     }
                     return new OkObjectResult(user);
                 }
