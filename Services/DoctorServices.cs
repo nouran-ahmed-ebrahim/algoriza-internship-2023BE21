@@ -179,5 +179,18 @@ namespace Services
             }
         }
 
+        public IActionResult GetById(int id)
+        {
+            // check Id Existence
+            bool IfFound = _unitOfWork.Doctors.IsExist(doctor => doctor.Id == id);
+            if (!IfFound)
+            {
+                return new NotFoundObjectResult($"No doctor found with id {id}");
+            }
+
+            var doctorInfo = _unitOfWork.Doctors.GetDoctorInfo(id);
+            
+            return new OkObjectResult(doctorInfo);
+        }
     }
 }
