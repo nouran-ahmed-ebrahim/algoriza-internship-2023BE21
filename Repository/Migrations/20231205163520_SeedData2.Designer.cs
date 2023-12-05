@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplictaionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231205163520_SeedData2")]
+    partial class SeedData2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -144,7 +147,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Appointments", (string)null);
+                    b.ToTable("Appointments");
                 });
 
             modelBuilder.Entity("Core.Domain.AppointmentTime", b =>
@@ -165,7 +168,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("AppointmentId");
 
-                    b.ToTable("AppointmentTimes", (string)null);
+                    b.ToTable("AppointmentTimes");
                 });
 
             modelBuilder.Entity("Core.Domain.Booking", b =>
@@ -201,7 +204,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("PatientId");
 
-                    b.ToTable("Bookings", (string)null);
+                    b.ToTable("Bookings");
                 });
 
             modelBuilder.Entity("Core.Domain.DiscountCodeCoupon", b =>
@@ -235,7 +238,7 @@ namespace Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("DiscountCodeCoupons", (string)null);
+                    b.ToTable("DiscountCodeCoupons");
                 });
 
             modelBuilder.Entity("Core.Domain.Doctor", b =>
@@ -264,7 +267,7 @@ namespace Repository.Migrations
 
                     b.HasIndex("SpecializationId");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Core.Domain.Specialization", b =>
@@ -284,7 +287,7 @@ namespace Repository.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Specializations", (string)null);
+                    b.ToTable("Specializations");
 
                     b.HasData(
                         new
