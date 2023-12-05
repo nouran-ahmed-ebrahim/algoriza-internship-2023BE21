@@ -24,36 +24,48 @@ namespace Vezeeta.Controllers
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> AddDoctor([FromForm] UserDTO userDTO, [FromForm] string Specialize)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(Specialize))
-                {
-                    ModelState.AddModelError("Specialize", "Specialize Is Required");
-                }
-                if (userDTO.Image == null || userDTO.Image.Length == 0)
-                {
-                    ModelState.AddModelError("userDTO.Image", "Image Is Required");
-                }
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest(ModelState);
-                };
 
-                return  await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
-
-                
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(Specialize))
             {
-                return StatusCode(500, $"An error occurred while adding the Doctor: {ex.Message}");
+                ModelState.AddModelError("Specialize", "Specialize Is Required");
             }
+            if (userDTO.Image == null || userDTO.Image.Length == 0)
+            {
+                ModelState.AddModelError("userDTO.Image", "Image Is Required");
+            }
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
+
+            return await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
+
         }
 
         [HttpPut]
         [Consumes("multipart/form-data")]
-        public async Task<IActionResult> UpdateDoctor([FromForm] UserDTO userDTO, [FromForm] string Specialize)
+        public async Task<IActionResult> UpdateDoctor([FromForm]int id,[FromForm] UserDTO userDTO, [FromForm] string Specialize)
         {
-            return Ok();
+            if (string.IsNullOrEmpty(Specialize))
+            {
+                ModelState.AddModelError("Specialize", "Specialize Is Required");
+            }
+            if (userDTO.Image == null || userDTO.Image.Length == 0)
+            {
+                ModelState.AddModelError("userDTO.Image", "Image Is Required");
+            }
+
+            if (id == 0)
+            {
+                ModelState.AddModelError("Id", "Id Is Required");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            };
+
+            return await _doctorService.UpdateDoctor(id,userDTO, Specialize);
         }
 
         [HttpDelete]
