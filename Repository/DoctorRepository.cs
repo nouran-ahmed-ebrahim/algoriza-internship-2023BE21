@@ -1,8 +1,10 @@
 ﻿using Core.Domain;
 using Core.Repository;
+using Core.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Repository.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +84,49 @@ namespace Repository
             }
         }
         
-       
+       public IActionResult GetDoctorInfo(int doctorId)
+        {
+            try
+            {
+                var doctor = _context.Doctors.Join
+                            (
+                                _context.Users,
+                                doctor => doctor.DoctorUserId,
+                                user => user.Id,
+                                (doctor, user) => new
+                                {
+                                    Image = user.Image,
+                                    FullName = user.FullName,
+                                    Email = user.Email,
+                                    Phone = user.PhoneNumber,
+                                    Gender = Enum.GetName(user.Gender),
+                                    DateOfBirth = user.DateOfBirth,
+                                    SpecializationId = doctor.SpecializationId
+                                }
+                            ).Join
+                            (
+                                _context.Specializations,
+                                doctor => doctor.SpecializationId,
+                                specialization => specialization.Id,
+                                (doctor, specialization) => new
+                                {
+                                    Image = doctor.Image,
+                                    FullName = doctor.FullName,
+                                    Email = doctor.Email,
+                                    Phone = doctor.Phone,
+                                    Gender = doctor.Gender,
+                                    BirthOfDate = doctor.DateOfBirth,
+                                    Specialization = specialization.Name
+                                }
+                            )
+                            .ToList();
+                return new OkObjectResult(doctor);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during Getting doctor Info \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}");
+            }
+        }
     }
 }

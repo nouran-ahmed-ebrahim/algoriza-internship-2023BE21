@@ -16,6 +16,6 @@ namespace Core.Repository
         int GetDoctorIdByUserId(string UserId);
         Task<ApplicationUser> GetDoctorUser(string userId);
         Task<string> GetDoctorIdFromClaim(ApplicationUser user);
-
+        IActionResult GetDoctorInfo(int doctorId);
     }
 }
