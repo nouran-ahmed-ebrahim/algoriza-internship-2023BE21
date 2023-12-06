@@ -32,7 +32,7 @@ namespace Repository
                 };
             }
         }
-        public virtual IActionResult GetAll(int? Page, int? PageSize)
+        public IActionResult GetAll(int? Page, int? PageSize)
         {
             try
             {

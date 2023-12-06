@@ -141,7 +141,7 @@ namespace Repository
         {
             try
             {
-                var gettingDoctorsResult = base.GetAll(Page, PageSize);
+                var gettingDoctorsResult = GetAll(Page, PageSize);
                 if (gettingDoctorsResult is not OkObjectResult doctorsResult)
                 {
                     return gettingDoctorsResult;
