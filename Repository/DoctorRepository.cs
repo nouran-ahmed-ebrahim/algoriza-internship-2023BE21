@@ -14,6 +14,7 @@ using System.Numerics;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Repository
 {
@@ -141,20 +142,8 @@ namespace Repository
         {
             try
             {
-                var gettingDoctorsResult = GetAll(Page, PageSize);
-                if (gettingDoctorsResult is not OkObjectResult doctorsResult)
-                {
-                    return gettingDoctorsResult;
-                }
-
-                List<Doctor> doctors = doctorsResult.Value as List<Doctor>;
-
-                if (doctors == null || doctors.Count() == 0)
-                {
-                    return new NotFoundObjectResult("There is no doctor now");
-                }
-
-                IEnumerable<DoctorDTO> fullDoctorsInfo = doctors.Join
+                IEnumerable<DoctorDTO> fullDoctorsInfo = _context.Set<Doctor>()
+                                            .Join
                                              (
                                                 _context.Users,
                                                 doctor => doctor.DoctorUserId,
@@ -185,18 +174,16 @@ namespace Repository
                                             );
                 if (criteria == null)
                 {
-                    return new OkObjectResult(fullDoctorsInfo.ToList());
+                    fullDoctorsInfo = fullDoctorsInfo.Where(criteria);
                 }
 
+                if (Page != 0)
+                    fullDoctorsInfo = fullDoctorsInfo.Skip((Page - 1) * PageSize);
 
-                List<DoctorDTO> doctorsAfterFiltering = fullDoctorsInfo.Where(criteria).ToList();
-
-                if(doctorsAfterFiltering == null || doctorsAfterFiltering.Count() == 0)
-                {
-                    return new NotFoundObjectResult("There is no doctor with this conditions.");
-                }
-
-                return new OkObjectResult(doctorsAfterFiltering);
+                if (PageSize != 0)
+                    fullDoctorsInfo = fullDoctorsInfo.Take(PageSize);
+                
+                return new OkObjectResult(fullDoctorsInfo.ToList());
             }
             catch (Exception ex)
             {

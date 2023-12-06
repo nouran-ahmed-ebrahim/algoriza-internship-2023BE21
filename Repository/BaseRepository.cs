@@ -32,28 +32,6 @@ namespace Repository
                 };
             }
         }
-        public IActionResult GetAll(int Page, int PageSize)
-        {
-            try
-            {
-                IQueryable<T> query = _context.Set<T>();
-
-                if (Page != 0)
-                    query = query.Skip((Page - 1) * PageSize);
-
-                if (PageSize!=0)
-                    query = query.Take(PageSize);
-
-                return new OkObjectResult(query.ToList());
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult($"There is a problem during getting the data {ex.Message}")
-                {
-                    StatusCode=500
-                };
-            }
-        }
 
         public T GetById(int id)
         {
