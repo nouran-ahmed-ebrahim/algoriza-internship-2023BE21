@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,9 +32,21 @@ namespace Repository
                 };
             }
         }
-        public IActionResult GetAll(int Page, int PageSize, string search)
+        public virtual IActionResult GetAll(int Page, int PageSize, Expression<Func<T,bool>> criteria)
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<T> query = _context.Set<T>().Where(criteria).
+                                            Skip((Page - 1) * PageSize).Take(PageSize).ToList();
+                return new OkObjectResult(query);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data {ex.Message}")
+                {
+                    StatusCode=500
+                };
+            }
         }
 
         public T GetById(int id)
