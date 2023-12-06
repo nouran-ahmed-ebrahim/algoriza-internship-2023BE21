@@ -105,7 +105,7 @@ namespace Services
                 //// Return the image as a file result
                 //return new OkObjectResult(File(imageBytes, contentType));
 
-                return (Image.FromFile(imagePath);
+                return Image.FromFile(imagePath);
         }
         //private string GetContentType(string fileExtension)
         //{
