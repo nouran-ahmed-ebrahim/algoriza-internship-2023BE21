@@ -32,12 +32,22 @@ namespace Repository
                 };
             }
         }
-        public virtual IActionResult GetAll(int Page, int PageSize, Expression<Func<T,bool>> criteria)
+        public virtual IActionResult GetAll(int? Page, int? PageSize, 
+                        Expression<Func<T,bool>> criteria = null)
         {
             try
             {
-                IEnumerable<T> query = _context.Set<T>().Where(criteria).
-                                            Skip((Page - 1) * PageSize).Take(PageSize).ToList();
+                IQueryable<T> query = _context.Set<T>();
+                
+                if (criteria != null)
+                    query.Where(criteria);
+
+                if (Page.HasValue)
+                    query = query.Skip((Page.Value - 1) * PageSize.Value);
+
+                if (PageSize.HasValue)
+                    query = query.Take(PageSize.Value);
+
                 return new OkObjectResult(query);
             }
             catch (Exception ex)
