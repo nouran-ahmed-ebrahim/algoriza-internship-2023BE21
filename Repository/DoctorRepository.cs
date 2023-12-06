@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO;
 using Core.Repository;
 using Core.Utilities;
 using Microsoft.AspNetCore.Identity;
@@ -77,9 +78,10 @@ namespace Repository
             }
             catch (Exception ex)
             {
-                return new ObjectResult($"{ex.Message} \n {ex.InnerException.Message}")
+                return new ObjectResult($"There is a problem during Getting Top 10 doctors \n" +
+                    $"{ex.Message}\n {ex.InnerException?.Message}")
                 {
-                    StatusCode = 500,
+                    StatusCode = 500
                 };
             }
         }
@@ -88,7 +90,6 @@ namespace Repository
         {
             try
             {
-
                 var doctor = _context.Doctors.Where(d=>d.Id==doctorId)
                            .Join
                             (
@@ -110,7 +111,7 @@ namespace Repository
                                 _context.Specializations,
                                 doctor => doctor.SpecializationId,
                                 specialization => specialization.Id,
-                                (doctor, specialization) => new
+                                (doctor, specialization) => new DoctorDTO
                                 {
                                     Image = doctor.Image,
                                     FullName = doctor.FullName,
@@ -121,6 +122,7 @@ namespace Repository
                                     Specialization = specialization.Name
                                 }
                             ).FirstOrDefault();
+
                 return new OkObjectResult(doctor);
             }
             catch (Exception ex)

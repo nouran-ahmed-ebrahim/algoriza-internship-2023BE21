@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Repository;
 using System.Security.Claims;
 using Microsoft.Extensions.Configuration.UserSecrets;
+using System.Drawing;
 
 namespace Services
 {
@@ -88,20 +89,59 @@ namespace Services
             }
         }
 
-        private IActionResult GetImage(string imagePath)
+        protected IActionResult GetImage(string imagePath)
         {
-            if (string.IsNullOrEmpty(imagePath))
+            try
             {
-                return new NotFoundResult();
+                if (string.IsNullOrEmpty(imagePath))
+                {
+                    return new NotFoundResult();
+                }
+
+                //return PhysicalFile(imagePath, "image/jpeg");
+
+                //byte[] fileBytes = System.IO.File.ReadAllBytes(imagePath);
+                //var fileStream = new MemoryStream(fileBytes);
+                //string fileName = Path.GetFileName(imagePath);
+                //var formFile = new FormFile(fileStream, 0, fileStream.Length, null, fileName);
+                // return new OkObjectResult(formFile);
+
+                //Read the image file into a byte array
+                //byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
+
+                //// Determine the content type based on the file extension
+                //string contentType = GetContentType(Path.GetExtension(imagePath));
+
+                //// Return the image as a file result
+                //return new OkObjectResult(File(imageBytes, contentType));
+
+                return new OkObjectResult(Image.FromFile(imagePath));
+
             }
-
-            //return PhysicalFile(imagePath, "image/jpeg");
-            byte[] fileBytes = System.IO.File.ReadAllBytes(imagePath);
-            var fileStream = new MemoryStream(fileBytes);
-            string fileName = Path.GetFileName(imagePath);
-            var formFile = new FormFile(fileStream, 0, fileStream.Length, null, fileName);
-
-            return new OkObjectResult(formFile);
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during reloading data\n" +
+                   $"{ex.Message}\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+        private string GetContentType(string fileExtension)
+        {
+            // Add more content types as needed
+            switch (fileExtension.ToLower())
+            {
+                case ".jpg":
+                case ".jpeg":
+                    return "image/jpeg";
+                case ".png":
+                    return "image/png";
+                case ".gif":
+                    return "image/gif";
+                default:
+                    return "application/octet-stream"; // Default content type
+            }
         }
         private async Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe)
         {

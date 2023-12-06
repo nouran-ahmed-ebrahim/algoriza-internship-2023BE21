@@ -5,11 +5,15 @@ using Core.Repository;
 using Core.Services;
 using Core.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -188,9 +192,33 @@ namespace Services
                 return new NotFoundObjectResult($"No doctor found with id {id}");
             }
 
-            return _unitOfWork.Doctors.GetDoctorInfo(id);
-            
-             
+            var result = _unitOfWork.Doctors.GetDoctorInfo(id);
+            if (result is not OkObjectResult okResult)
+            {
+                return result;
+            }
+
+
+            DoctorDTO doctorInfo = okResult.Value as DoctorDTO;
+
+            var ImageConvertingResult = GetImage(doctorInfo.Image);
+            if (ImageConvertingResult is not OkObjectResult ImageObject)
+            {
+                return ImageConvertingResult;
+            }
+
+            var CompleteDoctorInfo = new
+            {
+                Image = (ImageObject.Value as Image),
+                FullName = doctorInfo.FullName,
+                Email = doctorInfo.Email,
+                Phone = doctorInfo.Phone,
+                Gender = doctorInfo.Gender,
+                BirthOfDate = doctorInfo.BirthOfDate,
+                Specialization = doctorInfo.Specialization
+            };
+
+            return new OkObjectResult(CompleteDoctorInfo);
         }
     }
 }
