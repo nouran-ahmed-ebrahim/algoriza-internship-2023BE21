@@ -185,40 +185,79 @@ namespace Services
 
         public IActionResult GetSpecificDoctorInfo(int id)
         {
-            // check Id Existence
-            bool IfFound = _unitOfWork.Doctors.IsExist(doctor => doctor.Id == id);
-            if (!IfFound)
+            try
             {
-                return new NotFoundObjectResult($"No doctor found with id {id}");
+                // check Id Existence
+                bool IfFound = _unitOfWork.Doctors.IsExist(doctor => doctor.Id == id);
+                if (!IfFound)
+                {
+                    return new NotFoundObjectResult($"No doctor found with id {id}");
+                }
+
+                var result = _unitOfWork.Doctors.GetSpecificDoctorInfo(id);
+                if (result is not OkObjectResult okResult)
+                {
+                    return result;
+                }
+
+
+                DoctorDTO doctorInfo = okResult.Value as DoctorDTO;
+
+                doctorInfo.Image = GetImage(doctorInfo.ImagePath);
+                var CompleteDoctorInfo = new
+                {
+                    doctorInfo.Image,
+                    doctorInfo.FullName,
+                    doctorInfo.Email,
+                    doctorInfo.Phone,
+                    doctorInfo.Gender,
+                    doctorInfo.BirthOfDate,
+                    doctorInfo.Specialization
+                };
+
+                return new OkObjectResult(CompleteDoctorInfo);
             }
-
-            var result = _unitOfWork.Doctors.GetSpecificDoctorInfo(id);
-            if (result is not OkObjectResult okResult)
+            catch (Exception ex)
             {
-                return result;
+                return new ObjectResult($"An error occurred while Getting Doctor info \n: {ex.Message}" +
+                   $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
             }
+        }
 
-
-            DoctorDTO doctorInfo = okResult.Value as DoctorDTO;
-
-            var ImageConvertingResult = GetImage(doctorInfo.Image);
-            if (ImageConvertingResult is not OkObjectResult ImageObject)
+        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, Func<DoctorDTO, bool> criteria = null)
+        {
+            try
             {
-                return ImageConvertingResult;
+                var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctorsWithFullInfo(Page, PageSize, criteria);
+                if (gettingDoctorsResult is not OkObjectResult doctorsResult)
+                {
+                    return gettingDoctorsResult;
+                }
+
+                IEnumerable<DoctorDTO> doctorsInfo = doctorsResult.Value as IEnumerable<DoctorDTO>;
+
+                doctorsInfo = doctorsInfo.Select(d => new DoctorDTO{ 
+                    Image = GetImage(d.ImagePath),
+                    FullName = d.FullName,
+                    Phone = d.Phone,
+                    BirthOfDate = d.BirthOfDate,
+                    Email = d.Email,
+                    Gender= d.Gender,
+                    Specialization = d.Specialization});
+
+                return new OkObjectResult(doctorsInfo);
             }
-
-            var CompleteDoctorInfo = new
+            catch (Exception ex)
             {
-                Image = (ImageObject.Value as Image),
-                FullName = doctorInfo.FullName,
-                Email = doctorInfo.Email,
-                Phone = doctorInfo.Phone,
-                Gender = doctorInfo.Gender,
-                BirthOfDate = doctorInfo.BirthOfDate,
-                Specialization = doctorInfo.Specialization
-            };
-
-            return new OkObjectResult(CompleteDoctorInfo);
+                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
         }
     }
 }

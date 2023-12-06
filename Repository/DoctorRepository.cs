@@ -114,7 +114,7 @@ namespace Repository
                                 specialization => specialization.Id,
                                 (doctor, specialization) => new DoctorDTO
                                 {
-                                    Image = doctor.Image,
+                                    ImagePath = doctor.Image,
                                     FullName = doctor.FullName,
                                     Email = doctor.Email,
                                     Phone = doctor.Phone,
@@ -176,7 +176,7 @@ namespace Repository
                                                 specialization => specialization.Id,
                                                 (doctor, specialization) => new DoctorDTO
                                                 {
-                                                    Image = doctor.Image,
+                                                    ImagePath = doctor.Image,
                                                     FullName = doctor.FullName,
                                                     Email = doctor.Email,
                                                     Phone = doctor.Phone,
