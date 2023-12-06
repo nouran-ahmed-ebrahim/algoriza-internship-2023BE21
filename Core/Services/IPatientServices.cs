@@ -12,5 +12,6 @@ namespace Core.Services
     public interface IPatientServices:IApplicationUserService
     {
         IActionResult CancelBooking(int BookingId);
+        Task<IActionResult> GetAllPatients(int Page, int PageSize, string search);
     }
 }
