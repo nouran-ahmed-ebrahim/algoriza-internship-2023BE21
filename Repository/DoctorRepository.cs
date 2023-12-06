@@ -9,6 +9,7 @@ using Repository.Migrations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Numerics;
 using System.Security.Claims;
 using System.Text;
@@ -129,6 +130,79 @@ namespace Repository
             {
                 return new ObjectResult($"There is a problem during Getting doctor Info \n" +
                     $"{ex.Message}\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize,
+                                                        Func<DoctorDTO, bool> criteria = null)
+        {
+            try
+            {
+                var gettingDoctorsResult = base.GetAll(Page, PageSize);
+                if (gettingDoctorsResult is not OkObjectResult doctorsResult)
+                {
+                    return gettingDoctorsResult;
+                }
+
+                IEnumerable<Doctor> doctors = doctorsResult.Value as IEnumerable<Doctor>;
+
+                if (doctors == null)
+                {
+                    return new NotFoundObjectResult("There is no doctor now");
+                }
+
+                IEnumerable<DoctorDTO> fullDoctorsInfo = doctors.Join
+                                             (
+                                                _context.Users,
+                                                doctor => doctor.DoctorUserId,
+                                                user => user.Id,
+                                                (doctor, user) => new
+                                                {
+                                                    Image = user.Image,
+                                                    FullName = user.FullName,
+                                                    Email = user.Email,
+                                                    Phone = user.PhoneNumber,
+                                                    Gender = Enum.GetName(user.Gender),
+                                                    DateOfBirth = user.DateOfBirth,
+                                                    SpecializationId = doctor.SpecializationId
+                                                }
+                                            ).Join
+                                            (
+                                                _context.Specializations,
+                                                doctor => doctor.SpecializationId,
+                                                specialization => specialization.Id,
+                                                (doctor, specialization) => new DoctorDTO
+                                                {
+                                                    Image = doctor.Image,
+                                                    FullName = doctor.FullName,
+                                                    Email = doctor.Email,
+                                                    Phone = doctor.Phone,
+                                                    Gender = doctor.Gender,
+                                                    BirthOfDate = doctor.DateOfBirth,
+                                                    Specialization = specialization.Name
+                                                }
+                                            );
+                if (criteria == null)
+                {
+                    return new OkObjectResult(fullDoctorsInfo);
+                }
+
+
+                IEnumerable<DoctorDTO> doctorsAfterFiltering = fullDoctorsInfo.Where(criteria);
+
+                if(doctorsAfterFiltering == null)
+                {
+                    return new NotFoundObjectResult("There is no doctor with this conditions.");
+                }
+
+                return new OkObjectResult(doctorsAfterFiltering);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data {ex.Message}")
                 {
                     StatusCode = 500
                 };

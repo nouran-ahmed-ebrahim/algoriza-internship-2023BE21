@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -17,5 +18,7 @@ namespace Core.Repository
         Task<ApplicationUser> GetDoctorUser(string userId);
         Task<string> GetDoctorIdFromClaim(ApplicationUser user);
         IActionResult GetSpecificDoctorInfo(int doctorId);
+        IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, 
+                                                Func<DoctorDTO, bool> criteria = null);
     }
 }
