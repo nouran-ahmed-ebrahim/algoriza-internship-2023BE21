@@ -57,7 +57,7 @@ namespace Services
                     d.DateOfBirth
                 }).ToList();
 
-                return new OkObjectResult(doctorsInfoList);
+                return new OkObjectResult(doctorsInfo);
             }
             catch (Exception ex)
             {
