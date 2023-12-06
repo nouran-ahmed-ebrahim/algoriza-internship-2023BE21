@@ -244,10 +244,10 @@ namespace Services
                 {
                     return gettingDoctorsResult;
                 }
-                List<DoctorDTO> doctorsInfo = doctorsResult.Value as List<DoctorDTO>;
+                List<DoctorDTO> doctorsInfoList = doctorsResult.Value as List<DoctorDTO>;
 
                 // Load doctor images
-                doctorsInfo = doctorsInfo.Select(d => new DoctorDTO
+                var doctorsInfo = doctorsInfoList.Select(d => new 
                 {
                     Image = GetImage(d.ImagePath),
                     FullName = d.FullName,
