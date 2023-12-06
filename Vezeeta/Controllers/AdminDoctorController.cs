@@ -34,7 +34,7 @@ namespace Vezeeta.Controllers
                 return BadRequest(ModelState);
             }
 
-            return _doctorService.GetById(Id);
+            return _doctorService.GetSpecificDoctorInfo(Id);
         }
 
         [HttpPost]

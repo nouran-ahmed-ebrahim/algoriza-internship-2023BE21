@@ -183,7 +183,7 @@ namespace Services
             }
         }
 
-        public IActionResult GetById(int id)
+        public IActionResult GetSpecificDoctorInfo(int id)
         {
             // check Id Existence
             bool IfFound = _unitOfWork.Doctors.IsExist(doctor => doctor.Id == id);
@@ -192,7 +192,7 @@ namespace Services
                 return new NotFoundObjectResult($"No doctor found with id {id}");
             }
 
-            var result = _unitOfWork.Doctors.GetDoctorInfo(id);
+            var result = _unitOfWork.Doctors.GetSpecificDoctorInfo(id);
             if (result is not OkObjectResult okResult)
             {
                 return result;

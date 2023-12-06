@@ -86,7 +86,7 @@ namespace Repository
             }
         }
 
-        public IActionResult GetDoctorInfo(int doctorId)
+        public IActionResult GetSpecificDoctorInfo(int doctorId)
         {
             try
             {

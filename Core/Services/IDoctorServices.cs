@@ -17,6 +17,6 @@ namespace Core.Services
         Task<IActionResult> Delete(int id);
         IActionResult AddAppointments(int DoctorId,AppointmentsDTO appointments);
         Task<IActionResult> UpdateDoctor(int id, UserDTO userDTO, string specialize);
-        IActionResult GetById(int id);
+        IActionResult GetSpecificDoctorInfo(int id);
     }
 }
