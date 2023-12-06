@@ -55,11 +55,6 @@ namespace Repository
             }
         }
 
-        public IActionResult GetAll(int? Page, int? PageSize)
-        {
-            throw new NotImplementedException();
-        }
-
         public T GetById(int id)
         {
             return _context.Set<T>().Find(id);

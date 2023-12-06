@@ -18,7 +18,7 @@ namespace Core.Repository
         Task<ApplicationUser> GetDoctorUser(string userId);
         Task<string> GetDoctorIdFromClaim(ApplicationUser user);
         IActionResult GetSpecificDoctorInfo(int doctorId);
-        IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, 
+        IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize, 
                                                 Func<DoctorDTO, bool> criteria = null);
     }
 }

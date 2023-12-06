@@ -19,7 +19,7 @@ namespace Core.Services
         IActionResult AddAppointments(int DoctorId,AppointmentsDTO appointments);
         Task<IActionResult> UpdateDoctor(int id, UserDTO userDTO, string specialize);
         IActionResult GetSpecificDoctorInfo(int id);
-         IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, string search);
+         IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize, string search);
 
     }
 }

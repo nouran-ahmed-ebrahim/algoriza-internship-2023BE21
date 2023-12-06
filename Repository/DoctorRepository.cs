@@ -136,7 +136,7 @@ namespace Repository
             }
         }
 
-        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize,
+        public IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize,
                                                         Func<DoctorDTO, bool> criteria = null)
         {
             try
@@ -149,7 +149,7 @@ namespace Repository
 
                 IEnumerable<Doctor> doctors = doctorsResult.Value as IEnumerable<Doctor>;
 
-                if (doctors == null)
+                if (doctors == null || doctors.Count() == 0)
                 {
                     return new NotFoundObjectResult("There is no doctor now");
                 }
@@ -191,7 +191,7 @@ namespace Repository
 
                 IEnumerable<DoctorDTO> doctorsAfterFiltering = fullDoctorsInfo.Where(criteria);
 
-                if(doctorsAfterFiltering == null)
+                if(doctorsAfterFiltering == null || doctorsAfterFiltering.Count() == 0)
                 {
                     return new NotFoundObjectResult("There is no doctor with this conditions.");
                 }

@@ -227,7 +227,7 @@ namespace Services
             }
         }
 
-        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, string search)
+        public IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize, string search)
         {
             try
             {
