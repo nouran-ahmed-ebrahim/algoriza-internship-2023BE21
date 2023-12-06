@@ -32,15 +32,11 @@ namespace Repository
                 };
             }
         }
-        public virtual IActionResult GetAll(int? Page, int? PageSize, 
-                        Expression<Func<T,bool>> criteria = null)
+        public virtual IActionResult GetAll(int? Page, int? PageSize)
         {
             try
             {
                 IQueryable<T> query = _context.Set<T>();
-                
-                if (criteria != null)
-                    query.Where(criteria);
 
                 if (Page.HasValue)
                     query = query.Skip((Page.Value - 1) * PageSize.Value);
