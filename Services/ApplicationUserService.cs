@@ -80,13 +80,12 @@ namespace Services
             }
         }
 
-        protected IActionResult GetImage(string imagePath)
+        protected Image GetImage(string imagePath)
         {
-            try
-            {
+            
                 if (string.IsNullOrEmpty(imagePath))
                 {
-                    return new NotFoundResult();
+                    return null;
                 }
 
                 //return PhysicalFile(imagePath, "image/jpeg");
@@ -106,34 +105,24 @@ namespace Services
                 //// Return the image as a file result
                 //return new OkObjectResult(File(imageBytes, contentType));
 
-                return new OkObjectResult(Image.FromFile(imagePath));
-
-            }
-            catch (Exception ex)
-            {
-                return new ObjectResult($"There is a problem during reloading data\n" +
-                   $"{ex.Message}\n {ex.InnerException?.Message}")
-                {
-                    StatusCode = 500
-                };
-            }
+                return (Image.FromFile(imagePath);
         }
-        private string GetContentType(string fileExtension)
-        {
-            // Add more content types as needed
-            switch (fileExtension.ToLower())
-            {
-                case ".jpg":
-                case ".jpeg":
-                    return "image/jpeg";
-                case ".png":
-                    return "image/png";
-                case ".gif":
-                    return "image/gif";
-                default:
-                    return "application/octet-stream"; // Default content type
-            }
-        }
+        //private string GetContentType(string fileExtension)
+        //{
+        //    // Add more content types as needed
+        //    switch (fileExtension.ToLower())
+        //    {
+        //        case ".jpg":
+        //        case ".jpeg":
+        //            return "image/jpeg";
+        //        case ".png":
+        //            return "image/png";
+        //        case ".gif":
+        //            return "image/gif";
+        //        default:
+        //            return "application/octet-stream"; // Default content type
+        //    }
+        //}
         private async Task<ActionResult> ValidateUser(string Email, String Password, bool RememberMe)
         {
             ApplicationUser user = await _unitOfWork.ApplicationUser.GetUserByEmail(Email);
