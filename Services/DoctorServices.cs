@@ -227,23 +227,31 @@ namespace Services
             }
         }
 
-        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, Func<DoctorDTO, bool> criteria = null)
+        public IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, string search)
         {
             try
             {
+                Func<DoctorDTO, bool> criteria = null;
+                
+                if(!string.IsNullOrEmpty(search))
+                   criteria = (d => d.Email.Contains(search) ||d.Phone.Contains(search) ||
+                               d.FullName.Contains(search) || d.Gender.Contains(search) ||
+                               d.Specialization.Contains(search));
+
+                // get doctors
                 var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctorsWithFullInfo(Page, PageSize, criteria);
                 if (gettingDoctorsResult is not OkObjectResult doctorsResult)
                 {
                     return gettingDoctorsResult;
                 }
-
+                
                 IEnumerable<DoctorDTO> doctorsInfo = doctorsResult.Value as IEnumerable<DoctorDTO>;
 
+                // load doctor images
                 doctorsInfo = doctorsInfo.Select(d => new DoctorDTO{ 
                     Image = GetImage(d.ImagePath),
                     FullName = d.FullName,
                     Phone = d.Phone,
-                    BirthOfDate = d.BirthOfDate,
                     Email = d.Email,
                     Gender= d.Gender,
                     Specialization = d.Specialization});

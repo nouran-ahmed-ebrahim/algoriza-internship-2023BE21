@@ -166,7 +166,6 @@ namespace Repository
                                                     Email = user.Email,
                                                     Phone = user.PhoneNumber,
                                                     Gender = Enum.GetName(user.Gender),
-                                                    DateOfBirth = user.DateOfBirth,
                                                     SpecializationId = doctor.SpecializationId
                                                 }
                                             ).Join
@@ -181,7 +180,6 @@ namespace Repository
                                                     Email = doctor.Email,
                                                     Phone = doctor.Phone,
                                                     Gender = doctor.Gender,
-                                                    BirthOfDate = doctor.DateOfBirth,
                                                     Specialization = specialization.Name
                                                 }
                                             );
