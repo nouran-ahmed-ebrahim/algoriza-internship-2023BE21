@@ -32,15 +32,6 @@ namespace Services
         {
             return await _unitOfWork.ApplicationUser.GetUsersCountInRole(roleName);
         }
-
-        #region base methods
-
-        public IActionResult GetAll(int Page, int PageSize, string search)
-        {
-            return _unitOfWork.ApplicationUser.GetAll(Page, PageSize, search);
-        }
-        #endregion
-
         public async Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole)
         {
             ApplicationUser user = _mapper.Map<ApplicationUser>(userDTO);

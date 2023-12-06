@@ -12,9 +12,6 @@ namespace Core.Services
 {
     public interface IApplicationUserService
     {
-        #region Base methods
-        IActionResult GetAll(int Page, int PageSize, string search);
-        #endregion
         Task<IActionResult> AddUser(UserDTO userDTO, UserRole userRole);
         Task<IActionResult> GetUsersCountInRole(string roleName);
         Task<IActionResult> SignIn(string Email, String Password, bool RememberMe);

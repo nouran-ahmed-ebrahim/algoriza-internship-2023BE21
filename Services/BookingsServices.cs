@@ -160,12 +160,5 @@ namespace Services
             return NumberOfPatientBookings >= minimumRequiredRequests;
         }
 
-        #region base methods
-        public IActionResult GetAll(int Page, int PageSize, string search)
-        {
-            return _unitOfWork.ApplicationUser.GetAll(Page, PageSize, search);
-        }
-        #endregion
-
     }
 }
