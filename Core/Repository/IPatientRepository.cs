@@ -10,7 +10,7 @@ namespace Core.Repository
 {
     public interface IPatientRepository:IApplicationUserRepository
     {
-        Task<IActionResult> GetPatientsInfo(int Page, int PageSize, 
+        Task<IActionResult> GetAllPatients(int Page, int PageSize, 
                                 Func<ApplicationUser, bool> criteria = null);
     }
 }

@@ -21,7 +21,7 @@ namespace Repository
         {
         }
 
-        public async Task<IActionResult> GetPatientsInfo(int Page, int PageSize,  Func<ApplicationUser, bool> criteria = null)
+        public async Task<IActionResult> GetAllPatients(int Page, int PageSize,  Func<ApplicationUser, bool> criteria = null)
         {
             // Get All patients
             try
