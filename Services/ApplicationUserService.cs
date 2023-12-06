@@ -181,11 +181,18 @@ namespace Services
         public IActionResult ChangeBookingState(int BookingId, BookingState bookingState)
         {
             Booking booking = _unitOfWork.Bookings.GetById(BookingId);
+
             if (booking == null)
             {
                 return new NotFoundObjectResult($"Booking Id {BookingId} is not exist");
             }
 
+            if (booking.BookingState != BookingState.Pending)
+            {
+                return new BadRequestObjectResult($"Tis booking is {booking.BookingState} " +
+                    $"Can't change this booking state now.");
+            }
+            
             booking.BookingState = bookingState;
             try
             {

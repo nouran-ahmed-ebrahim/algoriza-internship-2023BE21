@@ -98,7 +98,7 @@ namespace Vezeeta.Controllers
         #endregion
 
         #region Authentication APIs
-        [HttpGet("SignIn")]
+        [HttpGet("~/api/Admin/SignIn")]
         public async Task<IActionResult> SignIn([FromForm] string Email, [FromForm] string Password, [FromForm] bool RememberMe)
         {
             if (string.IsNullOrEmpty(Email))
@@ -126,7 +126,7 @@ namespace Vezeeta.Controllers
             return await _adminServices.SignIn(Email, Password, RememberMe);
         }
 
-        [HttpPost("LogOut")]
+        [HttpPost("~/api/Admin/LogOut")]
         public async Task<IActionResult> LogOut()
         {
             await _adminServices.SignOut();
