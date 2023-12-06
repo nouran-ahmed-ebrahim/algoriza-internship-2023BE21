@@ -123,6 +123,12 @@ namespace Services
                     return new NotFoundObjectResult($"Id {id} is not found");
                 }
 
+                bool HasHistory = _unitOfWork.Bookings.IsExist(b => b.DoctorId == id);
+                if (HasHistory)
+                {
+                    return new BadRequestObjectResult("You cant delete this doctor");
+                }
+
                 _unitOfWork.Doctors.Delete(doctor);
                  ApplicationUser User = await _unitOfWork.Doctors.GetDoctorUser(doctor.DoctorUserId);
                 await _unitOfWork.ApplicationUser.DeleteUser(User);
