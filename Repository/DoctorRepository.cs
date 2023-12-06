@@ -147,7 +147,7 @@ namespace Repository
                     return gettingDoctorsResult;
                 }
 
-                IEnumerable<Doctor> doctors = doctorsResult.Value as IEnumerable<Doctor>;
+                List<Doctor> doctors = doctorsResult.Value as List<Doctor>;
 
                 if (doctors == null || doctors.Count() == 0)
                 {
@@ -185,11 +185,11 @@ namespace Repository
                                             );
                 if (criteria == null)
                 {
-                    return new OkObjectResult(fullDoctorsInfo);
+                    return new OkObjectResult(fullDoctorsInfo.ToList());
                 }
 
 
-                IEnumerable<DoctorDTO> doctorsAfterFiltering = fullDoctorsInfo.Where(criteria);
+                List<DoctorDTO> doctorsAfterFiltering = fullDoctorsInfo.Where(criteria).ToList();
 
                 if(doctorsAfterFiltering == null || doctorsAfterFiltering.Count() == 0)
                 {

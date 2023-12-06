@@ -244,17 +244,18 @@ namespace Services
                 {
                     return gettingDoctorsResult;
                 }
-                
-                IEnumerable<DoctorDTO> doctorsInfo = doctorsResult.Value as IEnumerable<DoctorDTO>;
+                List<DoctorDTO> doctorsInfo = doctorsResult.Value as List<DoctorDTO>;
 
-                // load doctor images
-                doctorsInfo = doctorsInfo.Select(d => new DoctorDTO{ 
+                // Load doctor images
+                doctorsInfo = doctorsInfo.Select(d => new DoctorDTO
+                {
                     Image = GetImage(d.ImagePath),
                     FullName = d.FullName,
                     Phone = d.Phone,
                     Email = d.Email,
-                    Gender= d.Gender,
-                    Specialization = d.Specialization});
+                    Gender = d.Gender,
+                    Specialization = d.Specialization
+                }).ToList();
 
                 return new OkObjectResult(doctorsInfo);
             }

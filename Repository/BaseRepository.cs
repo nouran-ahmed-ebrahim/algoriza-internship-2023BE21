@@ -44,7 +44,7 @@ namespace Repository
                 if (PageSize!=0)
                     query = query.Take(PageSize);
 
-                return new OkObjectResult(query);
+                return new OkObjectResult(query.ToList());
             }
             catch (Exception ex)
             {
