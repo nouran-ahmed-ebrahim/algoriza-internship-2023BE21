@@ -30,11 +30,9 @@ namespace Vezeeta.Controllers
         {
             if (DiscountCodeCoupon == null)
             {
-                return BadRequest("Inter Coupon");
+                ModelState.AddModelError("DiscountCodeCoupon", "The DiscountCodeCoupon is required.");
             }
-            //Make Id MAndatory
-
-            if (DiscountCodeCoupon == null || DiscountCodeCoupon.Id == default)
+           else if (DiscountCodeCoupon.Id == default)
             {
                 ModelState.AddModelError("Id", "The Id is required.");
             }
