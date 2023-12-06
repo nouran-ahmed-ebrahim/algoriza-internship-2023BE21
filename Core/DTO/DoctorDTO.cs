@@ -14,7 +14,6 @@ namespace Core.DTO
         public string Email;
         public string Phone;
         public string Gender;
-        public DateTime BirthOfDate;
         public string Specialization;
         public Image? Image;
     }
