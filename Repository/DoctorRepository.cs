@@ -172,7 +172,7 @@ namespace Repository
                                                     Specialization = specialization.Name
                                                 }
                                             );
-                if (criteria == null)
+                if (criteria != null)
                 {
                     fullDoctorsInfo = fullDoctorsInfo.Where(criteria);
                 }
