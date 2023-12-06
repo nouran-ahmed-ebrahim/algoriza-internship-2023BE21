@@ -32,17 +32,17 @@ namespace Repository
                 };
             }
         }
-        public IActionResult GetAll(int? Page, int? PageSize)
+        public IActionResult GetAll(int Page, int PageSize)
         {
             try
             {
                 IQueryable<T> query = _context.Set<T>();
 
-                if (Page.HasValue)
-                    query = query.Skip((Page.Value - 1) * PageSize.Value);
+                if (Page != 0)
+                    query = query.Skip((Page - 1) * PageSize);
 
-                if (PageSize.HasValue)
-                    query = query.Take(PageSize.Value);
+                if (PageSize!=0)
+                    query = query.Take(PageSize);
 
                 return new OkObjectResult(query);
             }
@@ -53,6 +53,11 @@ namespace Repository
                     StatusCode=500
                 };
             }
+        }
+
+        public IActionResult GetAll(int? Page, int? PageSize)
+        {
+            throw new NotImplementedException();
         }
 
         public T GetById(int id)

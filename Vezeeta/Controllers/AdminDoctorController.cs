@@ -38,7 +38,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpGet("~/api/Admin/Doctors")]
-        public IActionResult GetAll([FromForm] int page, int pageSize, string search)
+        public IActionResult GetAll([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
         {
             if (!ModelState.IsValid)
             {

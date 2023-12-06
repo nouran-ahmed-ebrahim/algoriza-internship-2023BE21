@@ -12,7 +12,7 @@ namespace Core.Repository
     {
         Task<IActionResult> Add(T entity);
         T GetById(int id);
-        IActionResult GetAll(int? Page, int? PageSize);
+        IActionResult GetAll(int Page, int PageSize);
 
     }
 }
