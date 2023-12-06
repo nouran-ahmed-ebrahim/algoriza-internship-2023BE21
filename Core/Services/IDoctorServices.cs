@@ -1,4 +1,5 @@
 ﻿using Core.DTO;
+using Core.Repository;
 using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -18,7 +19,7 @@ namespace Core.Services
         IActionResult AddAppointments(int DoctorId,AppointmentsDTO appointments);
         Task<IActionResult> UpdateDoctor(int id, UserDTO userDTO, string specialize);
         IActionResult GetSpecificDoctorInfo(int id);
-        IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize,
-                        Func<DoctorDTO, bool> criteria = null);     
+         IActionResult GetAllDoctorsWithFullInfo(int? Page, int? PageSize, string search);
+
     }
 }

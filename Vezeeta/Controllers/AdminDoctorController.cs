@@ -22,7 +22,7 @@ namespace Vezeeta.Controllers
             _doctorService = DoctorService;
         }
         [HttpGet]
-        public IActionResult GetById(int Id)
+        public IActionResult GetById([FromForm]int Id)
         {
             if(Id == 0)
             {
@@ -35,6 +35,17 @@ namespace Vezeeta.Controllers
             }
 
             return _doctorService.GetSpecificDoctorInfo(Id);
+        }
+
+        [HttpGet("~/api/Admin/Doctors")]
+        public IActionResult GetAll([FromForm] int page, int pageSize, string search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return _doctorService.GetAllDoctorsWithFullInfo(page, pageSize, search);
         }
 
         [HttpPost]
