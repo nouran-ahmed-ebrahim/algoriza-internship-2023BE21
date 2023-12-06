@@ -70,6 +70,12 @@ namespace Services
                     return new NotFoundObjectResult($"Id {Id} is not found");
                 }
 
+                bool IsUsed = _unitOfWork.Bookings.IsExist(b => b.DiscountCodeCouponId == Id);
+                if (IsUsed)
+                {
+                    return new BadRequestObjectResult("This coupon is already used, you can't update it");
+                }
+
                 var result = _unitOfWork.DiscountCodeCoupons.Delete(coupon);
                 _unitOfWork.Complete();
                 return result;
@@ -94,7 +100,7 @@ namespace Services
                 bool IsUsed = _unitOfWork.Bookings.IsExist(b=>b.DiscountCodeCouponId == Coupon.Id);
                 if(IsUsed)
                 {
-                    return new BadRequestObjectResult("This coupon is already used, you can't update it")
+                    return new BadRequestObjectResult("This coupon is already used, you can't update it");
                 }
 
                 var result = _unitOfWork.DiscountCodeCoupons.Update(Coupon);
