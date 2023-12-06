@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Core.Domain;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace Core.Repository
 {
     public interface IPatientRepository:IApplicationUserRepository
     {
+        Task<IActionResult> GetPatientsInfo(int Page, int PageSize, 
+                                Func<ApplicationUser, bool> criteria = null);
     }
 }
