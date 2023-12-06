@@ -25,12 +25,12 @@ namespace Services
         {
             try
             {
-                Func<ApplicationUser, bool> criteria = null;
+                Func<PatientDTO, bool> criteria = null;
 
                 if (!string.IsNullOrEmpty(search))
-                    criteria = (d => d.Email.Contains(search) || d.PhoneNumber.Contains(search) ||
-                                d.FullName.Contains(search) || d.Gender.ToString().Contains(search) ||
-                                d.DateOfBirth.ToString().Contains(search));
+                    criteria = (d => d.Email.Contains(search) || d.Phone.Contains(search) ||
+                                d.FullName.Contains(search) || d.Gender.Contains(search) ||
+                                d.DateOfBirth.Contains(search));
 
                 // get patients
                 var gettingPatientsResult = await  _unitOfWork.Patients.GetAllPatients(Page, PageSize, criteria);
@@ -39,17 +39,23 @@ namespace Services
                     return gettingPatientsResult;
                 }
 
-                dynamic doctorsInfoList = patientsResult.Value  ;
+                List<PatientDTO> doctorsInfoList = patientsResult.Value as List<PatientDTO>;
 
-                //// Load doctor images
-                //var doctorsInfo = doctorsInfoList.Select(d => new UserDTO
-                //{
-                //    Image = GetImage(d.ImagePath),
-                //    FullName = d.FullName,
-                //    Phone = d.Phone,
-                //    Email = d.Email,
-                //    Gender = d.Gender,
-                //}).ToList();
+                if (doctorsInfoList == null || doctorsInfoList.Count() == 0)
+                {
+                    return new NotFoundObjectResult("There is no patients with this conditions");
+                }
+
+                // Load doctor images
+                var doctorsInfo = doctorsInfoList.Select(d => new 
+                {
+                    Image = GetImage(d.ImagePath),
+                    d.FullName,
+                    d.Phone,
+                    d.Email,
+                    d.Gender,
+                    d.DateOfBirth
+                }).ToList();
 
                 return new OkObjectResult(doctorsInfoList);
             }

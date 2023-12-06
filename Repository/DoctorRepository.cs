@@ -120,7 +120,6 @@ namespace Repository
                                     Email = doctor.Email,
                                     Phone = doctor.Phone,
                                     Gender = doctor.Gender,
-                                    BirthOfDate = doctor.DateOfBirth,
                                     Specialization = specialization.Name
                                 }
                             ).FirstOrDefault();

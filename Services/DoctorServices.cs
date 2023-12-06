@@ -211,7 +211,6 @@ namespace Services
                     doctorInfo.Email,
                     doctorInfo.Phone,
                     doctorInfo.Gender,
-                    doctorInfo.BirthOfDate,
                     doctorInfo.Specialization
                 };
 

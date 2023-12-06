@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +22,7 @@ namespace Repository
         {
         }
 
-        public async Task<IActionResult> GetAllPatients(int Page, int PageSize,  Func<ApplicationUser, bool> criteria = null)
+        public async Task<IActionResult> GetAllPatients(int Page, int PageSize, Func<PatientDTO, bool> criteria = null)
         {
             // Get All patients
             try
@@ -30,23 +31,29 @@ namespace Repository
                 var patients = (await _userManager.
                          GetUsersInRoleAsync(Enum.GetName(UserRole.Patient))).AsEnumerable();
 
-               
-                // Apply criteria - if exists -
-                if(criteria != null)
+                // Drop unnecessary columns
+                IEnumerable<PatientDTO> DesiredPatients = patients.Select(p => new PatientDTO
                 {
-                    patients = patients.Where(criteria);
+                    ImagePath = p.Image,
+                    FullName = p.FullName,
+                    Email = p.Email,
+                    Phone = p.PhoneNumber,
+                    Gender = p.Gender.ToString(),
+                    DateOfBirth = p.DateOfBirth.ToString()
+                });
+
+                // Apply criteria - if exists -
+                if (criteria != null)
+                {
+                    DesiredPatients = DesiredPatients.Where(criteria);
                 }
 
                 // Apply Pagination 
                 if (Page != 0)
-                    patients = patients.Skip((Page - 1) * PageSize);
+                    DesiredPatients = DesiredPatients.Skip((Page - 1) * PageSize);
 
                 if (PageSize != 0)
-                    patients = patients.Take(PageSize);
-
-                // Drop unnecessary columns
-                var DesiredPatients = patients.Select(p => new { 
-                    p.Image, p.FullName, p.Email, p.Gender, p.PhoneNumber, p.DateOfBirth });
+                    DesiredPatients = DesiredPatients.Take(PageSize);
 
                 return new OkObjectResult(DesiredPatients.ToList());
             }

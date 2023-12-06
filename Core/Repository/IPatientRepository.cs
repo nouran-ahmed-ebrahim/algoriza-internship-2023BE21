@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Core.DTO;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,6 @@ namespace Core.Repository
     public interface IPatientRepository:IApplicationUserRepository
     {
         Task<IActionResult> GetAllPatients(int Page, int PageSize, 
-                                Func<ApplicationUser, bool> criteria = null);
+                                Func<PatientDTO, bool> criteria = null);
     }
 }
