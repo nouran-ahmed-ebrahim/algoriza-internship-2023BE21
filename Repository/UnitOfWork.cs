@@ -25,6 +25,7 @@ namespace Repository
         public IAppointmentTimeRepository AppointmentTimes { get; private set; }
         public IBookingsRepository Bookings { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
+        public IPatientRepository Patients { get; private set; }
 
         public UnitOfWork(ApplicationDbContext context, UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager) {
@@ -40,11 +41,13 @@ namespace Repository
             Doctors = new DoctorRepository(_context, userManager);
             ApplicationUser = new ApplicationUserRepository(_context, _userManager,
                 _roleManager, _signInManager);
+
             DiscountCodeCoupons = new DiscountCodeCouponRepository(_context);
             Appointments = new AppointmentRepository(_context);
             Bookings = new BookingsRepository(_context);
             Specializations = new SpecializationRepository(_context);
             AppointmentTimes = new AppointmentTimeRepository(_context);  
+            Patients = new PatientRepository(_context,_userManager, _roleManager, _signInManager);
             #endregion
         }
         public int Complete()

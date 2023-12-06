@@ -16,6 +16,7 @@ namespace Core.Repository
         public IAppointmentRepository Appointments { get; }
         public IBookingsRepository Bookings { get; }
         public ISpecializationRepository Specializations { get; }
+        public IPatientRepository Patients { get; }
         int Complete();
     }
 }
