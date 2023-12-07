@@ -14,7 +14,8 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper) : ApplicationUserService(UnitOfWork, mapper), IPatientServices
+    public class PatientServices(IUnitOfWork UnitOfWork, IMapper mapper) :
+        ApplicationUserService(UnitOfWork, mapper), IPatientServices
     {
         
         public IActionResult CancelBooking(int BookingId)
