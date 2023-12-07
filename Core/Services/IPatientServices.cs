@@ -13,5 +13,7 @@ namespace Core.Services
     {
         IActionResult CancelBooking(int BookingId);
         Task<IActionResult> GetAllPatients(int Page, int PageSize, string search);
+        IActionResult GetPatientBookings(string Id);
+        Task<IActionResult> GetById(string Id);
     }
 }
