@@ -12,16 +12,21 @@ namespace Core.Repository
         //Task<IActionResult> Add(ApplicationUser user);
         public string GetFullName(string id);
 
+        #region Authentiation
         Task AssignRoleToUser(ApplicationUser user, string roleName);
         Task AddSignInCookie(ApplicationUser user, bool rememberMe);
         Task<bool> IsInRole(ApplicationUser user, string role);
-        Task<string> GetUserIdFromClaim(ApplicationUser user);
-        Task<ApplicationUser> GetUserByEmail(string Email);
-        Task DeleteUser(ApplicationUser user);
-        Task SignInUser( ApplicationUser User, bool RememberMe, List<Claim> Claims);
-        Task<bool> CheckUserPassword(ApplicationUser user, string password);
+        Task SignInUser(ApplicationUser User, bool RememberMe, List<Claim> Claims);
         Task SignOut();
-        Task<IActionResult> Update(ApplicationUser user);
+        #endregion
+
+
+        //Task<string> GetUserIdFromClaim(ApplicationUser user);
+        Task<ApplicationUser> GetUserByEmail(string Email);
+        Task<bool> CheckUserPassword(ApplicationUser user, string password);
         Task<ApplicationUser> GetUser(string UserId);
+
+        Task DeleteUser(ApplicationUser user);
+        Task<IActionResult> Update(ApplicationUser user);
     }
 }

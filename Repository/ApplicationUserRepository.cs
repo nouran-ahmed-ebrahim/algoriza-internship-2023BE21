@@ -2,6 +2,7 @@
 using Core.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing.Printing;
 using System.Security.Claims;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
@@ -21,15 +22,12 @@ namespace Repository
             _signInManager = signInManager;
         }
 
+
+        #region Authentication 
         public override async Task<IActionResult> Add(ApplicationUser user)
         {
             var result = await _userManager.CreateAsync(user);
             return result.Succeeded ? new OkResult() : new BadRequestObjectResult(result.Errors);
-        }
-
-        public string GetFullName(string id)
-        {
-            return _context.Users.FirstOrDefault(user => user.Id == id)?.FullName;
         }
 
         public async Task AddSignInCookie(ApplicationUser user, bool rememberMe)
@@ -42,6 +40,45 @@ namespace Repository
         public async Task AssignRoleToUser(ApplicationUser user, string roleName)
         {
             await _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public async Task SignOut()
+        {
+            await _signInManager.SignOutAsync();
+        }
+
+        public async Task SignInUser(ApplicationUser User, bool RememberMe, List<Claim> Claims)
+        {
+             await _signInManager.SignInWithClaimsAsync(User, RememberMe, Claims);
+        }
+
+        public async Task<bool> CheckUserPassword(ApplicationUser user, string password)
+        {
+            return await _userManager.CheckPasswordAsync(user, password);
+        }
+
+        #endregion
+
+        #region GetOperations
+        public Task<bool> IsInRole(ApplicationUser user, string role)
+        {
+            return _userManager.IsInRoleAsync(user, role);
+        }
+
+        public async Task<ApplicationUser> GetUserByEmail(string Email)
+        {
+            return await _userManager.FindByEmailAsync(Email);
+        }
+
+       // public async Task<string> GetUserIdFromClaim(ApplicationUser user)
+        //{
+        //    var Claims = await _userManager.GetClaimsAsync(user);
+        //    return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+        //}
+
+        public string GetFullName(string id)
+        {
+            return _context.Users.FirstOrDefault(user => user.Id == id)?.FullName;
         }
 
         public async Task<IActionResult> GetUsersCountInRole(string roleName)
@@ -58,52 +95,25 @@ namespace Repository
             return new OkObjectResult(userCount);
         }
 
-        public async Task DeleteUser(ApplicationUser user)
+        public async Task<ApplicationUser> GetUser(string UserId)
         {
-           await _userManager.DeleteAsync(user);
+            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
+            return user;
         }
+        #endregion
 
-        public async Task SignInUser(ApplicationUser User, bool RememberMe, List<Claim> Claims)
-        {
-             await _signInManager.SignInWithClaimsAsync(User, RememberMe, Claims);
-        }
-
-        public Task<bool> IsInRole(ApplicationUser user, string role)
-        {
-            return _userManager.IsInRoleAsync(user, role);
-        }
-
-        public async Task<ApplicationUser> GetUserByEmail(string Email)
-        {
-            return await _userManager.FindByEmailAsync(Email);
-        }
-
-        public async Task<string> GetUserIdFromClaim(ApplicationUser user)
-        {
-            var Claims = await _userManager.GetClaimsAsync(user);
-            return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-        }
-
-        public async Task<bool> CheckUserPassword(ApplicationUser user, string password)
-        {
-           return await _userManager.CheckPasswordAsync(user, password);
-        }
-
-        public async Task SignOut()
-        {
-            await _signInManager.SignOutAsync();
-        }
 
         public async Task<IActionResult> Update(ApplicationUser user)
         {
             var result = await _userManager.UpdateAsync(user);
             return result.Succeeded ? new OkResult() : new BadRequestObjectResult(result.Errors);
         }
-
-        public async Task<ApplicationUser> GetUser(string UserId)
+        public async Task DeleteUser(ApplicationUser user)
         {
-            ApplicationUser user = await _userManager.FindByIdAsync(UserId);
-            return user;
+            await _userManager.DeleteAsync(user);
         }
+
+
+
     }
 }
