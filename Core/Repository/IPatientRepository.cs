@@ -13,5 +13,7 @@ namespace Core.Repository
     {
         Task<IActionResult> GetAllPatients(int Page, int PageSize, 
                                 Func<PatientDTO, bool> criteria = null);
+
+        bool IsExist(string id);
     }
 }
