@@ -127,7 +127,7 @@ namespace Services
                 }
 
                 //get bookings
-                var gettingBookingsResult =  _unitOfWork.Patients.GetPatientBookings(Id);
+                var gettingBookingsResult =  _unitOfWork.Bookings.GetPatientBookings(Id);
                 if (gettingBookingsResult is not OkObjectResult BookingsObject)
                 {
                     return gettingBookingsResult;
@@ -144,11 +144,11 @@ namespace Services
                 var FullBookingsInfo = bookings.Select(b => new
                 {
                     Image = GetImage(b.ImagePath),
-                    b.doctorName,
-                    b.specialization,
+                    b.DoctorName,
+                    b.Specialization,
                     b.BookingStatus,
-                    b.day,
-                    b.time,
+                    b.Day,
+                    b.Time,
                     b.discoundCodeName,
                     FinalPrice = CalculateFinalPrice(b.price, b.CouponValue, b.DiscountType)
                 });
