@@ -1,12 +1,4 @@
-﻿using Core.Domain;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Core.DTO
+﻿namespace Core.DTO
 {
     public class PatientDTO
     {
@@ -16,7 +8,6 @@ namespace Core.DTO
         public string Phone;
         public string Gender;
         public string DateOfBirth;
-        public Image? Image;
         public List<BookingDTO>? Bookings;
     }
 }
