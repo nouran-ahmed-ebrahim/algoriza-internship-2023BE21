@@ -2,7 +2,7 @@
 
 namespace Core.DTO
 {
-    public class BookingDTO
+    public class BookingWithhDoctorDTO
     {
        public string ImagePath;
        public string DoctorName;
