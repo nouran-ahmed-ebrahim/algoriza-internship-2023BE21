@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Domain;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace Core.DTO
         public string Gender;
         public string DateOfBirth;
         public Image? Image;
+        public List<BookingDTO>? Bookings;
     }
 }
