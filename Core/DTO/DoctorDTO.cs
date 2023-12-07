@@ -15,6 +15,8 @@ namespace Core.DTO
         public string Phone;
         public string Gender;
         public string Specialization;
+        public decimal Price;
         public Image? Image;
+        public List<AppointmentsDTO> Appointments;
     }
 }
