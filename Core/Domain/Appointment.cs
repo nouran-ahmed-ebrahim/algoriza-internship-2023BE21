@@ -1,4 +1,5 @@
 ﻿using Core.Utilities;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,8 +23,7 @@ namespace Core.Domain
 
         [ForeignKey("FK_Appointments_Doctors_DoctorId")]
         [AllowNull]
-        public int? DoctorId { get; set; }
-        public Doctor? Doctor { get; set; }
-        public List<AppointmentTime>? AppointmentTimes { get; set; }
+        public virtual int? DoctorId { get; set; }
+        public virtual List<AppointmentTime>? AppointmentTimes { get; set; }
     }
 }
