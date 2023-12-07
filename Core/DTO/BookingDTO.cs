@@ -9,7 +9,7 @@ namespace Core.DTO
        public string specialization;
        public string day;
        public string time;
-       public string price;
+       public decimal price;
        public string discoundCodeName;
        public int CouponValue;
        public DiscountType DiscountType;
