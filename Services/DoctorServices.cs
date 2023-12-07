@@ -284,7 +284,8 @@ namespace Services
                     criteria = (d => d.Email.Contains(search) || d.Phone.Contains(search) ||
                                 d.FullName.Contains(search) || d.Gender.Contains(search) ||
                                 d.Specialization.Contains(search) || d.Price.ToString().Contains(search)
-                                );
+                                || d.Appointments.Any(a => a.day.Contains(search)) ||
+                                d.Appointments.Any(a => a.Times.Any(a => a.Contains(search))));
 
                 // get doctors
                 var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctorsWithAppointments(Page, PageSize, criteria);
