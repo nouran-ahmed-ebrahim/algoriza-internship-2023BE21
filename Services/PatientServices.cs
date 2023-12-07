@@ -136,7 +136,7 @@ namespace Services
                     return gettingBookingsResult;
                 }
 
-                List<BookingDTO> bookings = BookingsObject.Value as List<BookingDTO>;
+                List<BookingWithhDoctorDTO> bookings = BookingsObject.Value as List<BookingWithhDoctorDTO>;
                 
                 if(bookings == null || bookings.Count() == 0)
                 {
