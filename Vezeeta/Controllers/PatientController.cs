@@ -123,7 +123,7 @@ namespace Vezeeta.Controllers
 
         #region DoctorAPIs
         [HttpGet("~/api/Doctors")]
-        public IActionResult GetAllDoctorsWitAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public IActionResult GetAllDoctorsWithAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
         {
             if (!ModelState.IsValid)
             {
