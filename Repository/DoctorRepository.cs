@@ -2,6 +2,7 @@
 using Core.DTO;
 using Core.Repository;
 using Core.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -136,7 +137,7 @@ namespace Repository
             }
         }
 
-        public IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize,
+        public IActionResult GetAllDoctors(int Page, int PageSize,
                                                         Func<DoctorDTO, bool> criteria = null)
         {
             try
@@ -193,5 +194,73 @@ namespace Repository
             }
         }
 
+        public IActionResult GetAllDoctorsWithAppointments(int Page, int PageSize,
+                                                             Func<DoctorDTO, bool> criteria = null)
+        {
+            try
+            {
+                IEnumerable<DoctorDTO> fullDoctorsInfo = _context.Set<Doctor>()
+                                            .Join
+                                            (
+                                                _context.Users,
+                                                doctor => doctor.DoctorUserId,
+                                                user => user.Id,
+                                                (doctor, user) => new
+                                                {
+                                                    doctor.Id,
+                                                    user.Image,
+                                                    user.FullName,
+                                                    user.Email,
+                                                    Phone = user.PhoneNumber,
+                                                    Gender = Enum.GetName(user.Gender),
+                                                    doctor.SpecializationId,
+                                                    doctor.Price
+                                                }
+                                            ).Join
+                                            (
+                                                _context.Specializations,
+                                                doctor => doctor.SpecializationId,
+                                                specialization => specialization.Id,
+                                                (doctor, specialization) => new DoctorDTO
+                                                {
+                                                    ImagePath = doctor.Image,
+                                                    FullName = doctor.FullName,
+                                                    Email = doctor.Email,
+                                                    Phone = doctor.Phone,
+                                                    Gender = doctor.Gender,
+                                                    Specialization = specialization.Name,
+                                                    Price = doctor.Price,
+                                                    Appointments = _context.Appointments
+                                                                .Where(a => a.DoctorId == doctor.Id)
+                                                                .Select(a => new Day
+                                                                {
+                                                                   day = a.DayOfWeek.ToString(),
+                                                                   Times = _context.AppointmentTimes
+                                                                         .Where(at => at.AppointmentId == a.Id)
+                                                                         .Select(at => at.Time.ToString()).ToList(),
+                                                                }).ToList(),
+                                                }
+                                            );
+                if (criteria != null)
+                {
+                    fullDoctorsInfo = fullDoctorsInfo.Where(criteria);
+                }
+
+                if (Page != 0)
+                    fullDoctorsInfo = fullDoctorsInfo.Skip((Page - 1) * PageSize);
+
+                if (PageSize != 0)
+                    fullDoctorsInfo = fullDoctorsInfo.Take(PageSize);
+
+                return new OkObjectResult(fullDoctorsInfo.ToList());
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"There is a problem during getting the data {ex.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
     }
 }
