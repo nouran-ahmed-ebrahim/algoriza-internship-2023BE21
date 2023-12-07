@@ -1,4 +1,5 @@
 ﻿using Core.Domain;
+using Microsoft.AspNetCore.Mvc;
 using System.Linq.Expressions;
 
 namespace Core.Repository
@@ -7,5 +8,6 @@ namespace Core.Repository
     {
         int NumOfBooKings();
         int NumOfBookings(Expression<Func<Booking, bool>> criteria);
+        IActionResult GetPatientBookings(string PatientId);
     }
 }
