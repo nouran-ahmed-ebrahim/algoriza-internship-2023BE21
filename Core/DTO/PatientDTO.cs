@@ -8,6 +8,5 @@
         public string Phone;
         public string Gender;
         public string DateOfBirth;
-        public List<BookingDTO>? Bookings;
     }
 }
