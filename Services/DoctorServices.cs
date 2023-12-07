@@ -320,7 +320,7 @@ namespace Services
             }
         }
 
-        public IActionResult GetDoctorBookings(int DoctorId, int Page, int PageSize,
+        public IActionResult GetDoctorBookings(string DoctorId, int Page, int PageSize,
                                 string search)
         {
             try

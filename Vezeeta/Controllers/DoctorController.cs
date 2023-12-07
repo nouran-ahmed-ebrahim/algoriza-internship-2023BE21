@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services;
+using System.Security.Claims;
 using System.Text.RegularExpressions;
 
 namespace Vezeeta.Controllers
@@ -138,6 +139,19 @@ namespace Vezeeta.Controllers
         public IActionResult ConfirmBooking([FromForm]int BookingId)
         {
             return _doctorServices.ConfirmCheckUp(BookingId);
+        }
+
+        [HttpGet("Bookings")]
+        [Authorize(Roles = "Doctor")]
+        public IActionResult GetAllDoctorsWithAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            string? DoctorId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            return _doctorServices.GetAllDoctorsWithAppointment(DoctorId,page, pageSize, search);
         }
         #endregion
     }
