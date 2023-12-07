@@ -232,7 +232,7 @@ namespace Services
             }
         }
 
-        public IActionResult GetAllDoctorsWithFullInfo(int Page, int PageSize, string search)
+        public IActionResult GetAllDoctors(int Page, int PageSize, string search)
         {
             try
             {
@@ -244,7 +244,7 @@ namespace Services
                                d.Specialization.Contains(search));
 
                 // get doctors
-                var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctorsWithFullInfo(Page, PageSize, criteria);
+                var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctors(Page, PageSize, criteria);
                 if (gettingDoctorsResult is not OkObjectResult doctorsResult)
                 {
                     return gettingDoctorsResult;
@@ -273,5 +273,51 @@ namespace Services
                 };
             }
         }
+
+        public IActionResult GetAllDoctorsWithAppointment(int Page, int PageSize, string search)
+        {
+            try
+            {
+                Func<DoctorDTO, bool> criteria = null;
+
+                if (!string.IsNullOrEmpty(search))
+                    criteria = (d => d.Email.Contains(search) || d.Phone.Contains(search) ||
+                                d.FullName.Contains(search) || d.Gender.Contains(search) ||
+                                d.Specialization.Contains(search) || d.Price.ToString().Contains(search)
+                                );
+
+                // get doctors
+                var gettingDoctorsResult = _unitOfWork.Doctors.GetAllDoctorsWithAppointments(Page, PageSize, criteria);
+                if (gettingDoctorsResult is not OkObjectResult doctorsResult)
+                {
+                    return gettingDoctorsResult;
+                }
+                List<DoctorDTO> doctorsInfoList = doctorsResult.Value as List<DoctorDTO>;
+
+                // Load doctor images
+                var doctorsInfo = doctorsInfoList.Select(d => new
+                {
+                    Image = GetImage(d.ImagePath),
+                    d.FullName,
+                    d.Phone,
+                    d.Price,
+                    d.Email,
+                    d.Gender,
+                    d.Specialization,
+                    d.Appointments
+                }).ToList();
+
+                return new OkObjectResult(doctorsInfo);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+    }
     }
 }
