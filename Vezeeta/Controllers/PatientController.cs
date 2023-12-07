@@ -22,10 +22,13 @@ namespace Vezeeta.Controllers
         private readonly IMapper _mapper;
         private readonly IPatientServices _patientServices;
         private readonly IBookingsServices _bookingsServices;
+        private readonly IDoctorServices _doctorServices;
+
         public PatientController(IPatientServices PatientServices, 
-            IBookingsServices bookingsServices) {
+            IBookingsServices bookingsServices, IDoctorServices doctorServices) {
             _patientServices = PatientServices;
             _bookingsServices = bookingsServices;
+            _doctorServices = doctorServices;
         }
 
         #region Authentication APIs
@@ -115,6 +118,19 @@ namespace Vezeeta.Controllers
             }
             string? PatientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             return _bookingsServices.AddBookingToPatient(PatientId,TimeId,CouponName);
+        }
+        #endregion
+
+        #region DoctorAPIs
+        [HttpGet("~/api/Doctors")]
+        public IActionResult GetAllDoctorsWitAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return _doctorServices.GetAllDoctorsWithAppointment(page, pageSize, search);
         }
         #endregion
     }
