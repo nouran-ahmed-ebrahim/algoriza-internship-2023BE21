@@ -21,5 +21,7 @@ namespace Core.Services
         IActionResult GetSpecificDoctorInfo(int id);
         IActionResult GetAllDoctors(int Page, int PageSize, string search);
         IActionResult GetAllDoctorsWithAppointment(int Page, int PageSize, string search);
+        IActionResult GetDoctorBookings(int DoctorId, int Page, int PageSize,
+                                string search);
     }
 }

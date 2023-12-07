@@ -319,6 +319,55 @@ namespace Services
                 };
             }
         }
+
+        public IActionResult GetDoctorBookings(int DoctorId, int Page, int PageSize,
+                                string search)
+        {
+            try
+            {
+                Func<BookingWithPatientDTO, bool> criteria = null;
+
+                if (!string.IsNullOrEmpty(search))
+                    criteria = (d => d.patientInfo.Email.Contains(search) || d.patientInfo.Phone.Contains(search) ||
+                                d.patientInfo.FullName.Contains(search) || d.patientInfo.Gender.Contains(search) ||
+                                d.time.Contains(search) || d.day.Contains(search));
+
+                // get doctors
+                var gettingDoctorBookingsResult = _unitOfWork.Bookings.GetDoctorBookings(DoctorId,Page, PageSize, criteria);
+                if (gettingDoctorBookingsResult is not OkObjectResult DoctorBookingsResult)
+                {
+                    return gettingDoctorBookingsResult;
+                }
+
+                List<BookingWithPatientDTO> bookingsList = DoctorBookingsResult.Value as List<BookingWithPatientDTO>;
+
+                if(bookingsList != null && bookingsList.Count == 0)
+                {
+                    return new NotFoundObjectResult("There is no bookings");
+                }
+                // Load doctor images
+                var doctorBookingsInfo = bookingsList.Select(d => new
+                {
+                    Image = GetImage(d.patientInfo.ImagePath),
+                    d.patientInfo.FullName,
+                    d.patientInfo.Phone,
+                    d.patientInfo.Email,
+                    d.patientInfo.Gender,
+                    d.day,
+                    d.time
+                }).ToList();
+
+                return new OkObjectResult(doctorBookingsInfo);
+            }
+            catch (Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Doctors info \n: {ex.Message}" +
+                    $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
     }
     
 }
