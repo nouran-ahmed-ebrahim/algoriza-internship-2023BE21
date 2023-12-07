@@ -70,12 +70,6 @@ namespace Repository
             return await _userManager.FindByEmailAsync(Email);
         }
 
-       // public async Task<string> GetUserIdFromClaim(ApplicationUser user)
-        //{
-        //    var Claims = await _userManager.GetClaimsAsync(user);
-        //    return Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-        //}
-
         public string GetFullName(string id)
         {
             return _context.Users.FirstOrDefault(user => user.Id == id)?.FullName;

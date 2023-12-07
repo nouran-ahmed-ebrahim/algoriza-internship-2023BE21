@@ -20,8 +20,6 @@ namespace Core.Repository
         Task SignOut();
         #endregion
 
-
-        //Task<string> GetUserIdFromClaim(ApplicationUser user);
         Task<ApplicationUser> GetUserByEmail(string Email);
         Task<bool> CheckUserPassword(ApplicationUser user, string password);
         Task<ApplicationUser> GetUser(string UserId);
