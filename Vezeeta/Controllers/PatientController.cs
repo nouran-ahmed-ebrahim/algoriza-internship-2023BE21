@@ -85,6 +85,14 @@ namespace Vezeeta.Controllers
         #endregion
 
         #region Booking APIs
+        [HttpGet("Bookings")]
+        [Authorize(Roles = "Patient")]
+        public IActionResult GetPatientBooking([FromForm] int BookingId)
+        {
+            string? PatientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            return _patientServices.GetPatientBookings(PatientId);
+        }
+
         [HttpPatch("Booking/Cancel")]
         [Authorize(Roles = "Patient")]
         public IActionResult CancelBooking([FromForm]int BookingId)
@@ -109,17 +117,5 @@ namespace Vezeeta.Controllers
             return _bookingsServices.AddBookingToPatient(PatientId,TimeId,CouponName);
         }
         #endregion
-
     }
 }
-
-//{
-//  "firstName": "nouran",
-//  "lastName": "ahmed",
-//  "email": "nourana245@gmail.com",
-//  "password": "nourana245@",
-//  "phone": "0123456",
-//  "gender": 1,
-//  "dateOfBirth": "2001-05-08",
-//  "rememberMe": true
-//}

@@ -30,5 +30,15 @@ namespace Vezeeta.Controllers
             return await _patientService.GetAllPatients(page, pageSize, search);
         }
 
+        [HttpGet()]
+        public async Task<IActionResult> GetById([FromForm] string PatientId)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            return await _patientService.GetById(PatientId);
+        }
     }
 }

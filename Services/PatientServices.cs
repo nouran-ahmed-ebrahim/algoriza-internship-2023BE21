@@ -75,12 +75,15 @@ namespace Services
         {
             try
             {
-                // Get patient info
-                ApplicationUser patient =  await _unitOfWork.Patients.GetUser(Id);
-                if (patient == null)
+                // check if the id exist
+                bool IsExist = _unitOfWork.Patients.IsExist(Id);
+                if (!IsExist)
                 {
                     return new NotFoundObjectResult($"There is no patient with Id {Id}");
                 }
+
+                // Get patient info
+                ApplicationUser patientUser =  await _unitOfWork.Patients.GetUser(Id);
 
                 // Get Patient bookings
                 IActionResult GettingPatientBookings = GetPatientBookings(Id);
@@ -92,14 +95,14 @@ namespace Services
                 var PatientBookings = BookingsObject.Value ;
 
                 // Load Booking'S Doctors image & Calculate  final price
-                var patinet = new
+                var patient = new
                 {
-                    Image = GetImage(patient.Image),
-                    patient.FullName,
-                    patient.PhoneNumber,
-                    patient.Email,
-                    patient.DateOfBirth,
-                    patient.Gender,
+                    Image = GetImage(patientUser.Image),
+                    patientUser.FullName,
+                    patientUser.PhoneNumber,
+                    patientUser.Email,
+                    patientUser.DateOfBirth,
+                    patientUser.Gender,
                     Bookings = PatientBookings
                 };
 

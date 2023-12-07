@@ -4,6 +4,7 @@ using Core.Repository;
 using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace Repository
             {
                 var bookings = _context.Bookings.Where(b => b.PatientId == PatientId);
 
-                // get Appoiment info
+                // get Appointment info
                 var bookingsWithAppointment = bookings.Join(
                                      _context.AppointmentTimes,
                                      b => b.AppointmentTimeId,
@@ -64,22 +65,29 @@ namespace Repository
                                         }
                                     );
 
-                // get coupon info
+                // get coupon info -left join-
 
-                var bookingsWithCouponInfo = bookingsWithAppointment.Join(
+                var bookingsWithCouponInfo = bookingsWithAppointment.GroupJoin(
                                               _context.DiscountCodeCoupons,
-                                              b => b.DiscountCodeCouponId,
-                                              c => c.Id,
-                                              (b,c) => new
+                                              booking => booking.DiscountCodeCouponId,
+                                              coupon => coupon.Id,
+                                              (booking,coupon) => new
                                               {
-                                                  b.DoctorId,
-                                                  b.BookingState,
-                                                  b.day,
-                                                  b.Time,
-                                                  c.DiscountType,
-                                                  c.Value,
-                                                  c.Name
-                                              });
+                                                 booking,
+                                                 coupon
+                                              }).SelectMany(
+                                                  coupon => coupon.coupon.DefaultIfEmpty() ,
+                                                  (b,c) => new
+                                                  {
+                                                      b.booking.DoctorId,
+                                                      b.booking.BookingState,
+                                                      b.booking.day,
+                                                      b.booking.Time,
+                                                      DiscountType = (c == null)? 0: c.DiscountType,
+                                                      Value = (c == null)? 0 : c.Value,
+                                                      Name = (c == null) ? "No Coupon": c.Name
+                                                  }
+                                              );
                 // get doctor info
                 var bookingsWithDoctorsInfo = bookingsWithCouponInfo.Join(
                                                 _context.Doctors,
@@ -87,6 +95,7 @@ namespace Repository
                                                 d => d.Id,
                                                 (b, d) => new
                                                 {
+                                                    d.Price,
                                                     d.DoctorUserId,
                                                     d.SpecializationId,
                                                     b.BookingState,
@@ -103,6 +112,7 @@ namespace Repository
                                                 (b, u) => new
                                                 {
                                                     u.FullName,
+                                                    b.Price,
                                                     u.Image,
                                                     b.SpecializationId,
                                                     BookingState =b.BookingState.ToString(),
@@ -118,6 +128,7 @@ namespace Repository
                                                 s => s.Id,
                                                 (b, s) => new BookingDTO
                                                 {
+                                                   price = b.Price.Value,
                                                    DoctorName = b.FullName,
                                                    ImagePath = b.Image,
                                                    Specialization = s.Name,

@@ -24,7 +24,12 @@ namespace Repository
 
         public bool IsExist(string id)
         {
-            return _context.Users.Any(user => user.Id == id);
+            string PatientRoleName = UserRole.Patient.ToString();
+            string PatientRoleId = _context.Roles.
+                                        Where(r => r.Name == PatientRoleName)
+                                        .Select(r => r.Id).SingleOrDefault().ToString();
+
+            return _context.UserRoles.Any(x => x.UserId == id && x.RoleId == PatientRoleId);
         }
         public async Task<IActionResult> GetAllPatients(int Page, int PageSize, Func<PatientDTO, bool> criteria = null)
         {
