@@ -17,6 +17,6 @@ namespace Core.DTO
         public string Specialization;
         public decimal Price;
         public Image? Image;
-        public List<AppointmentsDTO> Appointments;
+        public List<Day> Appointments;
     }
 }
