@@ -7,6 +7,7 @@ using Core.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,14 +74,6 @@ namespace Services
         {
             try
             {
-                // check if the id exist
-                bool IsExist = _unitOfWork.Patients.IsExist(Id);
-
-                if(!IsExist)
-                {
-                    return new NotFoundObjectResult($"There is no patient with Id {Id}");
-                }
-
                 // Get patient info
                 ApplicationUser patient =  await _unitOfWork.Patients.GetUser(Id);
                 if (patient == null)
@@ -121,6 +114,68 @@ namespace Services
             }
         }
 
-       
+        public IActionResult GetPatientBookings(string Id)
+        {
+            try
+            {
+                // check if the id exist
+                bool IsExist = _unitOfWork.Patients.IsExist(Id);
+                if (!IsExist)
+                {
+                    return new NotFoundObjectResult($"There is no patient with Id {Id}");
+                }
+
+                //get bookings
+                var gettingBookingsResult =  _unitOfWork.Patients.GetPatientBookings(Id);
+                if (gettingBookingsResult is not OkObjectResult BookingsObject)
+                {
+                    return gettingBookingsResult;
+                }
+
+                List<BookingDTO> bookings = BookingsObject.Value as List<BookingDTO>;
+                
+                if(bookings == null || bookings.Count() == 0)
+                {
+                    return new NotFoundObjectResult("There is no bookings for the patient");
+                }
+
+                // load Doctors' Image & calculate final price
+                var FullBookingsInfo = bookings.Select(b => new
+                {
+                    Image = GetImage(b.ImagePath),
+                    b.doctorName,
+                    b.specialization,
+                    b.BookingStatus,
+                    b.day,
+                    b.time,
+                    b.discoundCodeName,
+                    FinalPrice = CalculateFinalPrice(b.price, b.CouponValue, b.DiscountType)
+                });
+
+                return new OkObjectResult(FullBookingsInfo);        
+            }
+            catch(Exception ex)
+            {
+                return new ObjectResult($"An error occurred while Getting Patient's Bookings \n: {ex.Message}" +
+                   $"\n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
+        }
+
+        private decimal CalculateFinalPrice(decimal price, int couponValue, DiscountType discountType)
+        {
+            decimal DiscountValue = 0;
+            
+            if(discountType == DiscountType.Value)
+                DiscountValue =couponValue;
+            else
+            {
+                DiscountValue = (price * couponValue) / 100;
+            }
+
+            return price - DiscountValue;
+        }
     }
 }
