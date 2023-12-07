@@ -128,7 +128,7 @@ namespace Repository
                                                 s => s.Id,
                                                 (b, s) => new BookingDTO
                                                 {
-                                                   price = b.Price.Value,
+                                                   price = b.Price,
                                                    DoctorName = b.FullName,
                                                    ImagePath = b.Image,
                                                    Specialization = s.Name,
