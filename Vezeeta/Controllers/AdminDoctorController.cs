@@ -45,7 +45,7 @@ namespace Vezeeta.Controllers
                 return BadRequest(ModelState);
             }
 
-            return _doctorService.GetAllDoctorsWithFullInfo(page, pageSize, search);
+            return _doctorService.GetAllDoctors(page, pageSize, search);
         }
 
         [HttpPost]
