@@ -69,7 +69,7 @@ namespace Services
             }
         }
     
-        public IActionResult GetById(string Id)
+        public async Task<IActionResult> GetById(string Id)
         {
             try
             {
@@ -82,13 +82,11 @@ namespace Services
                 }
 
                 // Get patient info
-                IActionResult GettingPatientResult = _unitOfWork.Patients.GetPatient(Id);
-                if (GettingPatientResult is not OkObjectResult patientObject)
+                ApplicationUser patient =  await _unitOfWork.Patients.GetUser(Id);
+                if (patient == null)
                 {
-                    return GettingPatientResult;
+                    return new NotFoundObjectResult($"There is no patient with Id {Id}");
                 }
-
-                PatientDTO patient = patientObject.Value as PatientDTO;
 
                 // Get Patient bookings
                 IActionResult GettingPatientBookings = GetPatientBookings(Id);
@@ -102,9 +100,9 @@ namespace Services
                 // Load Booking'S Doctors image & Calculate  final price
                 var patinet = new
                 {
-                    Image = GetImage(patient.ImagePath),
+                    Image = GetImage(patient.Image),
                     patient.FullName,
-                    patient.Phone,
+                    patient.PhoneNumber,
                     patient.Email,
                     patient.DateOfBirth,
                     patient.Gender,
@@ -123,9 +121,6 @@ namespace Services
             }
         }
 
-        public IActionResult GetPatientBookings(string id)
-        {
-            throw new NotImplementedException();
-        }
+       
     }
 }
