@@ -87,12 +87,12 @@ namespace Services
 
                 // Get Patient bookings
                 IActionResult GettingPatientBookings = GetPatientBookings(Id);
-                if (GettingPatientBookings is not OkObjectResult BookingsObject)
-                {
-                    return GettingPatientBookings;
-                }
 
-                var PatientBookings = BookingsObject.Value ;
+                object PatientBookings = null;
+                if (GettingPatientBookings is OkObjectResult BookingsObject)
+                {
+                    PatientBookings = BookingsObject.Value;
+                }
 
                 // Load Booking'S Doctors image & Calculate  final price
                 var patient = new
