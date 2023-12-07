@@ -96,42 +96,5 @@ namespace Vezeeta.Controllers
 
         }
         #endregion
-
-        #region Authentication APIs
-        [HttpGet("~/api/Admin/SignIn")]
-        public async Task<IActionResult> SignIn([FromForm] string Email, [FromForm] string Password, [FromForm] bool RememberMe)
-        {
-            if (string.IsNullOrEmpty(Email))
-            {
-                ModelState.AddModelError("Email", "Email is required");
-            }
-
-            if (string.IsNullOrEmpty(Password))
-            {
-                ModelState.AddModelError("Password", "Password is required");
-            }
-
-            string pattern = ".+@.+\\.com";
-            bool isMatch = Regex.IsMatch(Email, pattern);
-
-            if (!isMatch)
-            {
-                ModelState.AddModelError("Email", "Invalid Email");
-            }
-
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            return await _adminServices.SignIn(Email, Password, RememberMe);
-        }
-
-        [HttpPost("~/api/Admin/LogOut")]
-        public async Task<IActionResult> LogOut()
-        {
-            await _adminServices.SignOut();
-            return Ok("LogOut Successfully");
-        }
-        #endregion
     }
 }
