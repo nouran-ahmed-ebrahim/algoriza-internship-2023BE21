@@ -21,11 +21,11 @@ namespace Core.Domain
 
         [Required(ErrorMessage = "Value is required.")]
         [InRange]
-        public int? Value { get; set; }
+        public int Value { get; set; }
 
         [Required(ErrorMessage = "Discount Type is required.")]
         [EnumDataType(typeof(DiscountType))]
-        public DiscountType? DiscountType { get; set; }
+        public DiscountType DiscountType { get; set; }
 
         [Required(ErrorMessage = "Minimum Requests is required.")]
         [Range(0, int.MaxValue)]

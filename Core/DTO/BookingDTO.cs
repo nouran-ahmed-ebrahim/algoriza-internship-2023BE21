@@ -11,8 +11,8 @@ namespace Core.DTO
        public string Time;
        public decimal price;
        public string discoundCodeName;
-       public int? CouponValue;
-       public DiscountType? DiscountType;
+       public int CouponValue;
+       public DiscountType DiscountType;
        public string BookingStatus;
     }
 }
