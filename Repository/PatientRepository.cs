@@ -22,10 +22,6 @@ namespace Repository
         {
         }
 
-        public bool IsExist(string id)
-        {
-            return _context.Users.Any(user => user.Id == id);
-        }
         public async Task<IActionResult> GetAllPatients(int Page, int PageSize, Func<PatientDTO, bool> criteria = null)
         {
             // Get All patients
