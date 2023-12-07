@@ -16,7 +16,6 @@ namespace Core.Domain
         [DataType(DataType.Time)]
         public TimeSpan Time { get; set; }
         [ForeignKey("FK_AppointmentTimes_Appointments_AppointmentId")]
-        public int AppointmentId { get; set; }
-        public Appointment? Appointment { get; set; }
+        public virtual int AppointmentId { get; set; }
     }
 }
