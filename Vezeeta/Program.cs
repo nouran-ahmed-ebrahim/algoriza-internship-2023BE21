@@ -12,6 +12,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(optionBuilder => {
     optionBuilder.UseSqlServer(builder.Configuration.GetConnectionString("VezeetaDB"));
 });
 
+
 DependencyConfig.ConfigureDependencies(builder.Services);
 builder.Services.AddSwaggerGen();
 
