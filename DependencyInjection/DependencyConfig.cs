@@ -66,7 +66,7 @@ namespace DependencyInjection
             //    options.SupportedCultures = supportedCultures;
             //    options.SupportedUICultures = supportedCultures;
             //});
-            
+
             return Services;
         }
     }
