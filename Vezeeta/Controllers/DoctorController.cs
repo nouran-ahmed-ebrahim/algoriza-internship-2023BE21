@@ -143,7 +143,7 @@ namespace Vezeeta.Controllers
 
         [HttpGet("Bookings")]
         [Authorize(Roles = "Doctor")]
-        public IActionResult GetAllDoctorsWithAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public IActionResult GetDoctorsBookings([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
         {
             if (!ModelState.IsValid)
             {
@@ -151,7 +151,7 @@ namespace Vezeeta.Controllers
             }
             string? DoctorId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            return _doctorServices.GetAllDoctorsWithAppointment(DoctorId,page, pageSize, search);
+            return _doctorServices.GetDoctorBookings(DoctorId,page, pageSize, search);
         }
         #endregion
     }

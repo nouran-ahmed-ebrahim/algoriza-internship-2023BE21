@@ -320,11 +320,12 @@ namespace Services
             }
         }
 
-        public IActionResult GetDoctorBookings(string DoctorId, int Page, int PageSize,
+        public IActionResult GetDoctorBookings(string DoctorUserId, int Page, int PageSize,
                                 string search)
         {
             try
             {
+                int DoctorId = _unitOfWork.Doctors.GetDoctorIdByUserId(DoctorUserId);
                 Func<BookingWithPatientDTO, bool> criteria = null;
 
                 if (!string.IsNullOrEmpty(search))
@@ -341,7 +342,7 @@ namespace Services
 
                 List<BookingWithPatientDTO> bookingsList = DoctorBookingsResult.Value as List<BookingWithPatientDTO>;
 
-                if(bookingsList != null && bookingsList.Count == 0)
+                if(bookingsList == null || bookingsList.Count == 0)
                 {
                     return new NotFoundObjectResult("There is no bookings");
                 }

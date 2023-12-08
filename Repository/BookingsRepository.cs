@@ -221,7 +221,7 @@ namespace Repository
                 if (PageSize != 0)
                     bookingsWithAppointment = bookingsWithAppointment.Take(PageSize);
 
-                return new OkObjectResult(bookingsWithAppointment);
+                return new OkObjectResult(bookingsWithAppointment.ToList());
             }
             catch (Exception ex)
             {
