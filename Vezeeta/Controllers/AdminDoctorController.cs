@@ -16,10 +16,12 @@ namespace Vezeeta.Controllers
     public class AdminDoctorController : ControllerBase
     {
         private readonly IDoctorServices _doctorService;
+        private readonly IEmailServices _emailService;
 
-        public AdminDoctorController(IDoctorServices DoctorService)
+        public AdminDoctorController(IDoctorServices DoctorService, IEmailServices emailService)
         {
             _doctorService = DoctorService;
+            _emailService = emailService;
         }
         [HttpGet]
         public IActionResult GetById([FromForm]int Id)
@@ -67,7 +69,6 @@ namespace Vezeeta.Controllers
             };
 
             return await _doctorService.AddDoctor(userDTO, UserRole.Patient, Specialize);
-
         }
 
         [HttpPut]

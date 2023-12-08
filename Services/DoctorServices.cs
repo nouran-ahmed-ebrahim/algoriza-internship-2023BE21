@@ -22,12 +22,14 @@ namespace Services
     public class DoctorServices: ApplicationUserService, IDoctorServices
     {
         private readonly IAppointmentServices _appointmentServices;
+        private readonly IEmailServices _emailService;
 
         public DoctorServices(IUnitOfWork UnitOfWork, IMapper mapper,
-            IAppointmentServices appointmentServices) : 
+            IAppointmentServices appointmentServices, IEmailServices emailServices) : 
             base(UnitOfWork, mapper)
         {
             _appointmentServices = appointmentServices;
+            _emailService = emailServices;
         }
 
         public IActionResult GetTop10()
@@ -100,6 +102,10 @@ namespace Services
 
                 await _unitOfWork.Doctors.Add(doctor);
                 _unitOfWork.Complete();
+                await _emailService.SendEmailAsync(User.Email, "Vezeeta",
+                    $"You are now a Vezeeta Doctor. \n Your userName: {User.FullName}" +
+                    $" \n Your Password: {userDTO.Password}");
+
                 return new OkObjectResult(doctor);
             }
             catch (Exception ex)
