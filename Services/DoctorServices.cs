@@ -101,10 +101,11 @@ namespace Services
                 };
 
                 await _unitOfWork.Doctors.Add(doctor);
-                _unitOfWork.Complete();
                 await _emailService.SendEmailAsync(User.Email, "Vezeeta",
                     $"You are now a Vezeeta Doctor. \n Your userName: {User.FullName}" +
                     $" \n Your Password: {userDTO.Password}");
+
+                _unitOfWork.Complete();
 
                 return new OkObjectResult(doctor);
             }
