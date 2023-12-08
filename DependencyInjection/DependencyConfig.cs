@@ -39,6 +39,7 @@ namespace DependencyInjection
             Services.AddTransient<IBookingsServices, BookingsServices>();
             Services.AddTransient<IDiscountCodeCouponServices, DiscountCodeCouponServices>();
             Services.AddTransient<ISpecializationServices, SpecializationServices>();
+            Services.AddTransient<IEmailServices, EmailServices>();
 
             // inject auto mapper
             var mapperConfig = new MapperConfiguration(cfg =>
