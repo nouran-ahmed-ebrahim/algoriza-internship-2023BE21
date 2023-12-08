@@ -23,8 +23,7 @@ namespace Core.DTO
         [RegularExpression(".+@.+\\.com", ErrorMessage= "Email is not valid")]
         public string Email { get; set; }
 
-        [Required] 
-        public string Password { get; set; }
+        public string Password { get; set; } = "121212";
 
         [Required]
         [RegularExpression("^[0-9]+$", ErrorMessage ="Phone number is not valid")]
