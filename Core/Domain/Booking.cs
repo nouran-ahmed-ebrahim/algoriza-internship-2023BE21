@@ -16,21 +16,21 @@ namespace Core.Domain
 
         [Required(ErrorMessage = "Booking state is required.")]
         [EnumDataType(typeof(BookingState))]
-        public BookingState? BookingState { get; set; }
+        public BookingState BookingState { get; set; }
 
         #region ForignKeys
         [ForeignKey("FK_Bookings_AppointmentTimes_AppointmentTimeId")]
-        public int? AppointmentTimeId { get; set; }
+        public int AppointmentTimeId { get; set; }
         
         [ForeignKey("FK_Bookings_Doctors_DoctorId")]
-        public int? DoctorId { get; set; }
+        public int DoctorId { get; set; }
         
         [ForeignKey("FK_Bookings_AspNetUsers_PatientId")]
-        public string? PatientId { get; set; }
+        public string PatientId { get; set; }
 
         [ForeignKey("FK_Bookings_DiscountCodeCoupons_DiscountCodeCouponId")]
         [AllowNull]
-        public int? DiscountCodeCouponId { get; set; }
+        public int DiscountCodeCouponId { get; set; }
         #endregion
     }
 }

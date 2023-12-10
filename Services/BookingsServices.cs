@@ -93,7 +93,7 @@ namespace Services
             }
         }
 
-        private int? GetDoctorId(int appointmentId)
+        private int GetDoctorId(int appointmentId)
         {
             Appointment appointment = GetAppointment(appointmentId);
             return appointment.DoctorId;
