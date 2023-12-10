@@ -24,6 +24,6 @@ namespace Core.Domain
         [ForeignKey("FK_Appointments_Doctors_DoctorId")]
         [AllowNull]
         public virtual int DoctorId { get; set; }
-        public virtual List<AppointmentTime>? AppointmentTimes { get; set; }
+        //public virtual List<AppointmentTime>? AppointmentTimes { get; set; }
     }
 }

@@ -94,7 +94,7 @@ namespace Services
             {
                 return new OkResult();
             }
-            appointment.AppointmentTimes = addingTimesList; 
+          //  appointment.AppointmentTimes = addingTimesList; 
 
             try
             {
