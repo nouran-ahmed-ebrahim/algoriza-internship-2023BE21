@@ -11,9 +11,9 @@ namespace Repository
     public class AppointmentTimeRepository(ApplicationDbContext context) :
                             DataOperationsRepository<AppointmentTime>(context), IAppointmentTimeRepository
     {
-        public AppointmentTime GetByDayIdAndSlot(int dayId, TimeSpan timeSlot)
+        public bool GetByDayIdAndSlot(int dayId, TimeSpan timeSlot)
         {
-            return _context.AppointmentTimes.FirstOrDefault(t => t.AppointmentId == dayId &&
+            return _context.AppointmentTimes.Any(t => t.AppointmentId == dayId &&
                                                               t.Time == timeSlot);
         }
     }
