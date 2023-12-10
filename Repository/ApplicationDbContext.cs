@@ -188,18 +188,18 @@ namespace Repository
             .HasData(new ApplicationUser
              {
                  Id = "6c787944-dead-41d2-8860-510044fe2e6f",
-                 UserName = "6c787944-dead-41d2-8860-510044fe2e6f",
-                 NormalizedUserName = "6c787944-dead-41d2-8860-510044fe2e6f",
+                 UserName = "1ebffac2-2724-4fb4-a451-b636e0187739",
+                 NormalizedUserName = "1EBFFAC2-2724-4FB4-A451-B636E0187739",
                  FullName = "Admin Admin",
                  DateOfBirth = new DateTime(2001, 5, 8),
                  Email = "admin@gmail.com",
                  NormalizedEmail = "ADMIN@GMAIL.COM",
                  PhoneNumber = "123456",
                  Gender = Core.Utilities.Gender.Female,
-                 PasswordHash = "AQAAAAIAAYagAAAAEAbTVwWtzUrW7kOd8duy/nV1TTDonwx1nXDcSINXLG7YAY1Xmu5WcohX0RrSFDiMfQ==",
-                 ConcurrencyStamp = "030cb112-8710-4a56-940b-0d087ddd85b8",
-                 SecurityStamp = "8ff32591-ef68-4316-b31b-ab6aeda737e1"
-             });
+                 PasswordHash = "AQAAAAIAAYagAAAAEFZLbjvV3kx9YHhpTY7IvtibpWcT6GI0INUoyl2EXNd131Uevkm9fGsJ96OUnCQHzw==",
+                 ConcurrencyStamp = "d4c3b47b-6203-46be-ba07-12e98d2c3a76",
+                 SecurityStamp = "BMLQB2ECOZPWZIBM42KHWK4XOC4WRX7U"
+            });
 
             modelBuilder.Entity<IdentityUserRole<string>>()
             .HasData(new IdentityUserRole<string>
