@@ -53,59 +53,57 @@ namespace Services
         }
         private IActionResult AddDay(int doctorId, Day Day)
         {
-            if (Day.Times == null)
-            {
-                return new BadRequestObjectResult($"Inter Time Slots for day {Day.day}");
-            }
-
-            var result = ConvertStringToDayOfWeek(Day.day);
-
-            if (result is not OkObjectResult okResult)
-            {
-                return result;
-            }
-            DayOfWeek DayOfWeek = (DayOfWeek)okResult.Value;
-
-            Appointment appointment = _unitOfWork.Appointments.GetByDoctorIdAndDay(doctorId, DayOfWeek);
-            int DayId = 0;
-            if (appointment == null)
-            {
-                appointment = new Appointment()
-                {
-                    DoctorId = doctorId,
-                    DayOfWeek = DayOfWeek,
-                };
-            }
-            else
-            {
-                DayId = appointment.Id;
-            }
-
-         //   List<AppointmentTime> AppointmentTimes = appointment.AppointmentTimes;
-            
-            IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, Day.Times);
-            if (addingDayTimesResult is not OkObjectResult addingTimesResult)
-            {
-                return addingDayTimesResult;
-            }
-
-            var addingTimesList = (List<AppointmentTime>)addingTimesResult.Value;
-            if(addingTimesList.Count == 0)
-            {
-                return new OkResult();
-            }
-          //  appointment.AppointmentTimes = addingTimesList; 
-
             try
             {
+                if (Day.Times == null)
+                {
+                    return new BadRequestObjectResult($"Inter Time Slots for day {Day.day}");
+                }
+
+                var result = ConvertStringToDayOfWeek(Day.day);
+
+                if (result is not OkObjectResult okResult)
+                {
+                    return result;
+                }
+                DayOfWeek DayOfWeek = (DayOfWeek)okResult.Value;
+
+                // Get Appointment data if it exist 
+                Appointment appointment = _unitOfWork.Appointments.GetByDoctorIdAndDay(doctorId, DayOfWeek);
+                int DayId = 0;
+                if (appointment == null)
+                {
+                    appointment = new Appointment()
+                    {
+                        DoctorId = doctorId,
+                        DayOfWeek = DayOfWeek,
+                    };
+                }
+                else
+                {
+                    DayId = appointment.Id;
+                }
+
+                // Add Appointment
+
                 if (DayId == 0)
                 {
                     _unitOfWork.Appointments.Add(appointment);
+                    DayId = _unitOfWork.Appointments.GetByDoctorIdAndDay(appointment.DoctorId, appointment.DayOfWeek).Id;
                 }
                 else
                 {
                     _unitOfWork.Appointments.Update(appointment);
                 }
+
+
+                // add Appointment times
+                IActionResult addingDayTimesResult = _timeServices.AddDayTimes(DayId, Day.Times);
+                if (addingDayTimesResult is not OkResult)
+                {
+                    return addingDayTimesResult;
+                }
+
                 return new OkResult();
             }
             catch (Exception ex)

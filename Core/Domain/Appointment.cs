@@ -19,7 +19,7 @@ namespace Core.Domain
 
         [Required(ErrorMessage = "Day is required.")]
         [EnumDataType(typeof(DayOfWeek))]
-        public DayOfWeek? DayOfWeek { get; set; }
+        public DayOfWeek DayOfWeek { get; set; }
 
         [ForeignKey("FK_Appointments_Doctors_DoctorId")]
         [AllowNull]

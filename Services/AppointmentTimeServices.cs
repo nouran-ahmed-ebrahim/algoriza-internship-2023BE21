@@ -22,23 +22,25 @@ namespace Services
 
         private IActionResult AddDayTime(int dayId, TimeSpan timeSlot)
         {
-            AppointmentTime appointmentTime;
-            // if the day exist previously check timeSlot existence
-            if (dayId > 0)
+            try
             {
-                appointmentTime = _unitOfWork.AppointmentTimes.GetByDayIdAndSlot(dayId, timeSlot);
-
-                if (appointmentTime != null)
+                AppointmentTime appointmentTime = new AppointmentTime()
                 {
-                    return new OkResult();
-                }
-            }
+                    Time = timeSlot,
+                    AppointmentId = dayId
+                };
 
-            appointmentTime = new AppointmentTime()
+                _unitOfWork.AppointmentTimes.Add(appointmentTime);
+                return new OkResult();
+            }
+            catch (Exception ex)
             {
-                Time = timeSlot
-            };
-            return new OkObjectResult(appointmentTime);
+                return new ObjectResult($"An error occurred while deleting appointmentTime: \n " +
+                                    $"{ex.Message} \n {ex.InnerException?.Message}")
+                {
+                    StatusCode = 500
+                };
+            }
 
         }
 
@@ -49,21 +51,19 @@ namespace Services
                 return new BadRequestObjectResult("Times is required");
             }
 
-            List<AppointmentTime> dayTimes = new List<AppointmentTime>();
             IActionResult result;
             TimeSpan timeSlot;
             foreach (var time in Times)
             {
                 timeSlot = ConvertStringTotTimeSpan(time);
                 result = AddDayTime(dayId, timeSlot);
-                if (result is not OkObjectResult okObject)
+                if (result is not OkResult okObject)
                 {
-                    continue;
+                    return result;
                 }
-                dayTimes.Add(okObject.Value as AppointmentTime);
             }
 
-            return new OkObjectResult(dayTimes);
+            return new OkResult();
         }
 
         public TimeSpan ConvertStringTotTimeSpan(string strTime)

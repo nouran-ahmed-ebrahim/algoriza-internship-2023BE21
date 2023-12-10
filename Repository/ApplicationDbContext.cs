@@ -83,12 +83,11 @@ namespace Repository
             .OnDelete(DeleteBehavior.Cascade)
             .HasConstraintName("FK_Appointments_Doctors_DoctorId");
 
-            //modelBuilder.Entity<AppointmentTime>()
-            //.HasOne<Appointment>()
-            //.WithMany()
-            //.HasForeignKey(a => a.AppointmentId)
-            //.OnDelete(DeleteBehavior.Cascade);
-            ////.HasConstraintName("FK_AppointmentTimes_Appointments_AppointmentId");
+            modelBuilder.Entity<AppointmentTime>()
+            .HasOne<Appointment>()
+            .WithMany()
+            .HasForeignKey(a => a.AppointmentId)
+            .OnDelete(DeleteBehavior.Cascade);
             #endregion
 
             #region dataSeeding
