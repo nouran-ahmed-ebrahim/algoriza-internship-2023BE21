@@ -90,7 +90,7 @@ namespace Vezeeta.Controllers
         #region Booking APIs
         [HttpGet("Bookings")]
         [Authorize(Roles = "Patient")]
-        public IActionResult GetPatientBooking(int BookingId)
+        public IActionResult GetPatientBookings()
         {
             string? PatientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             return _patientServices.GetPatientBookings(PatientId);
