@@ -150,7 +150,7 @@ namespace Services
         private bool CheckIfCouponUsedPreviously(string patientId, int CouponId)
         {
             return _unitOfWork.Bookings.IsExist( b => b.PatientId ==  patientId &&
-            b.DiscountCodeCouponId == CouponId );
+            b.DiscountCodeCouponId == CouponId && b.BookingState != BookingState.Cancelled);
         }
 
         private bool CheckMinimumBookings(string patientId, int? minimumRequiredRequests)
