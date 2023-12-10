@@ -89,6 +89,7 @@ namespace Services
                 if (DayId == 0)
                 {
                     _unitOfWork.Appointments.Add(appointment);
+                    _unitOfWork.Complete();
                     DayId = _unitOfWork.Appointments.GetByDoctorIdAndDay(appointment.DoctorId, appointment.DayOfWeek).Id;
                 }
                 else

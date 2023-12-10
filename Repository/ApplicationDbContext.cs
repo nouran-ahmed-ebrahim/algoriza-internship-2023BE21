@@ -187,9 +187,9 @@ namespace Repository
             modelBuilder.Entity<ApplicationUser>()
             .HasData(new ApplicationUser
              {
-                 Id = "c19937ea-edbe-4ce5-90a2-8e48ada52a60",
-                 UserName = "c19937ea-edbe-4ce5-90a2-8e48ada52a60",
-                 NormalizedUserName = "c19937ea-edbe-4ce5-90a2-8e48ada52a60",
+                 Id = "6c787944-dead-41d2-8860-510044fe2e6f",
+                 UserName = "6c787944-dead-41d2-8860-510044fe2e6f",
+                 NormalizedUserName = "6c787944-dead-41d2-8860-510044fe2e6f",
                  FullName = "Admin Admin",
                  DateOfBirth = new DateTime(2001, 5, 8),
                  Email = "admin@gmail.com",
@@ -205,7 +205,7 @@ namespace Repository
             .HasData(new IdentityUserRole<string>
             {
                 RoleId = "09066f40-d9df-493a-91be-b82e71f8353a",
-                UserId = "c19937ea-edbe-4ce5-90a2-8e48ada52a60"
+                UserId = "6c787944-dead-41d2-8860-510044fe2e6f"
             });
 
             #endregion

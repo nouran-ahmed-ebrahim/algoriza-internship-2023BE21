@@ -258,15 +258,20 @@ namespace Services
                 }
                 List<DoctorDTO> doctorsInfoList = doctorsResult.Value as List<DoctorDTO>;
 
+                if(doctorsInfoList == null || doctorsInfoList.Count == 0)
+                {
+                    return new NotFoundObjectResult("There is no doctor");
+                }
+
                 // Load doctor images
                 var doctorsInfo = doctorsInfoList.Select(d => new 
                 {
                     Image = GetImage(d.ImagePath),
-                    FullName = d.FullName,
-                    Phone = d.Phone,
-                    Email = d.Email,
-                    Gender = d.Gender,
-                    Specialization = d.Specialization
+                    d.FullName,
+                    d.Phone,
+                    d.Email,
+                    d.Gender,
+                    d.Specialization
                 }).ToList();
 
                 return new OkObjectResult(doctorsInfo);
