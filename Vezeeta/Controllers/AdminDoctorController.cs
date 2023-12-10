@@ -23,8 +23,9 @@ namespace Vezeeta.Controllers
             _doctorService = DoctorService;
             _emailService = emailService;
         }
+
         [HttpGet]
-        public IActionResult GetById([FromForm]int Id)
+        public IActionResult GetById(int Id)
         {
             if(Id == 0)
             {
@@ -40,7 +41,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpGet("~/api/Admin/Doctors")]
-        public IActionResult GetAll([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public IActionResult GetAll( int page, int pageSize, string? search)
         {
             if (!ModelState.IsValid)
             {

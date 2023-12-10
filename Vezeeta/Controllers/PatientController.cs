@@ -90,7 +90,7 @@ namespace Vezeeta.Controllers
         #region Booking APIs
         [HttpGet("Bookings")]
         [Authorize(Roles = "Patient")]
-        public IActionResult GetPatientBooking([FromForm] int BookingId)
+        public IActionResult GetPatientBooking(int BookingId)
         {
             string? PatientId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
             return _patientServices.GetPatientBookings(PatientId);
@@ -123,7 +123,7 @@ namespace Vezeeta.Controllers
 
         #region DoctorAPIs
         [HttpGet("~/api/Doctors")]
-        public IActionResult GetAllDoctorsWithAppointments([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public IActionResult GetAllDoctorsWithAppointments( int page, int pageSize, string? search)
         {
             if (!ModelState.IsValid)
             {

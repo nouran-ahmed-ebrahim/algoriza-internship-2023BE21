@@ -20,7 +20,7 @@ namespace Vezeeta.Controllers
 
 
         [HttpGet("~/api/Admin/Patients")]
-        public async Task<IActionResult> GetAll([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public async Task<IActionResult> GetAll( int page, int pageSize, string? search)
         {
             if (!ModelState.IsValid)
             {
@@ -31,7 +31,7 @@ namespace Vezeeta.Controllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> GetById([FromForm] string PatientId)
+        public async Task<IActionResult> GetById( string PatientId)
         {
             if (!ModelState.IsValid)
             {

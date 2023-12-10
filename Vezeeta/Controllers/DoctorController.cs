@@ -143,7 +143,7 @@ namespace Vezeeta.Controllers
 
         [HttpGet("Bookings")]
         [Authorize(Roles = "Doctor")]
-        public IActionResult GetDoctorsBookings([FromForm] int page, [FromForm] int pageSize, [FromForm] string? search)
+        public IActionResult GetDoctorsBookings( int page, int pageSize, string? search)
         {
             if (!ModelState.IsValid)
             {
