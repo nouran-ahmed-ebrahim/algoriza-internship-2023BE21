@@ -24,6 +24,13 @@ namespace Services
         {
             try
             {
+                // check if time repeated
+                bool isExist = _unitOfWork.AppointmentTimes.GetByDayIdAndSlot(dayId, timeSlot);
+
+                if(isExist)
+                {
+                    return new OkResult();
+                }
                 AppointmentTime appointmentTime = new AppointmentTime()
                 {
                     Time = timeSlot,
