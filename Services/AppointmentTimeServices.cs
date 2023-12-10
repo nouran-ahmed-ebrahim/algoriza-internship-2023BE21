@@ -53,11 +53,6 @@ namespace Services
 
         public IActionResult AddDayTimes(int dayId, List<string> Times)
         {    
-            if(Times.Count == 0)
-            {
-                return new BadRequestObjectResult("Times is required");
-            }
-
             IActionResult result;
             TimeSpan timeSlot;
             foreach (var time in Times)
