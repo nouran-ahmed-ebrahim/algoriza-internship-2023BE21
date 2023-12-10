@@ -30,7 +30,7 @@ namespace Core.Domain
 
         [ForeignKey("FK_Bookings_DiscountCodeCoupons_DiscountCodeCouponId")]
         [AllowNull]
-        public int DiscountCodeCouponId { get; set; }
+        public int? DiscountCodeCouponId { get; set; }
         #endregion
     }
 }
