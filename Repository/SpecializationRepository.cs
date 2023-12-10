@@ -42,6 +42,7 @@ namespace Repository
                                     NumberOfBookings = s.Count()
                                 }
                             )
+                            .OrderByDescending(x => x.NumberOfBookings)
                             .Take(5)
                             .ToList();
 
