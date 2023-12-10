@@ -22,7 +22,7 @@ namespace Repository
         public IApplicationUserRepository ApplicationUser { get; private set; }
         public IDiscountCodeCouponRepository DiscountCodeCoupons { get; private set; }
         public IAppointmentRepository Appointments { get; private set; }
-        public IAppointmentTimeRepository AppointmentTimes { get; private set; }
+        public IDataOperationsRepository<AppointmentTime> AppointmentTimes { get; private set; }
         public IBookingsRepository Bookings { get; private set; }
         public ISpecializationRepository Specializations { get; private set; }
         public IPatientRepository Patients { get; private set; }
@@ -46,7 +46,7 @@ namespace Repository
             Appointments = new AppointmentRepository(_context);
             Bookings = new BookingsRepository(_context);
             Specializations = new SpecializationRepository(_context);
-            AppointmentTimes = new AppointmentTimeRepository(_context);  
+            AppointmentTimes = new DataOperationsRepository<AppointmentTime>(_context);  
             Patients = new PatientRepository(_context,_userManager, _roleManager, _signInManager);
             #endregion
         }
